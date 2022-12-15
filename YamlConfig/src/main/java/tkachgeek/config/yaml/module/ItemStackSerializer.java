@@ -1,4 +1,4 @@
-package tkachgeek.yaml.module;
+package tkachgeek.config.yaml.module;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

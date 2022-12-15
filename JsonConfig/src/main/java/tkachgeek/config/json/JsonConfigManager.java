@@ -1,11 +1,11 @@
-package tkachgeek.jsonconfig;
+package tkachgeek.config.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import org.bukkit.plugin.java.JavaPlugin;
-import tkachgeek.core.Config;
-import tkachgeek.core.Utils;
+import tkachgeek.config.base.Config;
+import tkachgeek.config.base.Utils;
 
 import java.io.File;
 import java.nio.file.Path;

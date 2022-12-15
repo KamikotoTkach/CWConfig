@@ -1,4 +1,4 @@
-package tkachgeek.core;
+package tkachgeek.config.base;
 
 public abstract class Config {
   transient public String path;

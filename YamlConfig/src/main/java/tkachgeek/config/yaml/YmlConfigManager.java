@@ -1,4 +1,4 @@
-package tkachgeek.yaml;
+package tkachgeek.config.yaml;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -9,16 +9,17 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import tkachgeek.core.Config;
-import tkachgeek.core.Reloadable;
-import tkachgeek.core.Utils;
-import tkachgeek.yaml.module.*;
+import tkachgeek.config.base.Config;
+import tkachgeek.config.base.Reloadable;
+import tkachgeek.config.base.Utils;
+import tkachgeek.config.yaml.module.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +35,7 @@ public class YmlConfigManager {
     mapper.findAndRegisterModules();
     mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
     
-    SimpleModule module = new SimpleModule("TkacGeekModules");
+    SimpleModule module = new SimpleModule("TkachGeekModules");
     
     module.addDeserializer(Enum.class, new EnumDeserializer());
     module.addSerializer(Enum.class, new EnumSerializer());
@@ -57,9 +58,9 @@ public class YmlConfigManager {
     Logger.getLogger(plugin.getName()).log(Level.INFO, "Чтение конфига " + path + ".yml");
     
     T config = null;
-    
+    String yaml = "";
     try {
-      String yaml = Utils.readString(getPath(path));
+      yaml = Utils.readString(getPath(path));
       
       if (yaml.length() == 0) {
         config = Utils.getNewInstance(type);
@@ -68,7 +69,11 @@ public class YmlConfigManager {
       }
     } catch (IOException e) {
       Logger.getLogger(plugin.getName()).log(Level.WARNING, "Не удалось прочесть конфиг " + path + ".yml");
-      
+      if (yaml.length() != 0) {
+        String newPath = path + new Timestamp(System.currentTimeMillis());
+        Logger.getLogger(plugin.getName()).log(Level.WARNING, "Файл не пустой, так что мы сделали копию под именем " + path + ".yml");
+        Utils.writeString(getPath(newPath), yaml);
+      }
       e.printStackTrace();
     }
     

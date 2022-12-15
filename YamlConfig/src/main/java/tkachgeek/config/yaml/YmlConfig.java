@@ -1,6 +1,6 @@
-package tkachgeek.yaml;
+package tkachgeek.config.yaml;
 
-import tkachgeek.core.Config;
+import tkachgeek.config.base.Config;
 
 public abstract class YmlConfig extends Config {
   @Override

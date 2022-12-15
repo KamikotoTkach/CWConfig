@@ -1,6 +1,6 @@
-package tkachgeek.jsonconfig;
+package tkachgeek.config.json;
 
-import tkachgeek.core.Config;
+import tkachgeek.config.base.Config;
 
 public abstract class JsonConfig extends Config {
   @Override

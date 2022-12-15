@@ -1,4 +1,4 @@
-package tkachgeek.core;
+package tkachgeek.config.base;
 
 public interface Reloadable {
   void reload();
