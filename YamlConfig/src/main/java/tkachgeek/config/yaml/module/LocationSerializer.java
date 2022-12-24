@@ -10,6 +10,7 @@ import java.io.IOException;
 public class LocationSerializer extends JsonSerializer<Location> {
   @Override
   public void serialize(Location value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    /* OLD VERSION
     gen.writeStartObject();
     gen.writeNumberField("x", value.getX());
     gen.writeNumberField("y", value.getY());
@@ -18,5 +19,12 @@ public class LocationSerializer extends JsonSerializer<Location> {
     gen.writeNumberField("a", value.getYaw());
     gen.writeStringField("w", value.getWorld().getName());
     gen.writeEndObject();
+    */
+    String builder =
+       value.getWorld().getName() + ", " +
+          value.getX() + " " +
+          value.getY() + " " +
+          value.getZ();
+    gen.writeString(builder);
   }
 }

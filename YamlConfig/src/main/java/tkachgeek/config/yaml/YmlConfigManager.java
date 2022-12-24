@@ -51,8 +51,6 @@ public class YmlConfigManager {
     
     SimpleModule module = new SimpleModule("TkachGeekModules");
     
-  
-    
     module.addDeserializer(Location.class, new LocationDeserializer());
     module.addSerializer(Location.class, new LocationSerializer());
     
