@@ -7,7 +7,7 @@ import org.bukkit.Material;
 
 import java.io.IOException;
 
-public class EnumDeserializer extends JsonDeserializer<Enum> {
+public class MaterialDeserializer extends JsonDeserializer<Material> {
   @Override
   public Material deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
     return Material.valueOf(p.getValueAsString());

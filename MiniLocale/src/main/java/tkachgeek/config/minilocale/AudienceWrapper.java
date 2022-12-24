@@ -14,7 +14,28 @@ public class AudienceWrapper {
     return Audience.audience(players);
   }
   
-  private static void addIfOnline(Set<Player> players, Iterable<? extends UUID> pretenders) {
+  public static Audience wrap(UUID... pretenders) {
+    Set<Player> players = new HashSet<>();
+    addIfOnline(players, Arrays.asList(pretenders));
+    return Audience.audience(players);
+  }
+  
+  public static Audience wrap(String... pretenders) {
+    Set<Player> players = new HashSet<>();
+    for (String pretender : pretenders) {
+      Player player = Bukkit.getPlayer(pretender);
+      if (player != null) {
+        players.add(player);
+      }
+    }
+    return Audience.audience(players);
+  }
+  
+  /**
+   * @param players сет игроков
+   * @param pretenders итерируемый список с UUID игроков, который будут добавлены в players, если этот игрок онлайн
+   */
+  public static void addIfOnline(Set<Player> players, Iterable<? extends UUID> pretenders) {
     for (UUID pretender : pretenders) {
       if (Bukkit.getOfflinePlayer(pretender).isOnline()) {
         Player player = Bukkit.getPlayer(pretender);

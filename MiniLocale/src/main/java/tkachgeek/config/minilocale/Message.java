@@ -4,6 +4,7 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
+import tkachgeek.commands.command.arguments.executor.MessageReturn;
 
 import java.util.UUID;
 
@@ -43,5 +44,13 @@ public class Message {
   
   public Component get(Placeholders placeholders) {
     return MiniMessage.get().parse(message, placeholders.getTemplates());
+  }
+  
+  public void throwback() throws MessageReturn {
+    throw new MessageReturn(MiniMessage.get().parse(message));
+  }
+  
+  public void throwback(Placeholders placeholders) throws MessageReturn {
+    throw new MessageReturn(MiniMessage.get().parse(message, placeholders.getTemplates()));
   }
 }

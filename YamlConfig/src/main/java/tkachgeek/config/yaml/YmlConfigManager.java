@@ -2,11 +2,15 @@ package tkachgeek.config.yaml;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import tkachgeek.config.base.Config;
@@ -29,22 +33,34 @@ public class YmlConfigManager {
   static JavaPlugin plugin;
   static ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
   
+  public static ObjectMapper getMapper() {
+    return mapper;
+  }
+  
   public static void init(JavaPlugin plugin) {
     YmlConfigManager.plugin = plugin;
     
     mapper.findAndRegisterModules();
     mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+    mapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
+    mapper.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NONE);
+    mapper.setVisibility(PropertyAccessor.IS_GETTER, JsonAutoDetect.Visibility.NONE);
+    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true);
+    
     
     SimpleModule module = new SimpleModule("TkachGeekModules");
     
-    module.addDeserializer(Enum.class, new EnumDeserializer());
-    module.addSerializer(Enum.class, new EnumSerializer());
+  
     
     module.addDeserializer(Location.class, new LocationDeserializer());
     module.addSerializer(Location.class, new LocationSerializer());
     
     module.addDeserializer(ItemStack.class, new ItemStackDeserializer());
     module.addSerializer(ItemStack.class, new ItemStackSerializer());
+    
+    module.addDeserializer(OfflinePlayer.class, new OfflinePlayerDeserializer());
+    module.addSerializer(OfflinePlayer.class, new OfflinePlayerSerializer());
     
     YmlConfigManager.module(module);
   }
