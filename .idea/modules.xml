@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/MiniLocale/MiniLocale.iml" filepath="$PROJECT_DIR$/MiniLocale/MiniLocale.iml" />
       <module fileurl="file://$PROJECT_DIR$/YamlConfig/YamlConfig.iml" filepath="$PROJECT_DIR$/YamlConfig/YamlConfig.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/YamlConfig/yaml.iml" filepath="$PROJECT_DIR$/YamlConfig/yaml.iml" />
     </modules>
   </component>
 </project>
