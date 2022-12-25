@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ConfigJson">
+    <output-path>E:/lib</output-path>
+    <root id="archive" name="ConfigJson.jar">
+      <element id="module-output" name="core" />
+      <element id="module-output" name="JsonConfig" />
+    </root>
+  </artifact>
+</component>
