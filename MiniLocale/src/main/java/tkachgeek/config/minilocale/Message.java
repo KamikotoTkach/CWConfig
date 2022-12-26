@@ -36,10 +36,10 @@ public class Message {
       case MINI_MESSAGE:
         break;
       case LEGACY_AMPERSAND:
-        this.message = MiniMessage.miniMessage().serialize(LegacyComponentSerializer.legacyAmpersand().deserialize(message));
+        this.message = MiniMessage.miniMessage().serialize(LegacyComponentSerializer.legacyAmpersand().deserialize(message)).replaceAll("\\\\", "");
         break;
       case LEGACY_SECTION:
-        this.message = MiniMessage.miniMessage().serialize(LegacyComponentSerializer.legacySection().deserialize(message));
+        this.message = MiniMessage.miniMessage().serialize(LegacyComponentSerializer.legacySection().deserialize(message)).replaceAll("\\\\", "");
         break;
     }
   }
