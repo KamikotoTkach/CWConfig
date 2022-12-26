@@ -2,13 +2,23 @@ package tkachgeek.config.minilocale;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.minimessage.Context;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.Tag;
+import net.kyori.adventure.text.minimessage.tag.resolver.ArgumentQueue;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import tkachgeek.commands.command.arguments.executor.MessageReturn;
 
 import java.util.UUID;
+
+import static net.kyori.adventure.text.minimessage.tag.resolver.TagResolver.resolver;
 
 public class Message {
   String message;
@@ -66,6 +76,10 @@ public class Message {
     if (player != null) {
       player.sendMessage(get());
     }
+  }
+
+  public String getText() {
+    return LegacyComponentSerializer.legacySection().serialize(get());
   }
   
   public Component get() {
