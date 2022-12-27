@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="MiniLocale">
-    <output-path>E:/lib</output-path>
-    <root id="archive" name="MiniLocale.jar">
-      <element id="module-output" name="MiniLocale" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/kyori/adventure-text-minimessage/4.12.0/adventure-text-minimessage-4.12.0.jar" path-in-jar="/" />
-    </root>
-  </artifact>
-</component>
