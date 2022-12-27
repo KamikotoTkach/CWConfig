@@ -83,4 +83,8 @@ public class Message {
   public void throwback(Placeholders placeholders) throws MessageReturn {
     throw new MessageReturn(MiniMessage.get().parse(message, placeholders.getTemplates()));
   }
+  
+  public boolean notEmpty() {
+    return !message.isEmpty();
+  }
 }
