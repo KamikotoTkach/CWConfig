@@ -1,16 +1,15 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="ConfigYml">
-    <output-path>$PROJECT_DIR$/../../Libraries</output-path>
+    <output-path>E:/lib</output-path>
     <root id="archive" name="ConfigYml.jar">
-      <element id="module-output" name="MiniLocale" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/kyori/adventure-text-minimessage/4.1.0-SNAPSHOT/adventure-text-minimessage-4.1.0-20210612.213444-40.jar" path-in-jar="/" />
-      <element id="module-output" name="yaml" />
+      <element id="module-output" name="core" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.13.1/jackson-annotations-2.13.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.13.1/jackson-core-2.13.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.13.1/jackson-databind-2.13.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.13.1/jackson-dataformat-yaml-2.13.1.jar" path-in-jar="/" />
-      <element id="module-output" name="core" />
+      <element id="module-output" name="MiniLocale" />
       <element id="module-output" name="JsonConfig" />
+      <element id="module-output" name="yaml" />
     </root>
   </artifact>
 </component>
