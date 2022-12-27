@@ -2,13 +2,23 @@ package tkachgeek.config.minilocale;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.minimessage.Context;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.Tag;
+import net.kyori.adventure.text.minimessage.tag.resolver.ArgumentQueue;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import tkachgeek.commands.command.arguments.executor.MessageReturn;
 
 import java.util.UUID;
+
+import static net.kyori.adventure.text.minimessage.tag.resolver.TagResolver.resolver;
 
 public class Message {
   String message;
@@ -26,10 +36,10 @@ public class Message {
       case MINI_MESSAGE:
         break;
       case LEGACY_AMPERSAND:
-        this.message = MiniMessage.get().serialize(LegacyComponentSerializer.legacyAmpersand().deserialize(message));
+        this.message = MiniMessage.miniMessage().serialize(LegacyComponentSerializer.legacyAmpersand().deserialize(message)).replaceAll("\\\\", "");
         break;
       case LEGACY_SECTION:
-        this.message = MiniMessage.get().serialize(LegacyComponentSerializer.legacySection().deserialize(message));
+        this.message = MiniMessage.miniMessage().serialize(LegacyComponentSerializer.legacySection().deserialize(message)).replaceAll("\\\\", "");
         break;
     }
   }
@@ -67,21 +77,25 @@ public class Message {
       player.sendMessage(get());
     }
   }
+
+  public String getText() {
+    return LegacyComponentSerializer.legacySection().serialize(get());
+  }
   
   public Component get() {
-    return MiniMessage.get().parse(message);
+    return MiniMessage.miniMessage().deserialize(message);
   }
-  
+
   public Component get(Placeholders placeholders) {
-    return MiniMessage.get().parse(message, placeholders.getTemplates());
+    return MiniMessage.miniMessage().deserialize(message, placeholders.getResolvers());
   }
-  
+
   public void throwback() throws MessageReturn {
-    throw new MessageReturn(MiniMessage.get().parse(message));
+    throw new MessageReturn(MiniMessage.miniMessage().deserialize(message));
   }
-  
+
   public void throwback(Placeholders placeholders) throws MessageReturn {
-    throw new MessageReturn(MiniMessage.get().parse(message, placeholders.getTemplates()));
+    throw new MessageReturn(MiniMessage.miniMessage().deserialize(message, placeholders.getResolvers()));
   }
   
   public boolean notEmpty() {
