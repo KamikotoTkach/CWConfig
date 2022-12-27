@@ -32,7 +32,7 @@ public class AudienceWrapper {
   }
   
   /**
-   * @param players сет игроков
+   * @param players    сет игроков
    * @param pretenders итерируемый список с UUID игроков, который будут добавлены в players, если этот игрок онлайн
    */
   public static void addIfOnline(Set<Player> players, Iterable<? extends UUID> pretenders) {
@@ -42,5 +42,9 @@ public class AudienceWrapper {
         players.add(player);
       }
     }
+  }
+  
+  public static Audience onlinePlayers() {
+    return Audience.audience(Bukkit.getOnlinePlayers());
   }
 }
