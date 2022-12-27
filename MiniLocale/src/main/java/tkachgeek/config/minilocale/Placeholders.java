@@ -19,7 +19,7 @@ public class Placeholders {
     }
     
     public Placeholders add(String key, String value) {
-        resolvers.add(TagResolver.resolver(key, Tag.preProcessParsed(value)));
+        resolvers.add(TagResolver.resolver(key.toLowerCase(), Tag.preProcessParsed(value)));
         return this;
     }
     
@@ -29,7 +29,7 @@ public class Placeholders {
     }
     
     public Placeholders add(String key, Component value) {
-        resolvers.add(TagResolver.resolver(key, Tag.inserting(value)));
+        resolvers.add(TagResolver.resolver(key.toLowerCase(), Tag.inserting(value)));
         return this;
     }
     
