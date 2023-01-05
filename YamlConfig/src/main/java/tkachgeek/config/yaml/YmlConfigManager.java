@@ -9,8 +9,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import tkachgeek.config.base.Config;
@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,7 +48,6 @@ public class YmlConfigManager {
     mapper.setVisibility(PropertyAccessor.IS_GETTER, JsonAutoDetect.Visibility.NONE);
     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true);
-    
     
     SimpleModule module = new SimpleModule("TkachGeekModules");
     
@@ -149,7 +149,7 @@ public class YmlConfigManager {
     }
   }
   
-  public static void reload() {
+  public static void reloadAllReloadable() {
     for (Config config : configs.values()) {
       if (config instanceof Reloadable) {
         
@@ -168,13 +168,41 @@ public class YmlConfigManager {
   
   public static String toString(YmlConfig config) {
     StringWriter writer = new StringWriter();
-    
+  
     try {
       mapper.writeValue(writer, config);
     } catch (IOException e) {
       e.printStackTrace();
     }
-    
+  
     return writer.toString();
+  }
+  
+  public static Optional<Config> getByName(String name) {
+    return Optional.ofNullable(configs.getOrDefault(name, null));
+  }
+  
+  public static void reloadByCommand(String name, CommandSender messagesOut) {
+    Optional<Config> optConfig = getByName(name);
+    if (!optConfig.isPresent()) {
+      messagesOut.sendMessage("Конфик с именем " + name + " не найден или ещё не был загружен");
+      return;
+    }
+    
+    Config config = optConfig.get();
+    
+    if (config instanceof Reloadable) {
+      
+      messagesOut.sendMessage("Перезагрузка конфига " + config.path + ".yml");
+      
+      try {
+        ((Reloadable) config).reload();
+      } catch (Exception e) {
+        messagesOut.sendMessage("Перезагрузка конфига " + config.path + ".yml не удалась: " + e.getMessage());
+      }
+      messagesOut.sendMessage("Перезагрузка конфига " + config.path + ".yml прошла успешно");
+    } else {
+      messagesOut.sendMessage("Конфиг " + name + " не может быть перезагружен");
+    }
   }
 }
