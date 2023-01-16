@@ -13,7 +13,7 @@ public class Placeholders {
     public Placeholders(String key, String value) {
         add(key, value);
     }
-
+    
     public Placeholders(TagResolver resolver) {
         add(resolver);
     }
@@ -21,6 +21,26 @@ public class Placeholders {
     public Placeholders add(String key, String value) {
         resolvers.add(TagResolver.resolver(key.toLowerCase(), Tag.preProcessParsed(value)));
         return this;
+    }
+    
+    public Placeholders add(String key, double value) {
+        return add(key, String.valueOf(value));
+    }
+    
+    public Placeholders add(String key, int value) {
+        return add(key, String.valueOf(value));
+    }
+    
+    public Placeholders add(String key, float value) {
+        return add(key, String.valueOf(value));
+    }
+    
+    public Placeholders add(String key, long value) {
+        return add(key, String.valueOf(value));
+    }
+    
+    public Placeholders add(String key, boolean value) {
+        return add(key, String.valueOf(value));
     }
     
     public Placeholders add(TagResolver TagResolver) {
