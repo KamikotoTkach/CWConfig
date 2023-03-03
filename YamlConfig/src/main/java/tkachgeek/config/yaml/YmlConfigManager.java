@@ -141,7 +141,6 @@ public class YmlConfigManager {
           config.store();
         } catch (Exception e) {
     
-          if (!silent)
             Logger.getLogger(plugin.getName()).log(Level.WARNING, "Ошибка при сохранении конфига" + config.path + ".yml");
     
           e.printStackTrace();
