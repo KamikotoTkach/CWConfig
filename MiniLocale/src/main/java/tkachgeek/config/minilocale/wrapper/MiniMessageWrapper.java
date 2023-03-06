@@ -1,6 +1,7 @@
 package tkachgeek.config.minilocale.wrapper;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import tkachgeek.config.minilocale.Placeholders;
 
@@ -52,10 +53,14 @@ public class MiniMessageWrapper {
     return MiniMessage.miniMessage().deserialize(string, placeholders.getResolvers());
   }
   
-  public static List<Component> deserialize(List<String> strings, Placeholders placeholders) {
+  public static List<Component> deserialize(List<String> strings, Placeholders placeholders, boolean disableItalic) {
     List<Component> components = new ArrayList<>();
     for (String s : strings) {
-      components.add(MiniMessage.miniMessage().deserialize(s, placeholders.getResolvers()));
+      if (disableItalic) {
+        components.add(MiniMessage.miniMessage().deserialize(s, placeholders.getResolvers()).decoration(TextDecoration.ITALIC, false));
+      } else {
+        components.add(MiniMessage.miniMessage().deserialize(s, placeholders.getResolvers()));
+      }
     }
     return components;
   }
