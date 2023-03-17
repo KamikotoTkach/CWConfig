@@ -1,4 +1,4 @@
-package tkachgeek.config.minilocale.wrapper;
+package tkachgeek.config.minilocale.wrapper.adventure;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;

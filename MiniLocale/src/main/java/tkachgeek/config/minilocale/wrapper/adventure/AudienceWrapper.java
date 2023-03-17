@@ -1,4 +1,4 @@
-package tkachgeek.config.minilocale;
+package tkachgeek.config.minilocale.wrapper.adventure;
 
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.Bukkit;
