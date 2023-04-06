@@ -158,4 +158,8 @@ public class Message {
   public boolean isEmpty() {
     return message.isEmpty();
   }
+  
+  public String serialize() {
+    return message;
+  }
 }

@@ -17,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import tkachgeek.config.base.Config;
 import tkachgeek.config.base.Reloadable;
 import tkachgeek.config.base.Utils;
+import tkachgeek.config.minilocale.Message;
 import tkachgeek.config.yaml.module.*;
 import tkachgeek.tkachutils.scheduler.Scheduler;
 
@@ -57,6 +58,9 @@ public class YmlConfigManager {
     
     module.addDeserializer(OfflinePlayer.class, new OfflinePlayerDeserializer());
     module.addSerializer(OfflinePlayer.class, new OfflinePlayerSerializer());
+    
+    module.addDeserializer(Message.class, new MessageDeserializer());
+    module.addSerializer(Message.class, new MessageSerializer());
     
     module(module);
   }
