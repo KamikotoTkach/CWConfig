@@ -50,11 +50,19 @@ public class Message {
   }
   
   public void send(MessageDirection direction, Audience audience) {
-    direction.send(audience, get());
+    if (audience instanceof CommandSender) {
+      direction.send(audience, get((CommandSender) audience));
+    } else {
+      direction.send(audience, get());
+    }
   }
   
   public void send(MessageDirection direction, Audience audience, Placeholders placeholders) {
-    direction.send(audience, get(placeholders));
+    if (audience instanceof CommandSender) {
+      direction.send(audience, get(placeholders, (CommandSender) audience));
+    } else {
+      direction.send(audience, get(placeholders));
+    }
   }
   
   public void send(Audience audience) {
@@ -89,10 +97,6 @@ public class Message {
     if (player != null) {
       send(player);
     }
-  }
-  
-  public String getText() {
-    return ((TextComponent) get()).content();
   }
   
   public Component get() {
@@ -157,6 +161,10 @@ public class Message {
   
   public boolean isEmpty() {
     return message.isEmpty();
+  }
+  
+  public String getText() {
+    return ((TextComponent) get()).content();
   }
   
   public String serialize() {
