@@ -9,30 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MiniMessageWrapper {
-  public static Component deserialize(String string) {
-    return MiniMessage.miniMessage().deserialize(string);
-  }
-  
-  public static List<Component> deserialize(String... string) {
-    List<Component> components = new ArrayList<>();
-    
-    for (String s : string) {
-      components.add(MiniMessage.miniMessage().deserialize(s));
-    }
-    
-    return components;
-  }
-  
-  public static List<Component> deserialize(List<String> strings) {
-    List<Component> components = new ArrayList<>();
-    
-    for (String s : strings) {
-      components.add(MiniMessage.miniMessage().deserialize(s));
-    }
-    
-    return components;
-  }
-  
   public static String serialize(Component component) {
     return MiniMessage.miniMessage().serialize(component);
   }
@@ -57,8 +33,28 @@ public class MiniMessageWrapper {
     return strings;
   }
   
-  public static Component deserialize(String string, Placeholders placeholders) {
-    return MiniMessage.miniMessage().deserialize(string, placeholders.getResolvers());
+  public static List<Component> deserialize(List<String> strings) {
+    List<Component> components = new ArrayList<>();
+    
+    for (String s : strings) {
+      components.add(MiniMessage.miniMessage().deserialize(s));
+    }
+    
+    return components;
+  }
+  
+  public static List<Component> deserialize(String... string) {
+    List<Component> components = new ArrayList<>();
+    
+    for (String s : string) {
+      components.add(MiniMessage.miniMessage().deserialize(s));
+    }
+    
+    return components;
+  }
+  
+  public static Component deserialize(String string) {
+    return MiniMessage.miniMessage().deserialize(string);
   }
   
   public static Component deserialize(String string, boolean disableItalic) {
@@ -69,6 +65,10 @@ public class MiniMessageWrapper {
     }
     
     return deserialized;
+  }
+  
+  public static Component deserialize(String string, Placeholders placeholders) {
+    return MiniMessage.miniMessage().deserialize(string, placeholders.getResolvers());
   }
   
   public static Component deserialize(String string, Placeholders placeholders, boolean disableItalic) {
