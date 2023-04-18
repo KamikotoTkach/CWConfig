@@ -95,6 +95,10 @@ public class Message {
     send(direction, AudienceWrapper.onlinePlayers());
   }
   
+  public void broadcast(MessageDirection direction, Placeholders placeholders) {
+    send(direction, AudienceWrapper.onlinePlayers(), placeholders);
+  }
+  
   public void broadcast() {
     send(ChatDirection.INSTANCE, AudienceWrapper.onlinePlayers());
   }
