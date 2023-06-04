@@ -27,7 +27,6 @@ public class ItemData {
   }
   
   public ItemData(Material material, Message name) {
-    this.customModelData = 0;
     this.material = material;
     this.name = name;
   }
@@ -53,6 +52,14 @@ public class ItemData {
   
   public ItemData(Material material, String name) {
     this(material, new Message(name));
+  }
+  
+  public int getCustomModelData() {
+    return customModelData;
+  }
+  
+  public void setCustomModelData(int customModelData) {
+    this.customModelData = customModelData;
   }
   
   public Material getMaterial() {

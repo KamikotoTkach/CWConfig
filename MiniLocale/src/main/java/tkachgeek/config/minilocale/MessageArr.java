@@ -50,4 +50,8 @@ public class MessageArr {
   public Message toSingleMessage() {
     return new Message(CollectionUtils.toString(message, "", "\n", true));
   }
+  
+  public List<String> toList() {
+    return List.of(message);
+  }
 }
