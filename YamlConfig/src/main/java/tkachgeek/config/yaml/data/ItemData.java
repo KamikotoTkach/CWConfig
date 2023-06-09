@@ -89,8 +89,9 @@ public class ItemData {
   public ItemBuilder getItemBuilder() {
     ItemBuilder builder = ItemBuilder.of(material);
     
-    builder.name(name.get());
-    builder.customModelData(customModelData);
+    if (name != null) builder.name(name.get());
+    
+    if (customModelData != 0) builder.customModelData(customModelData);
     
     if (description != null) builder.description(description.get().toArray(new Component[0]));
     
@@ -100,8 +101,9 @@ public class ItemData {
   public ItemBuilder getItemBuilder(Placeholders placeholders) {
     ItemBuilder builder = ItemBuilder.of(material);
     
-    builder.name(name.get(placeholders));
-    builder.customModelData(customModelData);
+    if (name != null) builder.name(name.get(placeholders));
+    
+    if (customModelData != 0) builder.customModelData(customModelData);
     
     if (description != null) builder.description(description.get(placeholders).toArray(new Component[0]));
     
