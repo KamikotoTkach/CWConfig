@@ -41,6 +41,7 @@ public class MessageArr {
   
   public Collection<Component> get(Placeholders placeholders) {
     List<Component> list = new ArrayList<>();
+    
     for (String line : message) {
       list.add(MiniMessageWrapper.deserialize(line, placeholders));
     }

@@ -199,42 +199,18 @@ public class YmlConfigManager {
     return Optional.ofNullable(configs.getOrDefault(name, null));
   }
   
-  public void reloadByCommand(String name, CommandSender messagesOut) {
-    Optional<Config> optConfig = getByName(name);
-    if (!optConfig.isPresent()) {
-      messagesOut.sendMessage("Конфик с именем " + name + " не найден или ещё не был загружен");
-      return;
-    }
-    
-    Config config = optConfig.get();
-    
-    if (config instanceof Reloadable) {
-      
-      messagesOut.sendMessage("Перезагрузка конфига " + config.path + ".yml");
-      
-      try {
-        ((Reloadable) config).reload();
-      } catch (Exception e) {
-        messagesOut.sendMessage("Перезагрузка конфига " + config.path + ".yml не удалась: " + e.getMessage());
-      }
-      messagesOut.sendMessage("Перезагрузка конфига " + config.path + ".yml прошла успешно");
-    } else {
-      messagesOut.sendMessage("Конфиг " + name + " не может быть перезагружен");
-    }
-  }
-  
   public void reloadByCommand(CommandSender messagesOut) {
     for (Config config : configs.values()) {
       if (config instanceof Reloadable) {
         
-        messagesOut.sendMessage("Перезагрузка конфига " + config.path + ".yml");
+        messagesOut.sendPlainMessage("Перезагрузка конфига " + config.path + ".yml");
   
         try {
           ((Reloadable) config).reload();
         } catch (Exception e) {
-          messagesOut.sendMessage("Перезагрузка конфига " + config.path + ".yml не удалась: " + e.getMessage());
+          messagesOut.sendPlainMessage("Перезагрузка конфига " + config.path + ".yml не удалась: " + e.getMessage());
         }
-        messagesOut.sendMessage("Перезагрузка конфига " + config.path + ".yml прошла успешно");
+        messagesOut.sendPlainMessage("Перезагрузка конфига " + config.path + ".yml прошла успешно");
       }
     }
   }
@@ -242,7 +218,31 @@ public class YmlConfigManager {
   public void flush(String name, CommandSender messagesOut) {
     Utils.writeString(getPath(name), "");
     reloadByCommand(name, messagesOut);
-    messagesOut.sendMessage("Файл " + name + ".yml очищен");
+    messagesOut.sendPlainMessage("Файл " + name + ".yml очищен");
+  }
+  
+  public void reloadByCommand(String name, CommandSender messagesOut) {
+    Optional<Config> optConfig = getByName(name);
+    if (optConfig.isEmpty()) {
+      messagesOut.sendPlainMessage("Конфик с именем " + name + " не найден или ещё не был загружен");
+      return;
+    }
+    
+    Config config = optConfig.get();
+    
+    if (config instanceof Reloadable) {
+      
+      messagesOut.sendPlainMessage("Перезагрузка конфига " + config.path + ".yml");
+      
+      try {
+        ((Reloadable) config).reload();
+      } catch (Exception e) {
+        messagesOut.sendPlainMessage("Перезагрузка конфига " + config.path + ".yml не удалась: " + e.getMessage());
+      }
+      messagesOut.sendPlainMessage("Перезагрузка конфига " + config.path + ".yml прошла успешно");
+    } else {
+      messagesOut.sendPlainMessage("Конфиг " + name + " не может быть перезагружен");
+    }
   }
   
   public void scheduleAutosave(int ticks, boolean async) {
@@ -251,7 +251,9 @@ public class YmlConfigManager {
       x.storeAll(true);
       Logger.getLogger(plugin.getName()).log(Level.INFO, "Всё сохранено");
     });
+    
     if (async) scheduler.async();
+    
     scheduler.register(plugin, ticks);
   }
 }
