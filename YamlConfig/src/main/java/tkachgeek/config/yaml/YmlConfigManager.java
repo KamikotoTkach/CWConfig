@@ -19,6 +19,7 @@ import tkachgeek.config.base.Config;
 import tkachgeek.config.base.Reloadable;
 import tkachgeek.config.base.Utils;
 import tkachgeek.config.minilocale.Message;
+import tkachgeek.config.minilocale.MessageArr;
 import tkachgeek.config.minilocale.translatable.TranslatableMessage;
 import tkachgeek.config.yaml.module.*;
 import tkachgeek.tkachutils.scheduler.Scheduler;
@@ -81,6 +82,9 @@ public class YmlConfigManager {
     
     module.addDeserializer(Message.class, new MessageDeserializer());
     module.addSerializer(Message.class, new MessageSerializer());
+    
+    module.addDeserializer(MessageArr.class, new MessageArrDeserializer());
+    module.addSerializer(MessageArr.class, new MessageArrSerializer());
     
     module(module);
   }
