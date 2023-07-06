@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -22,7 +23,6 @@ import tkachgeek.config.minilocale.Message;
 import tkachgeek.config.minilocale.MessageArr;
 import tkachgeek.config.minilocale.translatable.TranslatableMessage;
 import tkachgeek.config.yaml.module.*;
-import tkachgeek.tkachutils.scheduler.Scheduler;
 
 import java.io.File;
 import java.io.IOException;
@@ -99,6 +99,7 @@ public class YmlConfigManager {
   
   public <T extends YmlConfig> T load(String path, Class<T> type) {
     long startTime = System.currentTimeMillis();
+    boolean shouldSaveCopy = false;
     
     logger.info("");
     logger.info("Чтение конфига " + path + ".yml");
@@ -110,8 +111,9 @@ public class YmlConfigManager {
       yaml = Utils.readString(getPath(path));
       
       if (yaml.length() == 0) {
-        logger.info("Файл не найден, будет использован дефолтный");
+        logger.info("Файл не найден, будет создан дефолтный");
         config = Utils.getNewInstance(type);
+        shouldSaveCopy = true;
       } else {
         config = mapper.readValue(yaml, type);
       }
@@ -128,24 +130,36 @@ public class YmlConfigManager {
     if (config == null) {
       logger.warning("Создание конфига " + path + ".yml");
       config = Utils.getNewInstance(type);
+      shouldSaveCopy = true;
     }
     
     if (config == null) {
       logger.warning("Не удалось создать конфиг " + path + ".yml (" + type.getSimpleName() + ")");
     } else {
       config.path = path;
+      config.setManager(this);
+      
       configs.put(path, config);
+      
+      if (shouldSaveCopy) config.store();
+      
       long elapsed = System.currentTimeMillis() - startTime;
       logger.info("Успешно загружен конфиг " + path + ".yml (заняло " + elapsed + "ms)");
     }
-    
-    if (config != null) config.setManager(this);
     
     return config;
   }
   
   Path getPath(String path) {
     return Paths.get(plugin.getDataFolder().toString() + File.separatorChar + path + ".yml");
+  }
+  
+  public void store(String path, YmlConfig object, boolean async) {
+    if (async) {
+      Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> store(path, object));
+    } else {
+      Bukkit.getScheduler().runTask(plugin, () -> store(path, object));
+    }
   }
   
   public void store(String path, YmlConfig object) {
@@ -267,14 +281,16 @@ public class YmlConfigManager {
   }
   
   public void scheduleAutosave(int ticks, boolean async) {
-    Scheduler<YmlConfigManager> scheduler = Scheduler.create(this).perform(x -> {
-      logger.info("Автоматическое сохранение конфигов..");
-      x.storeAll(true);
-      logger.info("Всё сохранено");
-    });
-    
-    if (async) scheduler.async();
-    
-    scheduler.register(plugin, ticks);
+    if (async) {
+      Bukkit.getScheduler().runTaskAsynchronously(plugin, this::autosave);
+    } else {
+      Bukkit.getScheduler().runTask(plugin, this::autosave);
+    }
+  }
+  
+  private void autosave() {
+    logger.info("Автоматическое сохранение конфигов..");
+    storeAll(true);
+    logger.info("Всё сохранено");
   }
 }
