@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import de.eldoria.jacksonbukkit.JacksonPaper;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -87,6 +88,8 @@ public class YmlConfigManager {
     module.addSerializer(MessageArr.class, new MessageArrSerializer());
     
     module(module);
+    
+    module(JacksonPaper.builder().build());
   }
   
   public void module(Module module) {

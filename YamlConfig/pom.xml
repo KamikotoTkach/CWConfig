@@ -62,6 +62,10 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>EldoNexus</id>
+            <url>https://eldonexus.de/repository/maven-public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -70,6 +74,11 @@
             <artifactId>paper-api</artifactId>
             <version>1.20-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.eldoria.jacksonbukkit</groupId>
+            <artifactId>paper</artifactId>
+            <version>1.2.0</version>
         </dependency>
         <dependency>
             <groupId>TkachGeek</groupId>
