@@ -7,8 +7,7 @@ import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import tkachgeek.config.minilocale.messageDirection.ChatDirection;
-import tkachgeek.config.minilocale.messageDirection.MessageDirection;
+import tkachgeek.config.minilocale.messageDirection.*;
 import tkachgeek.config.minilocale.wrapper.adventure.AudienceWrapper;
 import tkachgeek.config.minilocale.wrapper.adventure.MiniMessageWrapper;
 import tkachgeek.config.minilocale.wrapper.papi.PapiWrapper;
@@ -28,12 +27,12 @@ public class Message {
     this(CollectionUtils.toString(message, "", "\n", true));
   }
   
-  public Message(Mode mode, String... message) {
-    this(CollectionUtils.toString(message, "", "\n", true), mode);
-  }
-  
   public Message(String message) {
     this.message = message;
+  }
+  
+  public Message(Mode mode, String... message) {
+    this(CollectionUtils.toString(message, "", "\n", true), mode);
   }
   
   public Message(String message, Mode mode) {
@@ -51,6 +50,10 @@ public class Message {
     }
   }
   
+  public void sendActionBar(Audience audience) {
+    send(ActionBarDirection.INSTANCE, audience);
+  }
+  
   public void send(MessageDirection direction, Audience audience) {
     audience.forEachAudience(x -> {
       if (x instanceof CommandSender) {
@@ -59,6 +62,24 @@ public class Message {
         direction.send(x, get());
       }
     });
+  }
+  
+  public void sendActionBar(Audience audience, Placeholders placeholders) {
+    send(ActionBarDirection.INSTANCE, audience, placeholders);
+  }
+  
+  public void sendActionBar(Iterator<? extends Audience> audiences, Placeholders placeholders) {
+    send(ActionBarDirection.INSTANCE, audiences, placeholders);
+  }
+  
+  public void send(MessageDirection direction, Iterator<? extends Audience> audiences, Placeholders placeholders) {
+    audiences.forEachRemaining(audience -> audience.forEachAudience(item -> {
+      if (audience instanceof CommandSender) {
+        direction.send(item, get(placeholders, (CommandSender) item));
+      } else {
+        direction.send(item, get(placeholders));
+      }
+    }));
   }
   
   public void send(MessageDirection direction, Audience audience, Placeholders placeholders) {
@@ -71,6 +92,18 @@ public class Message {
     });
   }
   
+  public Component get(Placeholders placeholders, CommandSender receiver) {
+    return MiniMessageWrapper.deserialize(PapiWrapper.process(message, receiver), placeholders);
+  }
+  
+  public Component get(Placeholders placeholders) {
+    return MiniMessageWrapper.deserialize(message, placeholders);
+  }
+  
+  public void sendActionBar(Iterator<? extends Audience> audiences) {
+    send(ActionBarDirection.INSTANCE, audiences);
+  }
+  
   public void send(MessageDirection direction, Iterator<? extends Audience> audiences) {
     audiences.forEachRemaining(audience -> audience.forEachAudience(item -> {
       if (audience instanceof CommandSender) {
@@ -81,14 +114,44 @@ public class Message {
     }));
   }
   
-  public void send(MessageDirection direction, Iterator<? extends Audience> audiences, Placeholders placeholders) {
-    audiences.forEachRemaining(audience -> audience.forEachAudience(item -> {
-      if (audience instanceof CommandSender) {
-        direction.send(item, get(placeholders, (CommandSender) item));
-      } else {
-        direction.send(item, get(placeholders));
-      }
-    }));
+  public Component get(CommandSender receiver) {
+    return MiniMessageWrapper.deserialize(PapiWrapper.process(message, receiver));
+  }
+  
+  public Component get() {
+    return MiniMessageWrapper.deserialize(message);
+  }
+  
+  public void sendTitle(Audience audience) {
+    send(TitleDirection.INSTANCE, audience);
+  }
+  
+  public void sendTitle(Audience audience, Placeholders placeholders) {
+    send(TitleDirection.INSTANCE, audience, placeholders);
+  }
+  
+  public void sendTitle(Iterator<? extends Audience> audiences) {
+    send(TitleDirection.INSTANCE, audiences);
+  }
+  
+  public void sendTitle(Iterator<? extends Audience> audiences, Placeholders placeholders) {
+    send(TitleDirection.INSTANCE, audiences, placeholders);
+  }
+  
+  public void sendSubtitle(Audience audience) {
+    send(SubtitleDirection.INSTANCE, audience);
+  }
+  
+  public void sendSubtitle(Audience audience, Placeholders placeholders) {
+    send(SubtitleDirection.INSTANCE, audience, placeholders);
+  }
+  
+  public void sendSubtitle(Iterator<? extends Audience> audiences) {
+    send(SubtitleDirection.INSTANCE, audiences);
+  }
+  
+  public void sendSubtitle(Iterator<? extends Audience> audiences, Placeholders placeholders) {
+    send(SubtitleDirection.INSTANCE, audiences, placeholders);
   }
   
   public void broadcast(MessageDirection direction) {
@@ -103,24 +166,24 @@ public class Message {
     send(ChatDirection.INSTANCE, AudienceWrapper.onlinePlayers());
   }
   
-  public void send(Audience audience) {
-    send(ChatDirection.INSTANCE, audience);
-  }
-  
-  public void send(Audience audience, Placeholders placeholders) {
-    send(ChatDirection.INSTANCE, audience, placeholders);
-  }
-  
   public void send(UUID maybeOfflinePlayer, Placeholders placeholders) {
     if (Bukkit.getPlayer(maybeOfflinePlayer) != null) {
       send(Bukkit.getPlayer(maybeOfflinePlayer), placeholders);
     }
   }
   
+  public void send(Audience audience, Placeholders placeholders) {
+    send(ChatDirection.INSTANCE, audience, placeholders);
+  }
+  
   public void send(UUID maybeOfflinePlayer) {
     if (Bukkit.getPlayer(maybeOfflinePlayer) != null) {
       send(Bukkit.getPlayer(maybeOfflinePlayer));
     }
+  }
+  
+  public void send(Audience audience) {
+    send(ChatDirection.INSTANCE, audience);
   }
   
   public void send(String playerName, Placeholders placeholders) {
@@ -135,22 +198,6 @@ public class Message {
     if (player != null) {
       send(player);
     }
-  }
-  
-  public Component get() {
-    return MiniMessageWrapper.deserialize(message);
-  }
-  
-  public Component get(CommandSender receiver) {
-    return MiniMessageWrapper.deserialize(PapiWrapper.process(message, receiver));
-  }
-  
-  public Component get(Placeholders placeholders) {
-    return MiniMessageWrapper.deserialize(message, placeholders);
-  }
-  
-  public Component get(Placeholders placeholders, CommandSender receiver) {
-    return MiniMessageWrapper.deserialize(PapiWrapper.process(message, receiver), placeholders);
   }
   
   public String getLegacy() {
