@@ -3,9 +3,10 @@ package tkachgeek.config.minilocale;
 import net.kyori.adventure.title.Title;
 import org.bukkit.entity.Player;
 
+import java.io.Serializable;
 import java.time.Duration;
 
-public class TitleMessage {
+public class TitleMessage implements Serializable {
   Message title;
   Message subtitle;
   int fadeIn = 100;
