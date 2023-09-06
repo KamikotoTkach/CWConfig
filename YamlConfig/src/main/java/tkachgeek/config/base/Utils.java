@@ -32,7 +32,7 @@ public class Utils {
   
   public static <T extends Config> T getNewInstance(Class<T> type) {
     try {
-      return type.getConstructor().newInstance();
+      return type.getDeclaredConstructor().newInstance();
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
       e.printStackTrace();
     }
