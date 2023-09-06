@@ -3,6 +3,7 @@ package tkachgeek.config.base;
 import org.apache.logging.log4j.util.Strings;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -32,7 +33,9 @@ public class Utils {
   
   public static <T extends Config> T getNewInstance(Class<T> type) {
     try {
-      return type.getDeclaredConstructor().newInstance();
+      Constructor<T> declaredConstructor = type.getDeclaredConstructor();
+      declaredConstructor.setAccessible(true);
+      return declaredConstructor.newInstance();
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
       e.printStackTrace();
     }
