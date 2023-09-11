@@ -1,11 +1,11 @@
 package tkachgeek.config.yaml.newCommands;
 
+import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import ru.cwcode.commands.ArgumentSet;
 import ru.cwcode.commands.Command;
 import ru.cwcode.commands.paperplatform.executor.Executor;
-import ru.cwcode.commands.paperplatform.paper.PaperSender;
 import tkachgeek.config.yaml.YmlConfigManager;
 import tkachgeek.tkachutils.messages.MessageReturn;
 
@@ -28,9 +28,12 @@ public class PaperStoreCommand {
     
     @Override
     public void executeForPlayer() throws MessageReturn {
-      CommandSender sender = ((PaperSender) sender()).getCommandSender();
+      Audience audience = sender.getAudience();
       
-      Logger.getLogger(sender.getName()).log(Level.INFO, "Инициировал сохранение конфигов");
+      if (audience instanceof CommandSender) {
+        Logger.getLogger(((CommandSender) audience).getName()).log(Level.INFO, "Инициировал сохранение конфигов");
+      }
+      
       manager.storeAll();
       sender.sendMessage(Component.text("Готово"));
     }

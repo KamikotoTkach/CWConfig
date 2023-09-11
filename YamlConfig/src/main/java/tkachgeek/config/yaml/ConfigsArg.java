@@ -17,9 +17,9 @@ public class ConfigsArg extends Argument {
   }
   
   @Override
-  public boolean valid(String s) {
-    for (Map.Entry<String, Config> x : manager.configs.entrySet()) {
-      if (x.getValue() instanceof Reloadable && x.getKey().equals(s)) {
+  public boolean valid(String name) {
+    for (Map.Entry<String, Config> cfgEntry : manager.configs.entrySet()) {
+      if (cfgEntry.getValue() instanceof Reloadable && cfgEntry.getKey().equals(name)) {
         return true;
       }
     }
@@ -28,14 +28,15 @@ public class ConfigsArg extends Argument {
   
   @Override
   public List<String> completions(CommandSender commandSender) {
-    List<String> list = new ArrayList<>();
-    for (Map.Entry<String, Config> x : manager.configs.entrySet()) {
-      if (x.getValue() instanceof Reloadable) {
-        String key = x.getKey();
-        list.add(key);
+    List<String> configList = new ArrayList<>();
+    
+    for (Map.Entry<String, Config> cfgEntry : manager.configs.entrySet()) {
+      if (cfgEntry.getValue() instanceof Reloadable) {
+        configList.add(cfgEntry.getKey());
       }
     }
-    return list;
+    
+    return configList;
   }
   
   @Override

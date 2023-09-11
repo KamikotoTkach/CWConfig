@@ -10,10 +10,11 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import de.eldoria.jacksonbukkit.JacksonPaper;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.yaml.snakeyaml.LoaderOptions;
@@ -161,7 +162,7 @@ public class YmlConfigManager {
     if (async) {
       Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> store(path, object));
     } else {
-      Bukkit.getScheduler().runTask(plugin, () -> store(path, object));
+      store(path, object);
     }
   }
   
@@ -233,32 +234,34 @@ public class YmlConfigManager {
     return writer.toString();
   }
   
-  public void reloadByCommand(CommandSender messagesOut) {
+  public void reloadByCommand(Audience out) {
     for (Config config : configs.values()) {
       if (config instanceof Reloadable) {
         
-        messagesOut.sendPlainMessage("Перезагрузка конфига " + config.path + ".yml");
+        out.sendMessage(Component.text("Перезагрузка конфига " + config.path + ".yml"));
         
         try {
           ((Reloadable) config).reload();
         } catch (Exception e) {
-          messagesOut.sendPlainMessage("Перезагрузка конфига " + config.path + ".yml не удалась: " + e.getMessage());
+          out.sendMessage(Component.text("Перезагрузка конфига " + config.path + ".yml не удалась: " + e.getMessage()));
         }
-        messagesOut.sendPlainMessage("Перезагрузка конфига " + config.path + ".yml прошла успешно");
+        out.sendMessage(Component.text("Перезагрузка конфига " + config.path + ".yml прошла успешно"));
       }
     }
   }
   
-  public void flush(String name, CommandSender messagesOut) {
-    Utils.writeString(getPath(name), "");
-    reloadByCommand(name, messagesOut);
-    messagesOut.sendPlainMessage("Файл " + name + ".yml очищен");
+  public void flush(String configName, Audience out) {
+    Utils.writeString(getPath(configName), "");
+    
+    reloadByCommand(configName, out);
+    
+    out.sendMessage(Component.text("Файл " + configName + ".yml очищен"));
   }
   
-  public void reloadByCommand(String name, CommandSender messagesOut) {
+  public void reloadByCommand(String name, Audience out) {
     Optional<Config> optConfig = getByName(name);
     if (optConfig.isEmpty()) {
-      messagesOut.sendPlainMessage("Конфик с именем " + name + " не найден или ещё не был загружен");
+      out.sendMessage(Component.text("Конфик с именем " + name + " не найден или ещё не был загружен"));
       return;
     }
     
@@ -266,16 +269,17 @@ public class YmlConfigManager {
     
     if (config instanceof Reloadable) {
       
-      messagesOut.sendPlainMessage("Перезагрузка конфига " + config.path + ".yml");
+      out.sendMessage(Component.text("Перезагрузка конфига " + config.path + ".yml"));
       
       try {
         ((Reloadable) config).reload();
       } catch (Exception e) {
-        messagesOut.sendPlainMessage("Перезагрузка конфига " + config.path + ".yml не удалась: " + e.getMessage());
+        out.sendMessage(Component.text("Перезагрузка конфига " + config.path + ".yml не удалась: " + e.getMessage()));
       }
-      messagesOut.sendPlainMessage("Перезагрузка конфига " + config.path + ".yml прошла успешно");
+      
+      out.sendMessage(Component.text("Перезагрузка конфига " + config.path + ".yml прошла успешно"));
     } else {
-      messagesOut.sendPlainMessage("Конфиг " + name + " не может быть перезагружен");
+      out.sendMessage(Component.text("Конфиг " + name + " не может быть перезагружен"));
     }
   }
   
@@ -284,11 +288,19 @@ public class YmlConfigManager {
   }
   
   public void scheduleAutosave(int ticks, boolean async) {
+    scheduleAutosave(ticks, async, true);
+  }
+  
+  public void scheduleAutosave(int ticks, boolean async, boolean silent) {
     if (async) {
-      Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, this::autosave, ticks, ticks);
+      Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, (silent ? this::autosaveSilent : this::autosave), ticks, ticks);
     } else {
-      Bukkit.getScheduler().runTaskTimer(plugin, this::autosave, ticks, ticks);
+      Bukkit.getScheduler().runTaskTimer(plugin, (silent ? this::autosaveSilent : this::autosave), ticks, ticks);
     }
+  }
+  
+  private void autosaveSilent() {
+    storeAll(true);
   }
   
   private void autosave() {

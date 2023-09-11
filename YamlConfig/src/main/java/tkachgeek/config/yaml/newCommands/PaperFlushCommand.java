@@ -1,10 +1,10 @@
 package tkachgeek.config.yaml.newCommands;
 
+import net.kyori.adventure.audience.Audience;
 import org.bukkit.command.CommandSender;
 import ru.cwcode.commands.ArgumentSet;
 import ru.cwcode.commands.Command;
 import ru.cwcode.commands.paperplatform.executor.Executor;
-import ru.cwcode.commands.paperplatform.paper.PaperSender;
 import tkachgeek.config.yaml.YmlConfigManager;
 import tkachgeek.tkachutils.messages.MessageReturn;
 
@@ -27,10 +27,13 @@ public class PaperFlushCommand {
     
     @Override
     public void executeForPlayer() throws MessageReturn {
-      CommandSender sender = ((PaperSender) sender()).getCommandSender();
-      Logger.getLogger(sender.getName()).log(Level.INFO, "Инициировал очистку конфига " + argS(0));
+      Audience audience = sender.getAudience();
       
-      manager.flush(argS(0), sender);
+      if (audience instanceof CommandSender) {
+        Logger.getLogger(((CommandSender) audience).getName()).log(Level.INFO, "Инициировал очистку конфига " + argS(0));
+      }
+      
+      manager.flush(argS(0), audience);
     }
   }
 }
