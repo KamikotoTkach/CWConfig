@@ -31,6 +31,10 @@ public class Message implements Serializable {
   public Message(String message) {
     this.message = message;
   }
+
+  public Message(Component message) {
+    this.message = LegacyComponentSerializer.legacySection().serialize(message);
+  }
   
   public Message(Mode mode, String... message) {
     this(CollectionUtils.toString(message, "", "\n", true), mode);
