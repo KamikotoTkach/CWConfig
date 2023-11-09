@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 import org.yaml.snakeyaml.LoaderOptions;
+import tkachgeek.config.Description;
 import tkachgeek.config.base.Config;
 import tkachgeek.config.base.Reloadable;
 import tkachgeek.config.base.Utils;
@@ -26,18 +27,18 @@ import tkachgeek.config.minilocale.Message;
 import tkachgeek.config.minilocale.MessageArr;
 import tkachgeek.config.minilocale.translatable.TranslatableMessage;
 import tkachgeek.config.yaml.module.*;
+import tkachgeek.tkachutils.collections.CollectionUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class YmlConfigManager {
   public HashMap<String, Config> configs = new HashMap<>();
@@ -156,10 +157,6 @@ public class YmlConfigManager {
     return config;
   }
   
-  Path getPath(String path) {
-    return Paths.get(plugin.getDataFolder().toString() + File.separatorChar + path + ".yml");
-  }
-  
   public void store(String path, YmlConfig object, boolean async) {
     if (async) {
       Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> store(path, object));
@@ -177,7 +174,23 @@ public class YmlConfigManager {
       e.printStackTrace();
     }
     
-    Utils.writeString(getPath(path), writer.toString());
+    String serialized = writer.toString();
+    
+    String[] header = object.header();
+    if (header != null) {
+      serialized = CollectionUtils.toString(header, "#", "\n", false) + serialized;
+    }
+    
+    for (var descriptionEntry : Arrays.stream(object.getClass().getDeclaredFields())
+                                      .filter(x -> x.isAnnotationPresent(Description.class))
+                                      .collect(Collectors.toMap(Field::getName, o -> o.getAnnotation(Description.class).value()))
+                                      .entrySet()) {
+      
+      serialized = serialized.replaceFirst("(\n" + descriptionEntry.getKey() + ")",
+                                           CollectionUtils.toString(descriptionEntry.getValue(), "\n#", "", false) + "$1");
+    }
+    
+    Utils.writeString(getPath(path), serialized);
   }
   
   public void storeAll() {
@@ -308,6 +321,10 @@ public class YmlConfigManager {
     } else {
       Bukkit.getScheduler().runTaskTimer(plugin, (silent ? this::autosaveSilent : this::autosave), ticks, ticks);
     }
+  }
+  
+  Path getPath(String path) {
+    return Paths.get(plugin.getDataFolder().toString() + File.separatorChar + path + ".yml");
   }
   
   private void autosaveSilent() {
