@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
-import de.eldoria.jacksonbukkit.JacksonPaper;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -26,6 +25,7 @@ import tkachgeek.config.base.Utils;
 import tkachgeek.config.minilocale.Message;
 import tkachgeek.config.minilocale.MessageArr;
 import tkachgeek.config.minilocale.translatable.TranslatableMessage;
+import tkachgeek.config.yaml.jacksonPaper.JacksonPaperWithoutItemStack;
 import tkachgeek.config.yaml.module.*;
 import tkachgeek.tkachutils.collections.CollectionUtils;
 
@@ -93,7 +93,7 @@ public class YmlConfigManager {
     
     module(module);
     
-    module(JacksonPaper.builder().build());
+    module(new JacksonPaperWithoutItemStack());
   }
   
   public void module(Module module) {
