@@ -16,13 +16,13 @@ import tkachgeek.tkachutils.messages.TargetableMessageReturn;
 import tkachgeek.tkachutils.text.component.LegacyComponentUtil;
 
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class Message implements Serializable {
   protected String message;
-
+  
+  //region constructors
   public Message() {
   }
 
@@ -56,11 +56,9 @@ public class Message implements Serializable {
         break;
     }
   }
-
-  public void sendActionBar(Audience audience) {
-    send(ActionBarDirection.INSTANCE, audience);
-  }
-
+  //endregion
+  
+  //region base send methods
   public void send(MessageDirection direction, Audience audience) {
     audience.forEachAudience(x -> {
       if (x instanceof CommandSender) {
@@ -70,25 +68,19 @@ public class Message implements Serializable {
       }
     });
   }
-
-  public void sendActionBar(Audience audience, Placeholders placeholders) {
-    send(ActionBarDirection.INSTANCE, audience, placeholders);
+  
+  public void send(MessageDirection direction, Iterable<? extends Audience> audiences) {
+    for (Audience audience : audiences) {
+      audience.forEachAudience(item -> {
+        if (audience instanceof CommandSender) {
+          direction.send(item, get((CommandSender) item));
+        } else {
+          direction.send(item, get());
+        }
+      });
+    }
   }
-
-  public void sendActionBar(Iterator<? extends Audience> audiences, Placeholders placeholders) {
-    send(ActionBarDirection.INSTANCE, audiences, placeholders);
-  }
-
-  public void send(MessageDirection direction, Iterator<? extends Audience> audiences, Placeholders placeholders) {
-    audiences.forEachRemaining(audience -> audience.forEachAudience(item -> {
-      if (audience instanceof CommandSender) {
-        direction.send(item, get(placeholders, (CommandSender) item));
-      } else {
-        direction.send(item, get(placeholders));
-      }
-    }));
-  }
-
+  
   public void send(MessageDirection direction, Audience audience, Placeholders placeholders) {
     audience.forEachAudience(x -> {
       if (x instanceof CommandSender) {
@@ -98,115 +90,169 @@ public class Message implements Serializable {
       }
     });
   }
-
-  public Component get(Placeholders placeholders, CommandSender receiver) {
-    return MiniMessageWrapper.deserialize(PapiWrapper.process(message, receiver), placeholders);
+  
+  public void send(MessageDirection direction, Iterable<? extends Audience> audiences, Placeholders placeholders) {
+    for (Audience audience : audiences) {
+      audience.forEachAudience(item -> {
+        if (audience instanceof CommandSender) {
+          direction.send(item, get(placeholders, (CommandSender) item));
+        } else {
+          direction.send(item, get(placeholders));
+        }
+      });
+    }
   }
-
-  public Component get(Placeholders placeholders) {
-    return MiniMessageWrapper.deserialize(message, placeholders);
-  }
-
-  public void sendActionBar(Iterator<? extends Audience> audiences) {
-    send(ActionBarDirection.INSTANCE, audiences);
-  }
-
-  public void send(MessageDirection direction, Iterator<? extends Audience> audiences) {
-    audiences.forEachRemaining(audience -> audience.forEachAudience(item -> {
-      if (audience instanceof CommandSender) {
-        direction.send(item, get((CommandSender) item));
-      } else {
-        direction.send(item, get());
-      }
-    }));
-  }
-
-  public Component get(CommandSender receiver) {
-    return MiniMessageWrapper.deserialize(PapiWrapper.process(message, receiver));
-  }
-
+  //endregion
+  
+  //region get as component
   public Component get() {
     return MiniMessageWrapper.deserialize(message);
   }
-
-  public void sendTitle(Audience audience) {
-    send(TitleDirection.INSTANCE, audience);
+  
+  public Component get(Placeholders placeholders) {
+    return MiniMessageWrapper.deserialize(message, placeholders);
   }
-
-  public void sendTitle(Audience audience, Placeholders placeholders) {
-    send(TitleDirection.INSTANCE, audience, placeholders);
+  
+  public Component get(CommandSender receiver) {
+    return MiniMessageWrapper.deserialize(PapiWrapper.process(message, receiver));
   }
-
-  public void sendTitle(Iterator<? extends Audience> audiences) {
-    send(TitleDirection.INSTANCE, audiences);
+  
+  public Component get(Placeholders placeholders, CommandSender receiver) {
+    return MiniMessageWrapper.deserialize(PapiWrapper.process(message, receiver), placeholders);
   }
-
-  public void sendTitle(Iterator<? extends Audience> audiences, Placeholders placeholders) {
-    send(TitleDirection.INSTANCE, audiences, placeholders);
+  
+  public Component get(CommandSender receiver, Placeholders placeholders) {
+    return MiniMessageWrapper.deserialize(PapiWrapper.process(message, receiver), placeholders);
   }
-
-  public void sendSubtitle(Audience audience) {
-    send(SubtitleDirection.INSTANCE, audience);
+  //endregion
+  
+  //region send
+  public void send(Audience audience) {
+    send(ChatDirection.INSTANCE, audience);
   }
-
-  public void sendSubtitle(Audience audience, Placeholders placeholders) {
-    send(SubtitleDirection.INSTANCE, audience, placeholders);
-  }
-
-  public void sendSubtitle(Iterator<? extends Audience> audiences) {
-    send(SubtitleDirection.INSTANCE, audiences);
-  }
-
-  public void sendSubtitle(Iterator<? extends Audience> audiences, Placeholders placeholders) {
-    send(SubtitleDirection.INSTANCE, audiences, placeholders);
-  }
-
-  public void broadcast(MessageDirection direction) {
-    send(direction, AudienceWrapper.onlinePlayers());
-  }
-
-  public void broadcast(MessageDirection direction, Placeholders placeholders) {
-    send(direction, AudienceWrapper.onlinePlayers(), placeholders);
-  }
-
-  public void broadcast() {
-    send(ChatDirection.INSTANCE, AudienceWrapper.onlinePlayers());
-  }
-
-  public void send(UUID maybeOfflinePlayer, Placeholders placeholders) {
-    if (Bukkit.getPlayer(maybeOfflinePlayer) != null) {
-      send(Bukkit.getPlayer(maybeOfflinePlayer), placeholders);
-    }
-  }
-
+  
   public void send(Audience audience, Placeholders placeholders) {
     send(ChatDirection.INSTANCE, audience, placeholders);
   }
-
+  
   public void send(UUID maybeOfflinePlayer) {
     if (Bukkit.getPlayer(maybeOfflinePlayer) != null) {
       send(Bukkit.getPlayer(maybeOfflinePlayer));
     }
   }
-
-  public void send(Audience audience) {
-    send(ChatDirection.INSTANCE, audience);
-  }
-
-  public void send(String playerName, Placeholders placeholders) {
-    Player player = Bukkit.getPlayer(playerName);
-    if (player != null) {
-      send(player, placeholders);
+  
+  public void send(UUID maybeOfflinePlayer, Placeholders placeholders) {
+    if (Bukkit.getPlayer(maybeOfflinePlayer) != null) {
+      send(Bukkit.getPlayer(maybeOfflinePlayer), placeholders);
     }
   }
-
+  
   public void send(String playerName) {
     Player player = Bukkit.getPlayer(playerName);
     if (player != null) {
       send(player);
     }
   }
-
+  
+  public void send(String playerName, Placeholders placeholders) {
+    Player player = Bukkit.getPlayer(playerName);
+    if (player != null) {
+      send(player, placeholders);
+    }
+  }
+  
+  public void send(Iterable<String> playerNames) {
+    for (String playerName : playerNames) {
+      send(playerName);
+    }
+  }
+  
+  public void send(Iterable<String> playerNames, Placeholders placeholders) {
+    for (String playerName : playerNames) {
+      send(playerName, placeholders);
+    }
+  }
+  //endregion
+  
+  //region title
+  public void sendTitle(Audience audience) {
+    send(TitleDirection.INSTANCE, audience);
+  }
+  
+  public void sendTitle(Audience audience, Placeholders placeholders) {
+    send(TitleDirection.INSTANCE, audience, placeholders);
+  }
+  
+  public void sendTitle(Iterable<? extends Audience> audiences) {
+    send(TitleDirection.INSTANCE, audiences);
+  }
+  
+  public void sendTitle(Iterable<? extends Audience> audiences, Placeholders placeholders) {
+    send(TitleDirection.INSTANCE, audiences, placeholders);
+  }
+  //endregion
+  
+  //region subtitle
+  public void sendSubtitle(Audience audience) {
+    send(SubtitleDirection.INSTANCE, audience);
+  }
+  
+  public void sendSubtitle(Audience audience, Placeholders placeholders) {
+    send(SubtitleDirection.INSTANCE, audience, placeholders);
+  }
+  
+  public void sendSubtitle(Iterable<? extends Audience> audiences) {
+    send(SubtitleDirection.INSTANCE, audiences);
+  }
+  
+  public void sendSubtitle(Iterable<? extends Audience> audiences, Placeholders placeholders) {
+    send(SubtitleDirection.INSTANCE, audiences, placeholders);
+  }
+  //endregion
+  
+  //region broadcast
+  public void broadcast() {
+    send(ChatDirection.INSTANCE, AudienceWrapper.onlinePlayers());
+  }
+  
+  public void broadcast(MessageDirection direction) {
+    send(direction, AudienceWrapper.onlinePlayers());
+  }
+  
+  public void broadcast(MessageDirection direction, Placeholders placeholders) {
+    send(direction, AudienceWrapper.onlinePlayers(), placeholders);
+  }
+  //endregion
+  
+  //region action bar
+  public void sendActionBar(Audience audience) {
+    send(ActionBarDirection.INSTANCE, audience);
+  }
+  
+  public void sendActionBar(Audience audience, Placeholders placeholders) {
+    send(ActionBarDirection.INSTANCE, audience, placeholders);
+  }
+  
+  public void sendActionBar(Iterable<? extends Audience> audiences) {
+    send(ActionBarDirection.INSTANCE, audiences);
+  }
+  
+  public void sendActionBar(Iterable<? extends Audience> audiences, Placeholders placeholders) {
+    send(ActionBarDirection.INSTANCE, audiences, placeholders);
+  }
+  //endregion
+  
+  //region console
+  public void console() {
+    send(ChatDirection.INSTANCE, Bukkit.getConsoleSender());
+  }
+  
+  public void console(Placeholders placeholders) {
+    send(ChatDirection.INSTANCE, Bukkit.getConsoleSender(), placeholders);
+  }
+  //endregion
+  
+  //region get as string
   public String getLegacy() {
     return LegacyComponentSerializer.legacyAmpersand().serialize(get());
   }
@@ -238,43 +284,49 @@ public class Message implements Serializable {
   public String getLegacySection(Placeholders placeholders, CommandSender receiver) {
     return LegacyComponentSerializer.legacySection().serialize(get(placeholders, receiver));
   }
-
-  public void throwback() throws TargetableMessageReturn {
-    throw new TargetableMessageReturn(this::get);
-  }
-
-  public void throwback(Placeholders placeholders) throws TargetableMessageReturn {
-    throw new TargetableMessageReturn(receiver -> get(placeholders, receiver));
-  }
-
-  public boolean isNotEmpty() {
-    return !message.isEmpty();
-  }
-
-  public boolean isEmpty() {
-    return message.isEmpty();
-  }
-
+  
   public String getText() {
     return PlainTextComponentSerializer.plainText().serialize(get());
   }
-
+  
   public String getText(CommandSender receiver) {
     return PlainTextComponentSerializer.plainText().serialize(get(receiver));
   }
-
+  
   public String getText(Placeholders placeholders) {
     return PlainTextComponentSerializer.plainText().serialize(get(placeholders));
   }
-
+  
   public String getText(Placeholders placeholders, CommandSender receiver) {
     return PlainTextComponentSerializer.plainText().serialize(get(placeholders, receiver));
   }
-
+  
   public String serialize() {
     return message;
   }
-
+  //endregion
+  
+  //region throwback
+  public void throwback() throws TargetableMessageReturn {
+    throw new TargetableMessageReturn(this::get);
+  }
+  
+  public void throwback(Placeholders placeholders) throws TargetableMessageReturn {
+    throw new TargetableMessageReturn(receiver -> get(placeholders, receiver));
+  }
+  //endregion
+  
+  //region checks
+  public boolean isNotEmpty() {
+    return !message.isEmpty();
+  }
+  
+  public boolean isEmpty() {
+    return message.isEmpty();
+  }
+  //endregion
+  
+  //region utils
   public static Message parse(String message) {
     Mode mode;
     if (isAmpersand(message)) {
@@ -284,7 +336,7 @@ public class Message implements Serializable {
     } else {
       mode = Mode.MINI_MESSAGE;
     }
-
+    
     return new Message(message, mode);
   }
 
@@ -295,4 +347,5 @@ public class Message implements Serializable {
   private static boolean isSection(String message) {
     return Pattern.compile("§[\\d#abcdefklmnrx]").matcher(message).find();
   }
+  //endregion
 }
