@@ -20,6 +20,8 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class Message implements Serializable {
+  public static final Pattern LEGACY_AMPERSAND = Pattern.compile("&[\\d#abcdefklmnrx]");
+  public static final Pattern LEGACY_SECTION = Pattern.compile("§[\\d#abcdefklmnrx]");
   protected String message;
   
   //region constructors
@@ -341,11 +343,11 @@ public class Message implements Serializable {
   }
 
   private static boolean isAmpersand(String message) {
-    return Pattern.compile("&[\\d#abcdefklmnrx]").matcher(message).find();
+    return LEGACY_AMPERSAND.matcher(message).find();
   }
 
   private static boolean isSection(String message) {
-    return Pattern.compile("§[\\d#abcdefklmnrx]").matcher(message).find();
+    return LEGACY_SECTION.matcher(message).find();
   }
   //endregion
 }
