@@ -90,9 +90,9 @@ public class YmlConfigManager {
     
     module.addDeserializer(MessageArr.class, new MessageArrDeserializer());
     module.addSerializer(MessageArr.class, new MessageArrSerializer());
-
-    module(new JacksonPaperWithoutItemStack());
+    
     module(module);
+    module(new JacksonPaperWithoutItemStack());
   }
   
   public void module(Module module) {
