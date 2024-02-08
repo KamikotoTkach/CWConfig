@@ -70,29 +70,30 @@ public class YmlConfigManager {
     mapper.setVisibility(PropertyAccessor.IS_GETTER, JsonAutoDetect.Visibility.NONE);
     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true);
-    
+
     SimpleModule module = new SimpleModule("TkachGeekModules");
-    
+
+    module(new JacksonPaperWithoutItemStack());
+
     module.addDeserializer(Location.class, new LocationDeserializer());
     module.addSerializer(Location.class, new LocationSerializer());
-    
+
     module.addDeserializer(ItemStack.class, new ItemStackDeserializer());
     module.addSerializer(ItemStack.class, new ItemStackSerializer());
-    
+
     module.addDeserializer(OfflinePlayer.class, new OfflinePlayerDeserializer());
     module.addSerializer(OfflinePlayer.class, new OfflinePlayerSerializer());
-    
+
     module.addDeserializer(TranslatableMessage.class, new TranslatableMessageDeserializer());
     module.addSerializer(TranslatableMessage.class, new TranslatableMessageSerializer());
-    
+
     module.addDeserializer(Message.class, new MessageDeserializer());
     module.addSerializer(Message.class, new MessageSerializer());
-    
+
     module.addDeserializer(MessageArr.class, new MessageArrDeserializer());
     module.addSerializer(MessageArr.class, new MessageArrSerializer());
-    
+
     module(module);
-    module(new JacksonPaperWithoutItemStack());
   }
   
   public void module(Module module) {
