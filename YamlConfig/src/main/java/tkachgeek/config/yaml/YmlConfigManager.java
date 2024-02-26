@@ -298,7 +298,7 @@ public class YmlConfigManager {
         
         out.sendMessage(Component.text("Перезагрузка конфига " + config.path + ".yml прошла успешно"));
         
-        return config;
+        return getByName(name).orElse(null); //потому что config - это старый инстанс
       } catch (Exception e) {
         out.sendMessage(Component.text("Перезагрузка конфига " + config.path + ".yml не удалась: " + e.getMessage()));
       }
