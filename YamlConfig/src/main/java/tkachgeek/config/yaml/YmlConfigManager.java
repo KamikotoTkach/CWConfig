@@ -55,6 +55,7 @@ public class YmlConfigManager {
     this.logger = plugin.getLogger();
     
     LoaderOptions loaderOptions = new LoaderOptions();
+    loaderOptions.setCodePointLimit(maxConfigSizeBytes);
     
     YAMLFactory yaml = YAMLFactory.builder()
                                   .disable(YAMLGenerator.Feature.SPLIT_LINES)
