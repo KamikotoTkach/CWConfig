@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 public class Message implements Serializable {
   public static final Pattern LEGACY_AMPERSAND = Pattern.compile("&[\\d#abcdefklmnrx]");
   public static final Pattern LEGACY_SECTION = Pattern.compile("§[\\d#abcdefklmnrx]");
-  private static final Placeholders EMPTY_PLACEHOLDERS = new Placeholders();
+  public static final Placeholders EMPTY_PLACEHOLDERS = new Placeholders();
   protected String message;
   
   //region constructors
@@ -251,12 +251,12 @@ public class Message implements Serializable {
   public String getLegacy(Placeholders placeholders) {
     return LegacyComponentSerializer.legacyAmpersand().serialize(get(placeholders));
   }
-
-  public String getLegacy(CommandSender receiver) {
+  
+  public String getLegacy(Audience receiver) {
     return LegacyComponentSerializer.legacyAmpersand().serialize(get(receiver));
   }
-
-  public String getLegacy(Placeholders placeholders, CommandSender receiver) {
+  
+  public String getLegacy(Placeholders placeholders, Audience receiver) {
     return LegacyComponentSerializer.legacyAmpersand().serialize(get(placeholders, receiver));
   }
 
@@ -267,8 +267,8 @@ public class Message implements Serializable {
   public String getLegacySection(Placeholders placeholders) {
     return LegacyComponentSerializer.legacySection().serialize(get(placeholders));
   }
-
-  public String getLegacySection(CommandSender receiver) {
+  
+  public String getLegacySection(Audience receiver) {
     return LegacyComponentSerializer.legacySection().serialize(get(receiver));
   }
   
