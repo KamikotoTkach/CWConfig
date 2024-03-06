@@ -16,12 +16,14 @@ import tkachgeek.tkachutils.messages.TargetableMessageReturn;
 import tkachgeek.tkachutils.text.component.LegacyComponentUtil;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class Message implements Serializable {
   public static final Pattern LEGACY_AMPERSAND = Pattern.compile("&[\\d#abcdefklmnrx]");
   public static final Pattern LEGACY_SECTION = Pattern.compile("§[\\d#abcdefklmnrx]");
+  private static final Placeholders EMPTY_PLACEHOLDERS = new Placeholders();
   protected String message;
   
   //region constructors
@@ -62,41 +64,15 @@ public class Message implements Serializable {
   
   //region base send methods
   public void send(MessageDirection direction, Audience audience) {
-    if (message == null) return;
-    
-    audience.forEachAudience(x -> {
-      if (x instanceof CommandSender) {
-        direction.send(x, get(x));
-      } else {
-        direction.send(x, get());
-      }
-    });
+    send(direction, audience, EMPTY_PLACEHOLDERS);
   }
   
   public void send(MessageDirection direction, Iterable<? extends Audience> audiences) {
-    if (message == null) return;
-    
-    for (Audience audience : audiences) {
-      audience.forEachAudience(item -> {
-        if (audience instanceof CommandSender) {
-          direction.send(item, get(item));
-        } else {
-          direction.send(item, get());
-        }
-      });
-    }
+    send(direction, audiences, EMPTY_PLACEHOLDERS);
   }
   
   public void send(MessageDirection direction, Audience audience, Placeholders placeholders) {
-    if (message == null) return;
-    
-    audience.forEachAudience(x -> {
-      if (x instanceof CommandSender) {
-        direction.send(x, get(placeholders, x));
-      } else {
-        direction.send(x, get(placeholders));
-      }
-    });
+    send(direction, List.of(audience), placeholders);
   }
   
   public void send(MessageDirection direction, Iterable<? extends Audience> audiences, Placeholders placeholders) {

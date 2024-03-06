@@ -10,6 +10,9 @@ import java.util.HashMap;
 public class Placeholders {
   private final HashMap<String, TagResolver> resolvers = new HashMap<>();
   
+  public Placeholders() {
+  }
+  
   public Placeholders(String key, String value) {
     add(key, value);
   }
