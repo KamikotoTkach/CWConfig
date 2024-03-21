@@ -4,12 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>tkachgeek</groupId>
-    <artifactId>ConfigYml</artifactId>
+    <groupId>ru.cwcode.tkach.config</groupId>
+    <artifactId>Config</artifactId>
     <version>1.0</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>Config</name>
+    <modules>
+        <module>Share</module>
+        <module>MiniLocaleShare</module>
+    </modules>
 
     <properties>
         <java.version>11</java.version>
@@ -77,18 +81,4 @@
             </resource>
         </resources>
     </build>
-    <dependencies>
-        <dependency>
-            <groupId>tkachgeek</groupId>
-            <artifactId>MiniLocale</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>tkachgeek</groupId>
-            <artifactId>yaml</artifactId>
-            <version>1.1</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
 </project>
