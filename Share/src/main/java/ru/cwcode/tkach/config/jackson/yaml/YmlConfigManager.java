@@ -1,7 +1,7 @@
 package ru.cwcode.tkach.config.jackson.yaml;
 
 import ru.cwcode.tkach.config.annotation.Description;
-import ru.cwcode.tkach.config.base.Platform;
+import ru.cwcode.tkach.config.base.ConfigPlatform;
 import ru.cwcode.tkach.config.base.manager.ConfigPersister;
 import ru.cwcode.tkach.config.jackson.JacksonConfigManager;
 import tkachgeek.tkachutils.collections.CollectionUtils;
@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 public class YmlConfigManager extends JacksonConfigManager<YmlConfig> {
   
-  public YmlConfigManager(Platform platform) {
-    super(platform, new ConfigPersister<>(), new YmlConfigMapper());
+  public YmlConfigManager(ConfigPlatform configPlatform) {
+    super(configPlatform, new ConfigPersister<>(), new YmlConfigMapper());
     
     persister.setPreprocessor(new ConfigPersister.Preprocessor<>() {
       @Override

@@ -1,4 +1,4 @@
-package tkachgeek.config.yaml.jacksonPaper;
+package jacksonPaper;
 
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;

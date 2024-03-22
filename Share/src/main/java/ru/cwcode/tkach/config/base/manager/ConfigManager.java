@@ -6,7 +6,7 @@ import ru.cwcode.tkach.config.Utils;
 import ru.cwcode.tkach.config.annotation.Reloadable;
 import ru.cwcode.tkach.config.base.Config;
 import ru.cwcode.tkach.config.base.ConfigPersistOptions;
-import ru.cwcode.tkach.config.base.Platform;
+import ru.cwcode.tkach.config.base.ConfigPlatform;
 
 import java.nio.file.Path;
 import java.sql.Timestamp;
@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public abstract class ConfigManager<C extends Config<C>> {
-  protected final Platform platform;
+  protected final ConfigPlatform platform;
   
   protected final ConfigLoader<C> loader; //file->str
   protected final ConfigPersister<C> persister; //str->file
@@ -26,13 +26,13 @@ public abstract class ConfigManager<C extends Config<C>> {
   
   protected HashMap<String, C> configs = new HashMap<>();
   
-  public ConfigManager(Platform platform,
+  public ConfigManager(ConfigPlatform configPlatform,
                        ConfigLoader<C> loader,
                        ConfigPersister<C> persister,
                        ConfigMapper<C> mapper,
                        ConfigCreator<C> creator) {
     //
-    this.platform = platform;
+    this.platform = configPlatform;
     this.loader = loader;
     this.persister = persister;
     this.mapper = mapper;
@@ -63,7 +63,7 @@ public abstract class ConfigManager<C extends Config<C>> {
     return mapper;
   }
   
-  public Platform platform() {
+  public ConfigPlatform platform() {
     return platform;
   }
   

@@ -1,15 +1,16 @@
 package ru.cwcode.tkach.config.paper;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import ru.cwcode.tkach.config.base.ConfigPlatform;
 import tkachgeek.tkachutils.scheduler.Scheduler;
 
 import java.nio.file.Path;
 import java.time.Duration;
 
-public class Platform extends ru.cwcode.tkach.config.base.Platform {
+public class PaperPluginConfigPlatform implements ConfigPlatform {
   JavaPlugin plugin;
   
-  public Platform(JavaPlugin plugin) {
+  public PaperPluginConfigPlatform(JavaPlugin plugin) {
     this.plugin = plugin;
   }
   

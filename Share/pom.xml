@@ -79,7 +79,7 @@
             <groupId>ru.cwcode</groupId>
             <artifactId>Common</artifactId>
             <version>1.0</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
