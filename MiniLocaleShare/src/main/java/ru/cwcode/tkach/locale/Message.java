@@ -7,7 +7,6 @@ import ru.cwcode.tkach.locale.messageDirection.*;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
 import ru.cwcode.tkach.locale.wrapper.adventure.AudienceWrapper;
 import tkachgeek.tkachutils.collections.CollectionUtils;
-import tkachgeek.tkachutils.messages.TargetableMessageReturn;
 
 import java.io.Serializable;
 import java.util.List;
@@ -298,13 +297,13 @@ public class Message implements Serializable {
   //endregion
   
   //region throwback
-  public void throwback() throws TargetableMessageReturn {
+  /*public void throwback() throws TargetableMessageReturn { //todo вернуть :)
     throw new TargetableMessageReturn(this::get);
   }
   
   public void throwback(Placeholders placeholders) throws TargetableMessageReturn {
     throw new TargetableMessageReturn(receiver -> get(placeholders, receiver));
-  }
+  }*/
   //endregion
   
   //region checks

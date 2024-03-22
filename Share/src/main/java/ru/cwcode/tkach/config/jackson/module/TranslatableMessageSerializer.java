@@ -3,7 +3,7 @@ package ru.cwcode.tkach.config.jackson.module;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import tkachgeek.config.minilocale.translatable.TranslatableMessage;
+import ru.cwcode.tkach.locale.translatable.TranslatableMessage;
 
 import java.io.IOException;
 

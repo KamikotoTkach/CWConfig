@@ -5,47 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.cwcode.tkach.config</groupId>
-    <artifactId>VelocityConfig</artifactId>
-    <version>1.0</version>
+    <artifactId>CWConfig</artifactId>
     <packaging>jar</packaging>
+    <version>1.0</version>
 
-    <name>VelocityConfig</name>
+    <name>Bundle</name>
 
     <properties>
-        <java.version>11</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
-        <resources>
-            <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>templating-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <executions>
-                    <execution>
-                        <id>filter-src</id>
-                        <goals>
-                            <goal>filter-sources</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -90,37 +63,41 @@
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>papermc-repo</id>
-            <url>https://repo.papermc.io/repository/maven-public/</url>
-        </repository>
-    </repositories>
-
     <dependencies>
-        <dependency>
-            <groupId>com.velocitypowered</groupId>
-            <artifactId>velocity-api</artifactId>
-            <version>3.2.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>ru.cwcode.tkach.config</groupId>
             <artifactId>Share</artifactId>
             <version>1.0</version>
-            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.cwcode.tkach.config</groupId>
+            <artifactId>PaperConfig</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.cwcode.tkach.config</groupId>
+            <artifactId>VelocityConfig</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>ru.cwcode.tkach.locale</groupId>
             <artifactId>MiniLocaleShare</artifactId>
             <version>1.0</version>
-            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.cwcode.tkach.locale</groupId>
+            <artifactId>MiniLocaleOld</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.cwcode.tkach.locale</groupId>
+            <artifactId>MiniLocaleNew</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>ru.cwcode.tkach.locale</groupId>
             <artifactId>MiniLocaleVelocity</artifactId>
             <version>1.0</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

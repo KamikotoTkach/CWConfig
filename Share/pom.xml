@@ -7,6 +7,7 @@
     <groupId>ru.cwcode.tkach.config</groupId>
     <artifactId>Share</artifactId>
     <version>1.0</version>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>17</java.version>
@@ -42,12 +43,6 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <relocations>
-                                <relocation>
-                                    <pattern>org.yaml</pattern>
-                                    <shadedPattern>ru.cwcode.tkach.config.relocate.yaml</shadedPattern>
-                                </relocation>
-                            </relocations>
                         </configuration>
                     </execution>
                 </executions>
@@ -80,6 +75,12 @@
             <artifactId>Common</artifactId>
             <version>1.0</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.cwcode.tkach.locale</groupId>
+            <artifactId>MiniLocaleShare</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

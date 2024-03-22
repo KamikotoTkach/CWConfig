@@ -11,7 +11,9 @@ import ru.cwcode.tkach.config.base.Config;
 import ru.cwcode.tkach.config.base.ConfigPersistOptions;
 import ru.cwcode.tkach.config.base.manager.ConfigMapper;
 import ru.cwcode.tkach.config.jackson.module.*;
-import tkachgeek.tkachutils.messages.Message;
+import ru.cwcode.tkach.locale.Message;
+import ru.cwcode.tkach.locale.MessageArr;
+import ru.cwcode.tkach.locale.translatable.TranslatableMessage;
 
 import java.util.Optional;
 

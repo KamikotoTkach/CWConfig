@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import tkachgeek.config.minilocale.translatable.TranslatableMessage;
+import ru.cwcode.tkach.locale.translatable.TranslatableMessage;
 
 import java.io.IOException;
 import java.util.HashMap;
