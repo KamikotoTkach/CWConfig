@@ -47,7 +47,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <createDependencyReducedPom>true</createDependencyReducedPom>
                         </configuration>
                     </execution>
                 </executions>
@@ -84,7 +84,6 @@
             <groupId>ru.cwcode.tkach.config</groupId>
             <artifactId>Share</artifactId>
             <version>1.0</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>ru.cwcode.tkach.locale</groupId>
