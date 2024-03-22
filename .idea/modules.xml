@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Config.iml" filepath="$PROJECT_DIR$/Config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MiniLocale/MiniLocale.iml" filepath="$PROJECT_DIR$/MiniLocale/MiniLocale.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MiniLocaleShare/MiniLocaleNew/MiniLocaleNew.iml" filepath="$PROJECT_DIR$/MiniLocaleShare/MiniLocaleNew/MiniLocaleNew.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MiniLocaleShare/MiniLocaleOld/MiniLocaleOld.iml" filepath="$PROJECT_DIR$/MiniLocaleShare/MiniLocaleOld/MiniLocaleOld.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MiniLocaleShare/MiniLocaleShare.iml" filepath="$PROJECT_DIR$/MiniLocaleShare/MiniLocaleShare.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Share/PaperPlatform/PaperPlatform.iml" filepath="$PROJECT_DIR$/Share/PaperPlatform/PaperPlatform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Share.iml" filepath="$PROJECT_DIR$/Share.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Share/VelocityPlatform/VelocityPlatform.iml" filepath="$PROJECT_DIR$/Share/VelocityPlatform/VelocityPlatform.iml" />
+    </modules>
+  </component>
+</project>

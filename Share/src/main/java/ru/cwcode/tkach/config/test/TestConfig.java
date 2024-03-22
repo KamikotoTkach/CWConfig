@@ -10,7 +10,8 @@ public class TestConfig extends YmlConfig {
     
     TestConfig load = ymlConfigManager.load("", TestConfig.class);
     
-    ymlConfigManager.save(this);
+    ymlConfigManager.save(this, c -> c.setAsync());
+    
     ymlConfigManager.toString(load);
     ymlConfigManager.mapper().map("", TestConfig.class, ConfigPersistOptions.DEFAULT);
   }

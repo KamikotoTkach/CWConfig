@@ -110,5 +110,17 @@
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>ru.cwcode.tkach.locale</groupId>
+            <artifactId>MiniLocaleShare</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.cwcode.tkach.locale</groupId>
+            <artifactId>MiniLocaleVelocity</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

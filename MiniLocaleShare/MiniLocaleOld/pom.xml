@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.cwcode.tkach</groupId>
-    <artifactId>PaperConfig</artifactId>
+    <groupId>ru.cwcode.tkach.locale</groupId>
+    <artifactId>MiniLocaleOld</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>CWConfig</name>
+    <name>MiniLocaleOld</name>
 
     <developers>
         <developer>
@@ -52,31 +52,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.8</version>
-                <executions>
-                    <execution>
-                        <id>copy-installed</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>${project.groupId}</groupId>
-                                    <artifactId>${project.artifactId}</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>${project.packaging}</type>
-                                </artifactItem>
-                            </artifactItems>
-                            <outputDirectory>${lib.dir}</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -86,6 +61,7 @@
         </resources>
     </build>
 
+
     <repositories>
         <repository>
             <id>papermc-repo</id>
@@ -94,6 +70,10 @@
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
     </repositories>
 
@@ -105,32 +85,38 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>ru.cwcode</groupId>
-            <artifactId>PaperCommands</artifactId>
-            <version>1.1.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>ru.cwcode.tkach.config</groupId>
-            <artifactId>Share</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>ru.cwcode.tkach.locale</groupId>
             <artifactId>MiniLocaleShare</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>ru.cwcode.tkach.locale</groupId>
-            <artifactId>MiniLocaleNew</artifactId>
-            <version>1.0</version>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-serializer-plain</artifactId>
+            <version>4.7.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>ru.cwcode.tkach.locale</groupId>
-            <artifactId>MiniLocaleOld</artifactId>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-serializer-legacy</artifactId>
+            <version>4.7.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.11.5</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-minimessage</artifactId>
+            <version>4.1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ru.cwcode</groupId>
+            <artifactId>Common</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
