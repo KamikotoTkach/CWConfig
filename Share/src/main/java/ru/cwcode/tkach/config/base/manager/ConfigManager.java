@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -76,10 +77,13 @@ public abstract class ConfigManager<C extends Config<C>> {
   }
   
   public <V extends C> V load(String name, Class<V> configClass, ConfigPersistOptions options) {
+    AtomicBoolean shouldSave = new AtomicBoolean(false);
     
     Optional<V> config = loader.load(name, options)
                                .map(data -> mapper.map(data, configClass, options))
                                .orElseGet(() -> {
+                                 shouldSave.set(true);
+                                 
                                  backupConfigFile(name, options);
                                  return creator.create(name, configClass, options);
                                });
@@ -91,6 +95,10 @@ public abstract class ConfigManager<C extends Config<C>> {
       
       if (!options.isSilent()) {
         platform.info("Успешно загружен конфиг %s".formatted(name));
+      }
+      
+      if (shouldSave.get()) {
+        save(c, options);
       }
     }, () -> {
       if (!options.isSilent()) {
@@ -114,9 +122,7 @@ public abstract class ConfigManager<C extends Config<C>> {
       platform.warning("Cоздание копии конфига %s (%s)".formatted(name, backup));
     }
     
-    platform.runAsync(() -> { //нет смысла делать синхронно
-      Utils.copy(original, backup);
-    });
+    Utils.copy(original, backup);
   }
   
   public <V extends C> void save(V config) {
@@ -193,7 +199,7 @@ public abstract class ConfigManager<C extends Config<C>> {
   }
   
   public Path getPath(String name) {
-    return platform.dataFolder().resolve(name);
+    return platform.dataFolder().resolve(name + ".yml");
   }
   
   public <V extends C> String toString(V config) {

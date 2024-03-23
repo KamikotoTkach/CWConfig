@@ -64,7 +64,6 @@ public class Utils {
     try {
       Files.copy(original, backup, StandardCopyOption.REPLACE_EXISTING);
     } catch (IOException e) {
-      e.printStackTrace();
     }
   }
 }
