@@ -79,14 +79,16 @@ public abstract class ConfigManager<C extends Config<C>> {
   public <V extends C> V load(String name, Class<V> configClass, ConfigPersistOptions options) {
     AtomicBoolean shouldSave = new AtomicBoolean(false);
     
-    Optional<V> config = loader.load(name, options)
-                               .map(data -> mapper.map(data, configClass, options))
-                               .orElseGet(() -> {
-                                 shouldSave.set(true);
-                                 
-                                 backupConfigFile(name, options);
-                                 return creator.create(name, configClass, options);
-                               });
+    Optional<String> data = loader.load(name, options);
+    Optional<V> config = data.flatMap(x -> mapper.map(x, configClass, options));
+    
+    if (config.isEmpty()) {
+      shouldSave.set(true);
+      
+      if (data.isPresent()) backupConfigFile(name, options);
+      
+      config = creator.create(name, configClass, options);
+    }
     
     config.ifPresentOrElse(c -> {
       configs.put(name, c);
@@ -146,6 +148,9 @@ public abstract class ConfigManager<C extends Config<C>> {
           });
   }
   
+  public void saveAll() {
+    saveAll(__ -> {});
+  }
   public void saveAll(Consumer<ConfigPersistOptions> options) {
     saveAll(loadOptions(options));
   }
@@ -157,9 +162,9 @@ public abstract class ConfigManager<C extends Config<C>> {
       platform.runAsync(() -> {
         saveAll0(options);
       });
+    } else {
+      saveAll0(options);
     }
-    
-    saveAll0(options);
   }
   
   public boolean reload(Sender sender, C config) {
