@@ -59,6 +59,10 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
     module.addSerializer(MessageArr.class, new MessageArrSerializer());
     
     module(module);
+    
+    for (Module additionalJacksonModule : configManager.platform().additionalJacksonModules()) {
+      module(additionalJacksonModule);
+    }
   }
   
   public void module(Module module) {

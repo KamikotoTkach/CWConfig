@@ -6,7 +6,7 @@ import ru.cwcode.tkach.config.base.ConfigPersistOptions;
 import java.util.Optional;
 
 public abstract class ConfigMapper<C extends Config<C>> {
-  ConfigManager<C> configManager;
+  protected ConfigManager<C> configManager;
   
   public void setConfigManager(ConfigManager<C> configManager) {
     this.configManager = configManager;
