@@ -1,4 +1,4 @@
-package ru.cwcode.tkach.locale.minilocalenew.papi;
+package ru.cwcode.tkach.locale.paper.papi;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.audience.Audience;

@@ -6,8 +6,8 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Dependency;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
-import ru.cwcode.tkach.locale.minilocalevelocity.MiniLocaleVelocity;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
+import ru.cwcode.tkach.locale.velocity.MiniLocaleVelocity;
 
 @Plugin(
    id = "cwconfig",

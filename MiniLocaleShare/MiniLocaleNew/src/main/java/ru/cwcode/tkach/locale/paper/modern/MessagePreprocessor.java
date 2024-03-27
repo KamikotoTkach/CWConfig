@@ -1,8 +1,8 @@
-package ru.cwcode.tkach.locale.minilocalenew;
+package ru.cwcode.tkach.locale.paper.modern;
 
 import net.kyori.adventure.audience.Audience;
-import ru.cwcode.tkach.locale.minilocalenew.papi.PapiProcessor;
-import ru.cwcode.tkach.locale.minilocalenew.papi.PapiWrapper;
+import ru.cwcode.tkach.locale.paper.papi.PapiProcessor;
+import ru.cwcode.tkach.locale.paper.papi.PapiWrapper;
 
 public class MessagePreprocessor implements ru.cwcode.tkach.locale.platform.MessagePreprocessor {
   @Override

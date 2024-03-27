@@ -86,7 +86,7 @@
         </dependency>
         <dependency>
             <groupId>ru.cwcode.tkach.locale</groupId>
-            <artifactId>MiniLocaleShare</artifactId>
+            <artifactId>PaperShare</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
@@ -101,12 +101,6 @@
             <artifactId>adventure-text-serializer-legacy</artifactId>
             <version>4.7.0</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>me.clip</groupId>
-            <artifactId>placeholderapi</artifactId>
-            <version>2.11.5</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.kyori</groupId>

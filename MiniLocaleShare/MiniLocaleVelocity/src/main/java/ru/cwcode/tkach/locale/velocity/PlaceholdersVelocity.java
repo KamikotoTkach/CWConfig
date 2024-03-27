@@ -1,4 +1,4 @@
-package ru.cwcode.tkach.locale.minilocalevelocity;
+package ru.cwcode.tkach.locale.velocity;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.tag.Tag;

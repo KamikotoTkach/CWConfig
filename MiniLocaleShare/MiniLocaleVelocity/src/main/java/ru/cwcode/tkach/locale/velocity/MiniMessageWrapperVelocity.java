@@ -1,8 +1,13 @@
-package ru.cwcode.tkach.locale.minilocaleold;
+package ru.cwcode.tkach.locale.velocity;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.minimessage.Context;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.minimessage.tag.Tag;
+import net.kyori.adventure.text.minimessage.tag.resolver.ArgumentQueue;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.jetbrains.annotations.NotNull;
 import ru.cwcode.tkach.locale.Placeholders;
 import ru.cwcode.tkach.locale.wrapper.adventure.MiniMessageWrapper;
@@ -10,10 +15,15 @@ import ru.cwcode.tkach.locale.wrapper.adventure.MiniMessageWrapper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MiniMessageWrapperOld implements MiniMessageWrapper {
+public class MiniMessageWrapperVelocity implements MiniMessageWrapper {
   
-  //todo: implement legacy parser to minimessage
-  private static final MiniMessage mm = MiniMessage.get();
+  private final MiniMessage mm = MiniMessage.builder()
+                                            .editTags(x -> x.tag("legacy", MiniMessageWrapperVelocity::getLegacyTagFormatter))
+                                            .build();
+  
+  private static Tag getLegacyTagFormatter(ArgumentQueue aq, Context ctx) {
+    return Tag.selfClosingInserting(LegacyComponentSerializer.legacyAmpersand().deserialize(aq.popOr("").value()));
+  }
   
   @Override
   public String serialize(Component component) {
@@ -86,18 +96,23 @@ public class MiniMessageWrapperOld implements MiniMessageWrapper {
     return deserialized;
   }
   
+  @NotNull
+  private String replaceSection(String string) {
+    return string.replace('§', '&');
+  }
+  
   @Override
   public Component deserialize(String string, Placeholders placeholders) {
     if (string == null) return null;
     
-    return mm.parse(replaceSection(string), placeholders.getResolvers());
+    return mm.deserialize(replaceSection(string), (TagResolver[]) placeholders.getResolvers());
   }
   
   @Override
   public Component deserialize(String string, Placeholders placeholders, boolean disableItalic) {
     if (string == null) return null;
     
-    Component deserialized = mm.parse(replaceSection(string), placeholders.getResolvers());
+    Component deserialized = mm.deserialize(replaceSection(string), (TagResolver[]) placeholders.getResolvers());
     
     if (disableItalic) {
       return deserialized.decoration(TextDecoration.ITALIC, false);
@@ -115,7 +130,7 @@ public class MiniMessageWrapperOld implements MiniMessageWrapper {
     TextDecoration italicDecoration = TextDecoration.ITALIC;
     
     for (String s : strings) {
-      Component deserialized = mm.parse(replaceSection(s), placeholders.getResolvers());
+      Component deserialized = mm.deserialize(replaceSection(s), (TagResolver[]) placeholders.getResolvers());
       
       if (disableItalic) {
         deserialized = deserialized.decoration(italicDecoration, false);
@@ -125,10 +140,5 @@ public class MiniMessageWrapperOld implements MiniMessageWrapper {
     }
     
     return components;
-  }
-  
-  @NotNull
-  private String replaceSection(String string) {
-    return string.replace('§', '&');
   }
 }

@@ -1,8 +1,8 @@
 package ru.cwcode.tkach.config.paper;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import ru.cwcode.tkach.locale.minilocalenew.MiniLocaleNew;
-import ru.cwcode.tkach.locale.minilocaleold.MiniLocaleOld;
+import ru.cwcode.tkach.locale.paper.modern.MiniLocaleNew;
+import ru.cwcode.tkach.locale.paper.old.MiniLocaleOld;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
 import tkachgeek.tkachutils.server.ServerUtils;
 

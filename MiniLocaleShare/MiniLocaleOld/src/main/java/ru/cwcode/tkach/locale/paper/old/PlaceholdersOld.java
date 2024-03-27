@@ -1,4 +1,4 @@
-package ru.cwcode.tkach.locale.minilocaleold;
+package ru.cwcode.tkach.locale.paper.old;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.Template;

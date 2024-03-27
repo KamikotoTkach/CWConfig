@@ -1,25 +1,20 @@
-package ru.cwcode.tkach.locale.minilocalevelocity;
+package ru.cwcode.tkach.locale.paper.modern;
 
-import com.velocitypowered.api.proxy.Player;
-import com.velocitypowered.api.proxy.ProxyServer;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import ru.cwcode.tkach.locale.Placeholders;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
 import ru.cwcode.tkach.locale.wrapper.adventure.MiniMessageWrapper;
 
 import java.util.UUID;
 
-public class MiniLocaleVelocity extends MiniLocale {
-  MiniMessageWrapperVelocity miniMessageWrapper = new MiniMessageWrapperVelocity();
+public class MiniLocaleNew extends MiniLocale {
+  MiniMessageWrapperNew miniMessageWrapper = new MiniMessageWrapperNew();
   MessagePreprocessor messagePreprocessor = new MessagePreprocessor();
-  ProxyServer proxyServer;
-  
-  public MiniLocaleVelocity(ProxyServer proxyServer) {
-    this.proxyServer = proxyServer;
-  }
   
   @Override
   public Component legacySection(String message) {
@@ -28,9 +23,7 @@ public class MiniLocaleVelocity extends MiniLocale {
   
   @Override
   public String getLanguage(Audience receiver) {
-    return receiver instanceof Player player ?
-       player.getEffectiveLocale() != null ? player.getEffectiveLocale().getLanguage() : null
-       : null;
+    return receiver instanceof Player player ? player.locale().getLanguage() : null;
   }
   
   @Override
@@ -40,12 +33,12 @@ public class MiniLocaleVelocity extends MiniLocale {
   
   @Override
   public Audience getOnlinePlayer(UUID uuid) {
-    return proxyServer.getPlayer(uuid).orElse(null);
+    return Bukkit.getPlayer(uuid);
   }
   
   @Override
   public Audience getPlayer(String name) {
-    return proxyServer.getPlayer(name).orElse(null);
+    return Bukkit.getPlayer(name);
   }
   
   @Override
@@ -55,7 +48,7 @@ public class MiniLocaleVelocity extends MiniLocale {
   
   @Override
   public Audience getOnlinePlayers() {
-    return Audience.audience(proxyServer.getAllPlayers());
+    return Audience.audience(Bukkit.getOnlinePlayers());
   }
   
   @Override
@@ -70,7 +63,7 @@ public class MiniLocaleVelocity extends MiniLocale {
   
   @Override
   public Audience console() {
-    return proxyServer.getConsoleCommandSource();
+    return Bukkit.getConsoleSender();
   }
   
   @Override
@@ -85,6 +78,6 @@ public class MiniLocaleVelocity extends MiniLocale {
   
   @Override
   public Placeholders emptyPlaceholders() {
-    return new PlaceholdersVelocity();
+    return new PlaceholdersNew();
   }
 }

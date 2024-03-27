@@ -1,4 +1,4 @@
-package ru.cwcode.tkach.locale.minilocaleold.papi;
+package ru.cwcode.tkach.locale.paper.papi;
 
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.Bukkit;

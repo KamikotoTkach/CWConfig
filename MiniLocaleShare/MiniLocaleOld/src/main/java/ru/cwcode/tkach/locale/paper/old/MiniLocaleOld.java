@@ -1,9 +1,9 @@
-package ru.cwcode.tkach.locale.minilocalenew;
+package ru.cwcode.tkach.locale.paper.old;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import ru.cwcode.tkach.locale.Placeholders;
@@ -12,8 +12,8 @@ import ru.cwcode.tkach.locale.wrapper.adventure.MiniMessageWrapper;
 
 import java.util.UUID;
 
-public class MiniLocaleNew extends MiniLocale {
-  MiniMessageWrapperNew miniMessageWrapper = new MiniMessageWrapperNew();
+public class MiniLocaleOld extends MiniLocale {
+  MiniMessageWrapperOld miniMessageWrapper = new MiniMessageWrapperOld();
   MessagePreprocessor messagePreprocessor = new MessagePreprocessor();
   
   @Override
@@ -43,7 +43,7 @@ public class MiniLocaleNew extends MiniLocale {
   
   @Override
   public String plain(Component component) {
-    return PlainTextComponentSerializer.plainText().serialize(component);
+    return PlainComponentSerializer.plain().serialize(component);
   }
   
   @Override
@@ -57,7 +57,7 @@ public class MiniLocaleNew extends MiniLocale {
   }
   
   @Override
-  public ru.cwcode.tkach.locale.platform.MessagePreprocessor messagePreprocessor() {
+  public MessagePreprocessor messagePreprocessor() {
     return messagePreprocessor;
   }
   
@@ -78,6 +78,6 @@ public class MiniLocaleNew extends MiniLocale {
   
   @Override
   public Placeholders emptyPlaceholders() {
-    return new PlaceholdersNew();
+    return new PlaceholdersOld();
   }
 }
