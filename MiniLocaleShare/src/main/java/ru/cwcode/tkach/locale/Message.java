@@ -71,11 +71,7 @@ public class Message implements Serializable {
   public void send(MessageDirection direction, Iterable<? extends Audience> audiences, Placeholders placeholders) {
     if (message == null) return;
     
-    for (Audience audience : audiences) {
-      audience.forEachAudience(item -> {
-        direction.send(item, get(placeholders, item));
-      });
-    }
+    MiniLocale.getInstance().send(this, direction, audiences, placeholders);
   }
   //endregion
   

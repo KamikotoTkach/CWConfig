@@ -6,10 +6,14 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import net.kyori.adventure.title.Title;
+import ru.cwcode.tkach.locale.Message;
 import ru.cwcode.tkach.locale.Placeholders;
+import ru.cwcode.tkach.locale.messageDirection.MessageDirection;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
 import ru.cwcode.tkach.locale.wrapper.adventure.MiniMessageWrapper;
 
+import java.time.Duration;
 import java.util.UUID;
 
 public class MiniLocaleVelocity extends MiniLocale {
@@ -31,6 +35,24 @@ public class MiniLocaleVelocity extends MiniLocale {
     return receiver instanceof Player player ?
        player.getEffectiveLocale() != null ? player.getEffectiveLocale().getLanguage() : null
        : null;
+  }
+  
+  @Override
+  public void send(Message message, MessageDirection direction, Iterable<? extends Audience> audiences, Placeholders placeholders) {
+    for (Audience audience : audiences) {
+      audience.forEachAudience(item -> {
+        direction.send(item, message.get(placeholders, item));
+      });
+    }
+  }
+  
+  @Override
+  public void showTitle(Audience audience, Component title, Component subtitle, int fadeIn, int stay, int fadeOut) {
+    audience.showTitle(Title.title(title == null ? Component.empty() : title,
+                                   subtitle == null ? Component.empty() : subtitle,
+                                   Title.Times.times(Duration.ofMillis(fadeIn),
+                                                     Duration.ofMillis(stay),
+                                                     Duration.ofMillis(fadeOut))));
   }
   
   @Override

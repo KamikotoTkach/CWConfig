@@ -2,11 +2,10 @@ package ru.cwcode.tkach.locale;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.title.Title;
+import ru.cwcode.tkach.locale.platform.MiniLocale;
 import ru.cwcode.tkach.locale.wrapper.adventure.AudienceWrapper;
 
 import java.io.Serializable;
-import java.time.Duration;
 
 public class TitleMessage implements Serializable {
   Message title;
@@ -45,10 +44,6 @@ public class TitleMessage implements Serializable {
   }
   
   private void showTitle(Audience audience, Component title, Component subtitle) {
-    audience.showTitle(Title.title(title == null ? Component.empty() : title,
-                                   subtitle == null ? Component.empty() : subtitle,
-                                   Title.Times.times(Duration.ofMillis(fadeIn),
-                                                     Duration.ofMillis(stay),
-                                                     Duration.ofMillis(fadeOut))));
+    MiniLocale.getInstance().showTitle(audience, title, subtitle, fadeIn, stay, fadeOut);
   }
 }
