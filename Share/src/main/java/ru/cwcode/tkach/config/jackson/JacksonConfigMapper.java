@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import ru.cwcode.tkach.config.base.Config;
 import ru.cwcode.tkach.config.base.ConfigPersistOptions;
+import ru.cwcode.tkach.config.base.manager.ConfigManager;
 import ru.cwcode.tkach.config.base.manager.ConfigMapper;
 import ru.cwcode.tkach.config.jackson.module.*;
 import ru.cwcode.tkach.locale.Message;
@@ -21,6 +22,12 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
   protected ObjectMapper mapper;
   
   public JacksonConfigMapper() {
+  }
+  
+  @Override
+  public void setConfigManager(ConfigManager<C> configManager) {
+    super.setConfigManager(configManager);
+    
     configureObjectMapper();
   }
   

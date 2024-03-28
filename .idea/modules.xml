@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/MiniLocaleShare/MiniLocaleShare.iml" filepath="$PROJECT_DIR$/MiniLocaleShare/MiniLocaleShare.iml" />
       <module fileurl="file://$PROJECT_DIR$/MiniLocaleShare/MiniLocaleVelocity/MiniLocaleVelocity.iml" filepath="$PROJECT_DIR$/MiniLocaleShare/MiniLocaleVelocity/MiniLocaleVelocity.iml" />
       <module fileurl="file://$PROJECT_DIR$/Share/PaperPlatform/PaperPlatform.iml" filepath="$PROJECT_DIR$/Share/PaperPlatform/PaperPlatform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MiniLocaleShare/PaperShare/PaperShare.iml" filepath="$PROJECT_DIR$/MiniLocaleShare/PaperShare/PaperShare.iml" />
       <module fileurl="file://$PROJECT_DIR$/Share.iml" filepath="$PROJECT_DIR$/Share.iml" />
       <module fileurl="file://$PROJECT_DIR$/Share/VelocityPlatform/VelocityPlatform.iml" filepath="$PROJECT_DIR$/Share/VelocityPlatform/VelocityPlatform.iml" />
     </modules>
