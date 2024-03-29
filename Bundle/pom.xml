@@ -36,10 +36,6 @@
                                     <pattern>org.yaml</pattern>
                                     <shadedPattern>ru.cwcode.tkach.config.relocate.org.yaml</shadedPattern>
                                 </relocation>
-                                <relocation>
-                                    <pattern>com.fasterxml.jackson</pattern>
-                                    <shadedPattern>ru.cwcode.tkach.config.relocate.com.fasterxml.jackson</shadedPattern>
-                                </relocation>
                             </relocations>
                         </configuration>
                     </execution>
