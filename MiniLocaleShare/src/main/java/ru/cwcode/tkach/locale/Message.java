@@ -3,10 +3,10 @@ package ru.cwcode.tkach.locale;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import ru.cwcode.cwutils.collections.CollectionUtils;
 import ru.cwcode.tkach.locale.messageDirection.*;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
 import ru.cwcode.tkach.locale.wrapper.adventure.AudienceWrapper;
-import tkachgeek.tkachutils.collections.CollectionUtils;
 
 import java.io.Serializable;
 import java.util.List;
