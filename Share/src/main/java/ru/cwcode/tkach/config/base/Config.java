@@ -3,7 +3,7 @@ package ru.cwcode.tkach.config.base;
 import ru.cwcode.tkach.config.base.manager.ConfigManager;
 
 public abstract class Config<C extends Config<C>> {
-  protected transient boolean storeAllEnabled = true;
+  protected transient boolean saveAllEnabled = true;
   transient protected ConfigManager<C> manager = null;
   transient String name;
   
@@ -11,19 +11,19 @@ public abstract class Config<C extends Config<C>> {
     this.manager = manager;
   }
   
-  public boolean storeAllEnabled() {
-    return storeAllEnabled;
+  public boolean saveAllEnabled() {
+    return saveAllEnabled;
   }
   
-  public void setStoreAllEnabled(boolean isEnabled) {
-    storeAllEnabled = isEnabled;
+  public void setSaveAllEnabled(boolean isEnabled) {
+    saveAllEnabled = isEnabled;
   }
   
-  public void store() {
+  public void save() {
     manager.save((C) this);
   }
   
-  public void store(boolean async) {
+  public void save(boolean async) {
     manager.save((C) this, (o) -> o.async(async));
   }
   

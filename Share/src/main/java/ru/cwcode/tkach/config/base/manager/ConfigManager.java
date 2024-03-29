@@ -199,7 +199,7 @@ public abstract class ConfigManager<C extends Config<C>> {
     }
     
     configs.values().forEach(config -> {
-      if (config.storeAllEnabled()) save(config, options);
+      if (config.saveAllEnabled()) save(config, options);
     });
   }
   
