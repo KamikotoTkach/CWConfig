@@ -86,7 +86,7 @@
         </dependency>
         <dependency>
             <groupId>ru.cwcode.tkach.locale</groupId>
-            <artifactId>PaperShare</artifactId>
+            <artifactId>MiniLocalePaperShare</artifactId>
             <version>2.0.0</version>
             <scope>compile</scope>
         </dependency>

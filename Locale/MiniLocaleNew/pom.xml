@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.cwcode.tkach.locale</groupId>
-    <artifactId>PaperShare</artifactId>
+    <artifactId>MiniLocaleNew</artifactId>
     <version>2.0.0</version>
     <packaging>jar</packaging>
 
-    <name>PaperShare</name>
+    <name>MiniLocaleNew</name>
 
     <developers>
         <developer>
@@ -71,35 +71,31 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
-        <repository>
-            <id>placeholderapi</id>
-            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-        </repository>
     </repositories>
 
     <dependencies>
         <dependency>
-            <groupId>com.destroystokyo.paper</groupId>
+            <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <version>1.19.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>ru.cwcode.tkach.locale</groupId>
-            <artifactId>MiniLocaleShare</artifactId>
+            <artifactId>MiniLocalePaperShare</artifactId>
             <version>2.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-serializer-plain</artifactId>
+            <version>4.16.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>ru.cwcode.commands</groupId>
             <artifactId>PaperCommands</artifactId>
             <version>1.1.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>me.clip</groupId>
-            <artifactId>placeholderapi</artifactId>
-            <version>2.11.5</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

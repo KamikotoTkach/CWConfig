@@ -17,15 +17,15 @@
     </properties>
 
     <modules>
-        <module>Share</module>
-        <module>Share/PaperPlatform</module>
-        <module>Share/VelocityPlatform</module>
+        <module>Config/Share</module>
+        <module>Config/PaperPlatform</module>
+        <module>Config/VelocityPlatform</module>
 
-        <module>MiniLocaleShare</module>
-        <module>MiniLocaleShare/PaperShare</module>
-        <module>MiniLocaleShare/MiniLocaleNew</module>
-        <module>MiniLocaleShare/MiniLocaleOld</module>
-        <module>MiniLocaleShare/MiniLocaleVelocity</module>
+        <module>Locale/MiniLocaleShare</module>
+        <module>Locale/PaperShare</module>
+        <module>Locale/MiniLocaleNew</module>
+        <module>Locale/MiniLocaleOld</module>
+        <module>Locale/MiniLocaleVelocity</module>
 
         <module>Bundle</module>
     </modules>
