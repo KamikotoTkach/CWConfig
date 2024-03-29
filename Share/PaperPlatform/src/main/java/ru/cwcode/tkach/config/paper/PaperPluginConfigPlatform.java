@@ -6,9 +6,9 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import ru.cwcode.cwutils.scheduler.Scheduler;
 import ru.cwcode.tkach.config.base.ConfigPlatform;
 import ru.cwcode.tkach.config.paper.jackson.modules.*;
-import tkachgeek.tkachutils.scheduler.Scheduler;
 
 import java.nio.file.Path;
 import java.time.Duration;
@@ -23,9 +23,9 @@ public class PaperPluginConfigPlatform implements ConfigPlatform {
     
     SimpleModule paperModule = new SimpleModule("cwconfig-paper");
     
-    paperModule.addSerializer(new ItemStackSerializer());
-    paperModule.addSerializer(new OfflinePlayerSerializer());
-    paperModule.addSerializer(new LocationSerializer());
+    paperModule.addSerializer(ItemStack.class, new ItemStackSerializer());
+    paperModule.addSerializer(OfflinePlayer.class, new OfflinePlayerSerializer());
+    paperModule.addSerializer(Location.class, new LocationSerializer());
     
     paperModule.addDeserializer(ItemStack.class, new ItemStackDeserializer());
     paperModule.addDeserializer(OfflinePlayer.class, new OfflinePlayerDeserializer());

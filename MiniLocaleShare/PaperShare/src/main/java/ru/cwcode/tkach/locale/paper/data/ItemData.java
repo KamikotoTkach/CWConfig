@@ -2,10 +2,10 @@ package ru.cwcode.tkach.locale.paper.data;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import ru.cwcode.cwutils.items.ItemBuilder;
 import ru.cwcode.tkach.locale.Message;
 import ru.cwcode.tkach.locale.MessageArr;
 import ru.cwcode.tkach.locale.Placeholders;
-import tkachgeek.tkachutils.items.ItemBuilder;
 
 import java.io.Serializable;
 

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.bukkit.inventory.ItemStack;
-import tkachgeek.tkachutils.items.ItemStackUtils;
+import ru.cwcode.cwutils.items.ItemStackUtils;
 
 import java.io.IOException;
 import java.util.Base64;

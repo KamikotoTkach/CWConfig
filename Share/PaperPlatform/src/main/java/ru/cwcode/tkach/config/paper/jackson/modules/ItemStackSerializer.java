@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import org.bukkit.inventory.ItemStack;
+import ru.cwcode.cwutils.items.ItemStackUtils;
 import ru.cwcode.tkach.config.annotation.Fancy;
-import tkachgeek.tkachutils.items.ItemStackUtils;
 
 import java.io.IOException;
 

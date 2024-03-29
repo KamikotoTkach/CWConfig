@@ -2,8 +2,8 @@ package ru.cwcode.tkach.locale.paper.old;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.Template;
+import ru.cwcode.cwutils.text.nanoid.NanoID;
 import ru.cwcode.tkach.locale.Placeholders;
-import tkachgeek.tkachutils.text.nanoid.NanoID;
 
 import java.util.HashMap;
 

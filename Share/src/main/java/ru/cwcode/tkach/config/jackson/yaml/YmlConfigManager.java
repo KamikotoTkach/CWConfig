@@ -1,10 +1,10 @@
 package ru.cwcode.tkach.config.jackson.yaml;
 
+import ru.cwcode.cwutils.collections.CollectionUtils;
 import ru.cwcode.tkach.config.annotation.Description;
 import ru.cwcode.tkach.config.base.ConfigPlatform;
 import ru.cwcode.tkach.config.base.manager.ConfigPersister;
 import ru.cwcode.tkach.config.jackson.JacksonConfigManager;
-import tkachgeek.tkachutils.collections.CollectionUtils;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;

@@ -3,8 +3,8 @@ package ru.cwcode.tkach.locale.paper.modern;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+import ru.cwcode.cwutils.text.nanoid.NanoID;
 import ru.cwcode.tkach.locale.Placeholders;
-import tkachgeek.tkachutils.text.nanoid.NanoID;
 
 import java.util.HashMap;
 
