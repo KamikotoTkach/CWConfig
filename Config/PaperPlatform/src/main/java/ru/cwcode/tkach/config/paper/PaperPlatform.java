@@ -9,7 +9,7 @@ import ru.cwcode.tkach.locale.platform.MiniLocale;
 public final class PaperPlatform extends JavaPlugin {
   @Override
   public void onEnable() {
-    if (ServerUtils.isVersionGreater("1.18.2")) {
+    if (ServerUtils.isVersionGreater("1.17.1")) {
       MiniLocale.setInstance(new MiniLocaleNew());
     } else {
       MiniLocale.setInstance(new MiniLocaleOld());
