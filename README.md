@@ -95,3 +95,4 @@ new Command("someCommand")
 
 и в `someCommand` появится подкоманда `reload <configName>`
 
+Полезно знать: [Аннотации Jackson](https://www.baeldung.com/jackson-annotations) (В особенности @JsonSetter, @JsonGetter, @JsonTypeInfo, @JsonCreator)
