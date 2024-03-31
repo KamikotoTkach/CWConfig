@@ -1,5 +1,5 @@
 # CWConfig 2.0.0
-aka CWConfig, PaperConfig, VelocityConfig
+aka PaperConfig, VelocityConfig
 
 Библиотека для простой работы с конфигами для Paper и Velocity на основе [Jackson](https://github.com/FasterXML/jackson)
 
