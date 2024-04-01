@@ -1,4 +1,4 @@
-name: CwConfig
+name: CWConfig
 version: '${project.version}'
 main: ru.cwcode.tkach.config.paper.PaperPlatform
 api-version: '1.16'
