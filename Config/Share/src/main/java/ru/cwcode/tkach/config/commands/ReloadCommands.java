@@ -16,8 +16,8 @@ public class ReloadCommands {
   public static <C extends Config<C>> Command get(ConfigManager<C> configManager, Consumer<C> reloadedConfigConsumer) {
     return new Command("reload")
        .arguments(
-          new ArgumentSet(new ReloadAllCommand<>(configManager, reloadedConfigConsumer), new ExactStringArg("all").optional()),
-          new ArgumentSet(new ReloadCommand<>(configManager, reloadedConfigConsumer), new ReloadableConfigArg(configManager))
+          new ArgumentSet(new ReloadCommand<>(configManager, reloadedConfigConsumer), new ReloadableConfigArg(configManager)),
+          new ArgumentSet(new ReloadAllCommand<>(configManager, reloadedConfigConsumer), new ExactStringArg("all").optional())
        );
   }
 }

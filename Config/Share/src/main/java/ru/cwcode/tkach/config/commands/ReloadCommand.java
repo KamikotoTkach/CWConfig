@@ -21,7 +21,7 @@ public class ReloadCommand<C extends Config<C>> extends CommonExecutor {
   
   @Override
   public void executeForPlayer() {
-    configManager.findConfig(argS(1)).ifPresent(config -> {
+    configManager.findConfig(argS(0)).ifPresent(config -> {
       
       configManager.reload(sender, config);
       
