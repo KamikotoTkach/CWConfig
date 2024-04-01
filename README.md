@@ -1,4 +1,4 @@
-# CWConfig 2.0.0
+# CWConfig 2.0.1
 
 aka PaperConfig, VelocityConfig
 
