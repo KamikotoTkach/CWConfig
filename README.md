@@ -25,7 +25,11 @@ aka PaperConfig, VelocityConfig
 
 Использование
 
-Нужно создать YmlConfigManager
+Добавить зависимость в плагин:
+* Paper: CWConfig
+* Velocity: cwconfig
+
+Создать YmlConfigManager
 
 * Paper:
   ```java
