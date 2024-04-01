@@ -54,9 +54,7 @@ public class Example extends YmlConfig {
 Загрузить его можно так:
 
 ```java
-Example =yml.
-
-load("example".Example .class);
+Example = yml.load("example".Example .class);
 ```
 
 Метод load загружает файл example.yml и парсит его в класс Example. Если файла нет или не удалось спарсить, то создаёт
@@ -99,11 +97,9 @@ public class Example extends YmlConfig implements Reloadable {
 
 ```java
 new Command("someCommand")
-       .
-
-subCommands(
-   ReloadCommands.get(yml)
-       )
+  .subCommands(
+    ReloadCommands.get(yml)
+  )
 ```
 
 и в `someCommand` появится подкоманда `reload <configName>`

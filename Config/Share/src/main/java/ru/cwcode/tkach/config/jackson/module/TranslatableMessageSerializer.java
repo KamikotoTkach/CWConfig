@@ -8,7 +8,7 @@ import ru.cwcode.tkach.locale.translatable.TranslatableMessage;
 import java.io.IOException;
 
 public class TranslatableMessageSerializer extends JsonSerializer<TranslatableMessage> {
-
+  
   @Override
   public void serialize(TranslatableMessage value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
     gen.writeStartObject();

@@ -17,7 +17,7 @@ public class LocationSerializer extends JsonSerializer<Location> {
           value.getZ() + " " +
           value.getPitch() + " " +
           value.getYaw();
-
+    
     gen.writeString(builder);
   }
 }
