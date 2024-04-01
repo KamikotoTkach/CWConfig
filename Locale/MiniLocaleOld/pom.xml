@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <name>MiniLocaleOld</name>
-    <description>Locale library for Minecraft Paper 1.16.5-1.17.1 </description>
+    <description>Locale library for Minecraft Paper 1.16.5-1.17.1</description>
     <url>https://github.com/KamikotoTkach/TkachConfig/</url>
 
     <licenses>

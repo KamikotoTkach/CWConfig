@@ -12,7 +12,7 @@ public class ReloadCommands {
   public static <C extends Config<C>> Command get(ConfigManager<C> configManager) {
     return get(configManager, c -> {});
   }
-  
+
   public static <C extends Config<C>> Command get(ConfigManager<C> configManager, Consumer<C> reloadedConfigConsumer) {
     return new Command("reload")
        .arguments(

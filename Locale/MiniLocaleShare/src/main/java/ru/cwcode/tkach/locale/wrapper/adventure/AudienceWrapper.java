@@ -8,33 +8,33 @@ import java.util.*;
 public class AudienceWrapper {
   public static Audience wrap(Collection<UUID> pretenders, UUID... anotherPretenders) {
     Set<Audience> players = new HashSet<>();
-    
+
     addIfOnline(players, pretenders);
     addIfOnline(players, Arrays.asList(anotherPretenders));
-    
+
     return Audience.audience(players);
   }
-  
+
   public static Audience wrap(UUID... pretenders) {
     Set<Audience> players = new HashSet<>();
     addIfOnline(players, Arrays.asList(pretenders));
     return Audience.audience(players);
   }
-  
+
   public static Audience wrap(String... pretenders) {
     Set<Audience> players = new HashSet<>();
-    
+
     for (String pretender : pretenders) {
       Audience player = MiniLocale.getInstance().getPlayer(pretender);
-      
+
       if (player != null) {
         players.add(player);
       }
     }
-    
+
     return Audience.audience(players);
   }
-  
+
   /**
    * @param players    сет игроков
    * @param pretenders итерируемый список с UUID игроков, который будут добавлены в players, если этот игрок онлайн
@@ -47,7 +47,7 @@ public class AudienceWrapper {
       }
     }
   }
-  
+
   public static Audience onlinePlayers() {
     return MiniLocale.getInstance().getOnlinePlayers();
   }

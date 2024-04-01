@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class ItemStackSerializer extends JsonSerializer<ItemStack> implements ContextualSerializer {
   boolean fancy;
-  
+
   @Override
   public void serialize(ItemStack value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
     if (fancy) {
@@ -22,7 +22,7 @@ public class ItemStackSerializer extends JsonSerializer<ItemStack> implements Co
       gen.writeBinary(value.serializeAsBytes());
     }
   }
-  
+
   @Override
   public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property) {
     fancy = property.getAnnotation(Fancy.class) != null;

@@ -11,10 +11,10 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class YmlConfigManager extends JacksonConfigManager<YmlConfig> {
-  
+
   public YmlConfigManager(ConfigPlatform configPlatform) {
     super(configPlatform, new ConfigPersister<>(), new YmlConfigMapper());
-    
+
     persister.setPreprocessor(new ConfigPersister.Preprocessor<>() {
       @Override
       public String preprocess(YmlConfig config, String data) {
@@ -22,16 +22,16 @@ public class YmlConfigManager extends JacksonConfigManager<YmlConfig> {
         if (header != null) {
           data = CollectionUtils.toString(header, "#", "\n", false) + data;
         }
-        
+
         for (var descriptionEntry : Arrays.stream(config.getClass().getDeclaredFields())
                                           .filter(x -> x.isAnnotationPresent(Description.class))
                                           .collect(Collectors.toMap(Field::getName, o -> o.getAnnotation(Description.class).value()))
                                           .entrySet()) {
-          
+
           data = data.replaceFirst("(\n" + descriptionEntry.getKey() + ")",
                                    CollectionUtils.toString(descriptionEntry.getValue(), "\n#", "", false) + "$1");
         }
-        
+
         return data;
       }
     });

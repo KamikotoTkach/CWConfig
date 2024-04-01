@@ -20,23 +20,23 @@ public class MiniLocaleVelocity extends MiniLocale {
   MiniMessageWrapperVelocity miniMessageWrapper = new MiniMessageWrapperVelocity();
   MessagePreprocessor messagePreprocessor = new MessagePreprocessor();
   ProxyServer proxyServer;
-  
+
   public MiniLocaleVelocity(ProxyServer proxyServer) {
     this.proxyServer = proxyServer;
   }
-  
+
   @Override
   public Component legacySection(String message) {
     return LegacyComponentSerializer.legacySection().deserialize(message);
   }
-  
+
   @Override
   public String getLanguage(Audience receiver) {
     return receiver instanceof Player player ?
        player.getEffectiveLocale() != null ? player.getEffectiveLocale().getLanguage() : null
        : null;
   }
-  
+
   @Override
   public void send(Message message, MessageDirection direction, Iterable<? extends Audience> audiences, Placeholders placeholders) {
     for (Audience audience : audiences) {
@@ -45,7 +45,7 @@ public class MiniLocaleVelocity extends MiniLocale {
       });
     }
   }
-  
+
   @Override
   public void showTitle(Audience audience, Component title, Component subtitle, int fadeIn, int stay, int fadeOut) {
     audience.showTitle(Title.title(title == null ? Component.empty() : title,
@@ -54,57 +54,57 @@ public class MiniLocaleVelocity extends MiniLocale {
                                                      Duration.ofMillis(stay),
                                                      Duration.ofMillis(fadeOut))));
   }
-  
+
   @Override
   public boolean isPlayer(Audience audience) {
     return audience instanceof Player;
   }
-  
+
   @Override
   public Audience getOnlinePlayer(UUID uuid) {
     return proxyServer.getPlayer(uuid).orElse(null);
   }
-  
+
   @Override
   public Audience getPlayer(String name) {
     return proxyServer.getPlayer(name).orElse(null);
   }
-  
+
   @Override
   public String plain(Component component) {
     return PlainTextComponentSerializer.plainText().serialize(component);
   }
-  
+
   @Override
   public Audience getOnlinePlayers() {
     return Audience.audience(proxyServer.getAllPlayers());
   }
-  
+
   @Override
   public MiniMessageWrapper miniMessageWrapper() {
     return miniMessageWrapper;
   }
-  
+
   @Override
   public ru.cwcode.tkach.locale.platform.MessagePreprocessor messagePreprocessor() {
     return messagePreprocessor;
   }
-  
+
   @Override
   public Audience console() {
     return proxyServer.getConsoleCommandSource();
   }
-  
+
   @Override
   public String legacyAmpersand(Component component) {
     return LegacyComponentSerializer.legacyAmpersand().serialize(component);
   }
-  
+
   @Override
   public Component legacyAmpersand(String message) {
     return LegacyComponentSerializer.legacyAmpersand().deserialize(message);
   }
-  
+
   @Override
   public Placeholders emptyPlaceholders() {
     return new PlaceholdersVelocity();

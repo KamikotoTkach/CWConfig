@@ -7,11 +7,11 @@ import ru.cwcode.tkach.config.jackson.yaml.YmlConfigManager;
 public class TestConfig extends YmlConfig {
   public void test() {
     YmlConfigManager ymlConfigManager = new YmlConfigManager(null);
-    
+
     TestConfig load = ymlConfigManager.load("", TestConfig.class);
-    
+
     ymlConfigManager.save(this, c -> c.setAsync());
-    
+
     ymlConfigManager.toString(load);
     ymlConfigManager.mapper().map("", TestConfig.class, ConfigPersistOptions.DEFAULT);
   }

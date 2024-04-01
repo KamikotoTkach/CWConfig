@@ -14,7 +14,7 @@ public class YmlConfigMapper extends JacksonConfigMapper<YmlConfig> {
   public YmlConfigMapper() {
     super();
   }
-  
+
   @Override
   public <V extends YmlConfig> Optional<V> map(String string, Class<V> configClass, ConfigPersistOptions persistOptions) {
     try {
@@ -24,7 +24,7 @@ public class YmlConfigMapper extends JacksonConfigMapper<YmlConfig> {
       return Optional.empty();
     }
   }
-  
+
   @Override
   public Optional<String> map(YmlConfig config, ConfigPersistOptions persistOptions) {
     try {
@@ -34,17 +34,17 @@ public class YmlConfigMapper extends JacksonConfigMapper<YmlConfig> {
       return Optional.empty();
     }
   }
-  
+
   @Override
   protected ObjectMapper createObjectMapper() {
     LoaderOptions loaderOptions = new LoaderOptions();
     loaderOptions.setCodePointLimit(100 * 1024 * 1024); //todo сделать установку этого где-то
-    
+
     YAMLFactory yaml = YAMLFactory.builder()
                                   .disable(YAMLGenerator.Feature.SPLIT_LINES)
                                   .loaderOptions(loaderOptions)
                                   .build();
-    
+
     return new ObjectMapper(yaml);
   }
 }

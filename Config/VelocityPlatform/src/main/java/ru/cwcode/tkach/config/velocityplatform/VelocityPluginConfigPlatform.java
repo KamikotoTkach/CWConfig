@@ -16,29 +16,29 @@ public class VelocityPluginConfigPlatform implements ConfigPlatform {
   private final ProxyServer server;
   private final Logger logger;
   private final Path dataDirectory;
-  
+
   public VelocityPluginConfigPlatform(Object plugin, ProxyServer server, Logger logger, Path dataDirectory) {
     this.plugin = plugin;
     this.server = server;
     this.logger = logger;
     this.dataDirectory = dataDirectory;
   }
-  
+
   @Override
   public List<Module> additionalJacksonModules() {
     return Collections.emptyList();
   }
-  
+
   @Override
   public void info(String message) {
     logger.info(message);
   }
-  
+
   @Override
   public void warning(String message) {
     logger.warn(message);
   }
-  
+
   @Override
   public void runAsync(Runnable runnable) {
     server.getScheduler()
@@ -46,7 +46,7 @@ public class VelocityPluginConfigPlatform implements ConfigPlatform {
           .delay(0, TimeUnit.MICROSECONDS)
           .schedule();
   }
-  
+
   @Override
   public void schedule(Runnable runnable, Duration frequency, boolean async) {
     server.getScheduler()
@@ -54,12 +54,12 @@ public class VelocityPluginConfigPlatform implements ConfigPlatform {
           .repeat(frequency)
           .schedule();
   }
-  
+
   @Override
   public Path dataFolder() {
     return dataDirectory;
   }
-  
+
   @Override
   public void disable() {
     //у велосити нет возможности отгрузить плагин

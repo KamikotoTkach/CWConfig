@@ -7,12 +7,12 @@ import java.util.Optional;
 
 public abstract class ConfigMapper<C extends Config<C>> {
   protected ConfigManager<C> configManager;
-  
+
   public void setConfigManager(ConfigManager<C> configManager) {
     this.configManager = configManager;
   }
-  
+
   public abstract <V extends C> Optional<V> map(String string, Class<V> configClass, ConfigPersistOptions persistOptions);
-  
+
   public abstract Optional<String> map(C config, ConfigPersistOptions persistOptions);
 }

@@ -18,7 +18,7 @@ import ru.cwcode.tkach.locale.velocity.MiniLocaleVelocity;
 public class VelocityPlatform {
   @Inject
   ProxyServer proxyServer;
-  
+
   @Subscribe
   public void initialize(ProxyInitializeEvent event) {
     MiniLocale.setInstance(new MiniLocaleVelocity(proxyServer));

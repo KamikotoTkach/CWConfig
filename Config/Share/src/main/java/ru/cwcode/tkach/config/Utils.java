@@ -19,13 +19,13 @@ public class Utils {
     }
     return "";
   }
-  
+
   public static boolean writeString(Path path, String text) {
     try {
       if (!Files.exists(path)) {
         createParentDirs(path.toFile());
       }
-      
+
       Files.writeString(path, text, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
       return true;
     } catch (IOException e) {
@@ -33,21 +33,21 @@ public class Utils {
       return false;
     }
   }
-  
+
   public static void createParentDirs(File file) throws IOException {
     if (file == null) return;
     File parent = file.getCanonicalFile().getParentFile();
     if (parent == null) {
       return;
     }
-    
+
     parent.mkdirs();
-    
+
     if (!parent.isDirectory()) {
       throw new IOException("Unable to create parent directories of " + file);
     }
   }
-  
+
   public static <T> Optional<T> getNewInstance(Class<T> type) {
     try {
       Constructor<T> declaredConstructor = type.getDeclaredConstructor();
@@ -56,10 +56,10 @@ public class Utils {
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
       e.printStackTrace();
     }
-    
+
     return Optional.empty();
   }
-  
+
   public static void copy(Path original, Path backup) {
     try {
       Files.copy(original, backup, StandardCopyOption.REPLACE_EXISTING);

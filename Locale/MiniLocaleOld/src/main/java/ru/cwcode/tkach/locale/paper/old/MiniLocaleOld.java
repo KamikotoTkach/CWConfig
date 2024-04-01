@@ -20,17 +20,17 @@ import java.util.UUID;
 public class MiniLocaleOld extends MiniLocale {
   MiniMessageWrapperOld miniMessageWrapper = new MiniMessageWrapperOld();
   MessagePreprocessor messagePreprocessor = new MessagePreprocessor();
-  
+
   @Override
   public Component legacySection(String message) {
     return LegacyComponentSerializer.legacySection().deserialize(message);
   }
-  
+
   @Override
   public String getLanguage(Audience receiver) {
     return receiver instanceof Player player ? player.locale().getLanguage() : null;
   }
-  
+
   @Override
   public void send(Message message, MessageDirection direction, Iterable<? extends Audience> audiences, Placeholders placeholders) {
     for (Audience audience : audiences) {
@@ -43,7 +43,7 @@ public class MiniLocaleOld extends MiniLocale {
       }
     }
   }
-  
+
   @Override
   public void showTitle(Audience audience, Component title, Component subtitle, int fadeIn, int stay, int fadeOut) {
     audience.showTitle(Title.title(title == null ? Component.empty() : title,
@@ -52,57 +52,57 @@ public class MiniLocaleOld extends MiniLocale {
                                                   Duration.ofMillis(stay),
                                                   Duration.ofMillis(fadeOut))));
   }
-  
+
   @Override
   public boolean isPlayer(Audience audience) {
     return audience instanceof Player;
   }
-  
+
   @Override
   public Audience getOnlinePlayer(UUID uuid) {
     return Bukkit.getPlayer(uuid);
   }
-  
+
   @Override
   public Audience getPlayer(String name) {
     return Bukkit.getPlayer(name);
   }
-  
+
   @Override
   public String plain(Component component) {
     return PlainComponentSerializer.plain().serialize(component);
   }
-  
+
   @Override
   public Audience getOnlinePlayers() {
     return Audience.audience(Bukkit.getOnlinePlayers());
   }
-  
+
   @Override
   public MiniMessageWrapper miniMessageWrapper() {
     return miniMessageWrapper;
   }
-  
+
   @Override
   public MessagePreprocessor messagePreprocessor() {
     return messagePreprocessor;
   }
-  
+
   @Override
   public Audience console() {
     return Bukkit.getConsoleSender();
   }
-  
+
   @Override
   public String legacyAmpersand(Component component) {
     return LegacyComponentSerializer.legacyAmpersand().serialize(component);
   }
-  
+
   @Override
   public Component legacyAmpersand(String message) {
     return LegacyComponentSerializer.legacyAmpersand().deserialize(message);
   }
-  
+
   @Override
   public Placeholders emptyPlaceholders() {
     return new PlaceholdersOld();
