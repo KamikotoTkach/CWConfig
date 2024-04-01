@@ -16,17 +16,17 @@ public class MessageArrDeserializer extends JsonDeserializer<MessageArr> {
   public MessageArr deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
     ObjectCodec codec = p.getCodec();
     JsonNode node = codec.readTree(p);
-
+    
     if (node.has("message")) {
       node = node.get("message");
     }
-
+    
     List<String> values = new ArrayList<>();
-
+    
     for (JsonNode jsonNode : node) {
       values.add(jsonNode.asText());
     }
-
+    
     return new MessageArr(values.toArray(new String[0]));
   }
 }

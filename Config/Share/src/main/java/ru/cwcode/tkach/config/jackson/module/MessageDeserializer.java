@@ -14,11 +14,11 @@ public class MessageDeserializer extends JsonDeserializer<Message> {
   public Message deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
     ObjectCodec codec = p.getCodec();
     JsonNode node = codec.readTree(p);
-
+    
     if (node.has("message")) {
       return new Message(node.get("message").asText());
     }
-
+    
     return new Message(node.asText());
   }
 }
