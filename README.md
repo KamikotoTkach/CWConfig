@@ -1,4 +1,4 @@
-# CWConfig 2.0.1
+# CWConfig 2.1.0
 
 aka PaperConfig, VelocityConfig
 
@@ -11,7 +11,7 @@ aka PaperConfig, VelocityConfig
   <dependency>
     <groupId>ru.cwcode.tkach.config</groupId>
     <artifactId>PaperConfig</artifactId>
-    <version>2.0.0</version>
+    <version>2.1.0</version>
   </dependency>
   ```
 * Velocity
@@ -19,7 +19,7 @@ aka PaperConfig, VelocityConfig
   <dependency>
     <groupId>ru.cwcode.tkach.config</groupId>
     <artifactId>VelocityConfig</artifactId>
-    <version>2.0.0</version>
+    <version>2.1.0</version>
   </dependency>
   ```
 
