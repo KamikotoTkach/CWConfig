@@ -12,6 +12,7 @@ aka PaperConfig, VelocityConfig
     <groupId>ru.cwcode.tkach.config</groupId>
     <artifactId>PaperConfig</artifactId>
     <version>2.1.0</version>
+    <scope>provided</scope>
   </dependency>
   ```
 * Velocity
@@ -20,6 +21,7 @@ aka PaperConfig, VelocityConfig
     <groupId>ru.cwcode.tkach.config</groupId>
     <artifactId>VelocityConfig</artifactId>
     <version>2.1.0</version>
+    <scope>provided</scope>
   </dependency>
   ```
 
@@ -58,7 +60,7 @@ public class Example extends YmlConfig {
 Загрузить его можно так:
 
 ```java
-Example = yml.load("example".Example .class);
+Example = yml.load("example", Example.class);
 ```
 
 Метод load загружает файл example.yml и парсит его в класс Example. Если файла нет или не удалось спарсить, то создаёт
