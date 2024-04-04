@@ -1,7 +1,7 @@
 package ru.cwcode.tkach.config.paper;
 
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.Module;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.module.SimpleModule;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;

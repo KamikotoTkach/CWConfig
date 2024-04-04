@@ -13,7 +13,7 @@ import ru.cwcode.tkach.locale.velocity.MiniLocaleVelocity;
    id = "cwconfig",
    name = "CWConfig",
    version = "2.1.0",
-   dependencies = {@Dependency(id = "cw-commands")}
+   dependencies = {@Dependency(id = "cwcommands")}
 )
 public class VelocityPlatform {
   @Inject

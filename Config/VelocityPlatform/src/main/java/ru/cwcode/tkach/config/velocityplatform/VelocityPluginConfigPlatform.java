@@ -1,6 +1,6 @@
 package ru.cwcode.tkach.config.velocityplatform;
 
-import com.fasterxml.jackson.databind.Module;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.Module;
 import com.velocitypowered.api.proxy.ProxyServer;
 import org.slf4j.Logger;
 import ru.cwcode.tkach.config.base.ConfigPlatform;

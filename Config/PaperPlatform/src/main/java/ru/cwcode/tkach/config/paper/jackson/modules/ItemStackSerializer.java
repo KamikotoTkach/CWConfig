@@ -1,10 +1,10 @@
 package ru.cwcode.tkach.config.paper.jackson.modules;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.BeanProperty;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.ser.ContextualSerializer;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.core.JsonGenerator;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.BeanProperty;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.JsonSerializer;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.SerializerProvider;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import org.bukkit.inventory.ItemStack;
 import ru.cwcode.cwutils.items.ItemStackUtils;
 import ru.cwcode.tkach.config.annotation.Fancy;

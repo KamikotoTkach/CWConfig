@@ -1,8 +1,8 @@
 package ru.cwcode.tkach.config.paper.jackson.modules;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.core.JsonGenerator;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.JsonSerializer;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.SerializerProvider;
 import org.bukkit.OfflinePlayer;
 
 import java.io.IOException;

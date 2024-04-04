@@ -1,9 +1,9 @@
 package ru.cwcode.tkach.config.paper.jackson.modules;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.core.JsonParser;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.core.JsonToken;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.DeserializationContext;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.JsonDeserializer;
 import org.bukkit.inventory.ItemStack;
 import ru.cwcode.cwutils.items.ItemStackUtils;
 
