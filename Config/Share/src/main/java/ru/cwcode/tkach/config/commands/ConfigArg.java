@@ -2,16 +2,19 @@ package ru.cwcode.tkach.config.commands;
 
 import ru.cwcode.commands.Argument;
 import ru.cwcode.commands.api.Sender;
-import ru.cwcode.tkach.config.annotation.Reloadable;
+import ru.cwcode.tkach.config.base.Config;
 import ru.cwcode.tkach.config.base.manager.ConfigManager;
 
 import java.util.Collection;
 import java.util.Set;
+import java.util.function.Predicate;
 
-public class ReloadableConfigArg extends Argument {
-  ConfigManager<?> configManager;
+public class ConfigArg<C extends Config<C>> extends Argument {
+  private final Predicate<C> predicate;
+  ConfigManager<C> configManager;
   
-  public ReloadableConfigArg(ConfigManager<?> configManager) {
+  public ConfigArg(Predicate<C> predicate, ConfigManager<C> configManager) {
+    this.predicate = predicate;
     this.configManager = configManager;
   }
   
@@ -31,6 +34,6 @@ public class ReloadableConfigArg extends Argument {
   }
   
   private Set<String> getReloadableConfigNames() {
-    return configManager.getConfigNames(Reloadable.class::isInstance);
+    return configManager.getConfigNames(predicate);
   }
 }
