@@ -23,9 +23,9 @@ public class ReloadCommand<C extends Config<C>> extends CommonExecutor {
   public void executeForPlayer() {
     configManager.findConfig(argS(0)).ifPresent(config -> {
       
-      configManager.reload(sender, config);
-      
-      onReload.accept(config);
+      if (configManager.reload(sender, config)) {
+        configManager.findConfig(argS(0)).ifPresent(onReload);
+      }
     });
   }
 }
