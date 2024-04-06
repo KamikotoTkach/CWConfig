@@ -36,10 +36,10 @@ public class MiniLocaleOld extends MiniLocale {
     for (Audience audience : audiences) {
       if (audience instanceof ForwardingAudience forwardingAudience) {
         for (Audience a : forwardingAudience.audiences()) {
-          direction.send(a, message.get(placeholders));
+          direction.send(a, message.get(placeholders, a));
         }
       } else {
-        direction.send(audience, message.get(placeholders));
+        direction.send(audience, message.get(placeholders, audience));
       }
     }
   }

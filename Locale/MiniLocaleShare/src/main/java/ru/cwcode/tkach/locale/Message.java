@@ -4,6 +4,7 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import ru.cwcode.cwutils.collections.CollectionUtils;
+import ru.cwcode.cwutils.messages.TargetableMessageReturn;
 import ru.cwcode.tkach.locale.messageDirection.*;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
 import ru.cwcode.tkach.locale.wrapper.adventure.AudienceWrapper;
@@ -99,9 +100,7 @@ public class Message implements Serializable {
   }
 
   public Component get(Audience receiver, Placeholders placeholders) {
-    MiniLocale ml = MiniLocale.getInstance();
-
-    return ml.miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(message, receiver), placeholders);
+    return get(placeholders, receiver);
   }
   //endregion
 
@@ -295,13 +294,13 @@ public class Message implements Serializable {
   //endregion
 
   //region throwback
-  /*public void throwback() throws TargetableMessageReturn { //todo вернуть :)
+  public void throwback() throws TargetableMessageReturn {
     throw new TargetableMessageReturn(this::get);
   }
   
   public void throwback(Placeholders placeholders) throws TargetableMessageReturn {
     throw new TargetableMessageReturn(receiver -> get(placeholders, receiver));
-  }*/
+  }
   //endregion
 
   //region checks
@@ -328,11 +327,11 @@ public class Message implements Serializable {
     return new Message(message, mode);
   }
 
-  private static boolean isAmpersand(String message) {
+  public static boolean isAmpersand(String message) {
     return LEGACY_AMPERSAND.matcher(message).find();
   }
-
-  private static boolean isSection(String message) {
+  
+  public static boolean isSection(String message) {
     return LEGACY_SECTION.matcher(message).find();
   }
   //endregion

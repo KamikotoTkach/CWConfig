@@ -33,8 +33,8 @@ public class MiniLocaleNew extends MiniLocale {
   @Override
   public void send(Message message, MessageDirection direction, Iterable<? extends Audience> audiences, Placeholders placeholders) {
     for (Audience audience : audiences) {
-      audience.forEachAudience(item -> {
-        direction.send(item, message.get(placeholders, item));
+      audience.forEachAudience(a -> {
+        direction.send(a, message.get(placeholders, a));
       });
     }
   }
