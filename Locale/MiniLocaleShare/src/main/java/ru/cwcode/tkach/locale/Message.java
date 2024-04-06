@@ -293,16 +293,6 @@ public class Message implements Serializable {
   }
   //endregion
 
-  //region throwback
-  public void throwback() throws TargetableMessageReturn {
-    throw new TargetableMessageReturn(this::get);
-  }
-  
-  public void throwback(Placeholders placeholders) throws TargetableMessageReturn {
-    throw new TargetableMessageReturn(receiver -> get(placeholders, receiver));
-  }
-  //endregion
-
   //region checks
   public boolean isNotEmpty() {
     return !message.isEmpty();
