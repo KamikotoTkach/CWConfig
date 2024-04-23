@@ -22,30 +22,38 @@ public class MessageArr implements Serializable {
   }
 
   public void send(Audience audience) {
+    MiniLocale ml = MiniLocale.getInstance();
+    
     for (String line : message) {
-      audience.sendMessage(MiniLocale.getInstance().miniMessageWrapper().deserialize(line));
+      audience.sendMessage(MiniLocale.getInstance().miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(line, null)));
     }
   }
 
   public void send(Audience audience, Placeholders placeholders) {
+    MiniLocale ml = MiniLocale.getInstance();
+    
     for (String line : message) {
-      audience.sendMessage(MiniLocale.getInstance().miniMessageWrapper().deserialize(line, placeholders));
+      audience.sendMessage(MiniLocale.getInstance().miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(line, null), placeholders));
     }
   }
 
   public Collection<Component> get() {
+    MiniLocale ml = MiniLocale.getInstance();
+    
     List<Component> list = new ArrayList<>();
     for (String line : message) {
-      list.add(MiniLocale.getInstance().miniMessageWrapper().deserialize(line));
+      list.add(MiniLocale.getInstance().miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(line, null)));
     }
     return list;
   }
 
   public Collection<Component> get(Placeholders placeholders) {
+    MiniLocale ml = MiniLocale.getInstance();
+    
     List<Component> list = new ArrayList<>();
 
     for (String line : message) {
-      list.add(MiniLocale.getInstance().miniMessageWrapper().deserialize(line, placeholders));
+      list.add(MiniLocale.getInstance().miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(line, null), placeholders));
     }
     return list;
   }

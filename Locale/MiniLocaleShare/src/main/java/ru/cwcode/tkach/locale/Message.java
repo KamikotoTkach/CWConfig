@@ -80,11 +80,15 @@ public class Message implements Serializable {
 
   //region get as component
   public Component get() {
-    return MiniLocale.getInstance().miniMessageWrapper().deserialize(message);
+    MiniLocale ml = MiniLocale.getInstance();
+    
+    return MiniLocale.getInstance().miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(message, null));
   }
 
   public Component get(Placeholders placeholders) {
-    return MiniLocale.getInstance().miniMessageWrapper().deserialize(message, placeholders);
+    MiniLocale ml = MiniLocale.getInstance();
+    
+    return MiniLocale.getInstance().miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(message, null), placeholders);
   }
 
   public Component get(Audience receiver) {

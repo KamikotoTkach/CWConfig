@@ -10,7 +10,8 @@ public class PapiProcessor {
 
     if (receiver instanceof Player) {
       return PlaceholderAPI.setPlaceholders((Player) receiver, st);
+    } else {
+      return PlaceholderAPI.setPlaceholders(null, st);
     }
-    return st;
   }
 }

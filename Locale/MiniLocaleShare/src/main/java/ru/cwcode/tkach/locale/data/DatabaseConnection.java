@@ -1,4 +1,4 @@
-package ru.cwcode.tkach.locale.paper.data;
+package ru.cwcode.tkach.locale.data;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Optional;
 
-@Deprecated(forRemoval = true)
 public class DatabaseConnection implements Serializable {
   private static final long serialVersionUID = 1L;
   
