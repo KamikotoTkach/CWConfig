@@ -1,13 +1,13 @@
 package ru.cwcode.tkach.config.velocityplatform;
 
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.Module;
 import com.velocitypowered.api.proxy.ProxyServer;
 import org.slf4j.Logger;
 import ru.cwcode.tkach.config.base.ConfigPlatform;
+import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.Module;
 
 import java.nio.file.Path;
 import java.time.Duration;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -16,6 +16,7 @@ public class VelocityPluginConfigPlatform implements ConfigPlatform {
   private final ProxyServer server;
   private final Logger logger;
   private final Path dataDirectory;
+  private final List<Module> modules = new ArrayList<>();
   
   public VelocityPluginConfigPlatform(Object plugin, ProxyServer server, Logger logger, Path dataDirectory) {
     this.plugin = plugin;
@@ -26,7 +27,7 @@ public class VelocityPluginConfigPlatform implements ConfigPlatform {
   
   @Override
   public List<Module> additionalJacksonModules() {
-    return Collections.emptyList();
+    return modules;
   }
   
   @Override
