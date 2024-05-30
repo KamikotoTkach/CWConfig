@@ -60,6 +60,7 @@ public class PaperPluginConfigPlatform implements ConfigPlatform {
     Scheduler.create()
              .async(async)
              .perform(runnable)
+             .infinite()
              .register(plugin, frequency.toMillis() / 50);
   }
   
