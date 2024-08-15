@@ -7,6 +7,8 @@ import ru.cwcode.tkach.config.base.ConfigPersistOptions;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import static ru.cwcode.tkach.config.server.ServerPlatform.l10n;
+
 public class ConfigLoader<C extends Config<C>> {
   ConfigManager<? extends C> configManager;
   
@@ -16,7 +18,7 @@ public class ConfigLoader<C extends Config<C>> {
   
   public Optional<String> load(String name, ConfigPersistOptions options) {
     if (!options.isSilent()) {
-      configManager.platform.info("Загрузка файла конфига %s".formatted(name));
+      configManager.platform.info(l10n.get("config.loader.loading", name));
     }
     
     Path path = configManager.getPath(name);
@@ -25,14 +27,14 @@ public class ConfigLoader<C extends Config<C>> {
     
     if (str.isEmpty()) {
       if (!options.isSilent()) {
-        configManager.platform.info("Не удалось загрузить файл конфига %s".formatted(name));
+        configManager.platform.info(l10n.get("config.loader.cantLoad", name));
       }
       
       return Optional.empty();
     }
     
     if (!options.isSilent()) {
-      configManager.platform.info("Файл конфига %s успешно загружен".formatted(name));
+      configManager.platform.info(l10n.get("config.loader.loaded", name));
     }
     
     return Optional.of(str);

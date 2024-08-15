@@ -6,6 +6,8 @@ import ru.cwcode.tkach.config.base.ConfigPersistOptions;
 
 import java.nio.file.Path;
 
+import static ru.cwcode.tkach.config.server.ServerPlatform.l10n;
+
 public class ConfigPersister<C extends Config<C>> {
   ConfigManager<C> configManager;
   Preprocessor<C> preprocessor = new Preprocessor<>();
@@ -16,18 +18,18 @@ public class ConfigPersister<C extends Config<C>> {
   
   public void persist(C config, String data, Path path, ConfigPersistOptions options) {
     if (!options.isSilent()) {
-      configManager.platform.info("Сохранение конфига %s".formatted(config.name()));
+      configManager.platform.info(l10n.get("config.persister.persisting", config.name()));
     }
     
     data = preprocessor.preprocess(config, data);
     
     if (Utils.writeString(path, data)) {
       if (!options.isSilent()) {
-        configManager.platform.info("Конфиг %s сохранён".formatted(config.name()));
+        configManager.platform.info(l10n.get("config.persister.persisted", config.name()));
       }
     } else {
       if (!options.isSilent()) {
-        configManager.platform.warning("Не удалось сохранить конфиг %s".formatted(config.name()));
+        configManager.platform.warning(l10n.get("config.persister.cantPersist", config.name()));
       }
     }
   }

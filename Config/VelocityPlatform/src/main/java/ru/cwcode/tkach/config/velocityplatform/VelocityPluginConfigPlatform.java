@@ -64,6 +64,6 @@ public class VelocityPluginConfigPlatform implements ConfigPlatform {
   @Override
   public void disable() {
     //у велосити нет возможности отгрузить плагин
-    logger.error("Произошла критическая ошибка, плагин не может продолжать свою корректную работу.");
+    logger.error("A critical error has occurred, the plugin cannot continue its correct operation.");
   }
 }

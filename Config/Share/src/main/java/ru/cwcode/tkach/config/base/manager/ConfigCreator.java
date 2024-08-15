@@ -6,6 +6,8 @@ import ru.cwcode.tkach.config.base.ConfigPersistOptions;
 
 import java.util.Optional;
 
+import static ru.cwcode.tkach.config.server.ServerPlatform.l10n;
+
 public class ConfigCreator<C extends Config<C>> {
   ConfigManager<C> configManager;
   
@@ -16,14 +18,14 @@ public class ConfigCreator<C extends Config<C>> {
   public <V extends C> Optional<V> create(String name, Class<V> configClass, ConfigPersistOptions persistOptions) {
     
     if (!persistOptions.isSilent()) {
-      configManager.platform.info("Создание дефолтного конфига %s".formatted(name));
+      configManager.platform.info(l10n.get("config.creator.creating", name));
     }
     
     Optional<V> instance = Utils.getNewInstance(configClass);
     
     if (!persistOptions.isSilent()) {
-      instance.ifPresentOrElse(__ -> configManager.platform.info("Конфиг %s создан".formatted(name)),
-                               () -> configManager.platform.info("Не удалось создать конфиг %s".formatted(name)));
+      instance.ifPresentOrElse(__ -> configManager.platform.info(l10n.get("config.creator.created", name)),
+                               () -> configManager.platform.info(l10n.get("config.creator.cantCreate", name)));
     }
     
     return instance;

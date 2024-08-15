@@ -17,6 +17,8 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static ru.cwcode.tkach.config.server.ServerPlatform.l10n;
+
 public abstract class ConfigManager<C extends Config<C>> {
   protected final ConfigPlatform platform;
   
@@ -96,7 +98,7 @@ public abstract class ConfigManager<C extends Config<C>> {
       c.setManager(this);
       
       if (!options.isSilent()) {
-        platform.info("Успешно загружен конфиг %s".formatted(name));
+        platform.info(l10n.get("config.manager.loaded", name));
       }
       
       if (shouldSave.get()) {
@@ -104,7 +106,7 @@ public abstract class ConfigManager<C extends Config<C>> {
       }
     }, () -> {
       if (!options.isSilent()) {
-        platform.info("Не удалось загрузить или создать конфиг %s, плагин будет отключён".formatted(name));
+        platform.info(l10n.get("config.manager.cantLoad", name));
       }
       platform.disable();
     });
@@ -121,7 +123,7 @@ public abstract class ConfigManager<C extends Config<C>> {
     Path backup = getPath(name + " " + new Timestamp(System.currentTimeMillis()).toString().replace(":", "-"));
     
     if (!options.isSilent()) {
-      platform.warning("Cоздание копии конфига %s (%s)".formatted(name, backup));
+      platform.warning(l10n.get("config.manager.backup", name, backup));
     }
     
     Utils.copy(original, backup);
@@ -143,7 +145,7 @@ public abstract class ConfigManager<C extends Config<C>> {
             persister.persist(config, data, getPath(config.name()), options);
           }, () -> {
             if (!options.isSilent()) {
-              platform.info("Не удалось замаппить конфиг %s в строку".formatted(config.name()));
+              platform.info(l10n.get("config.manager.cantMap", config.name()));
             }
           });
   }
@@ -171,10 +173,10 @@ public abstract class ConfigManager<C extends Config<C>> {
   public boolean reload(Sender sender, C config) {
     if (config instanceof Reloadable reloadable) {
       if (reloadable.reload()) {
-        sender.sendMessage("Конфиг %s перезагружен".formatted(config.name()));
+        sender.sendMessage(l10n.get("config.manager.reloaded", config.name()));
         return true;
       } else {
-        sender.sendMessage("Не удалось перезагрузить конфиг %s".formatted(config.name()));
+        sender.sendMessage(l10n.get("config.manager.cantReload", config.name()));
         return false;
       }
     }
@@ -196,7 +198,7 @@ public abstract class ConfigManager<C extends Config<C>> {
   
   protected void saveAll0(ConfigPersistOptions options) {
     if (!options.isSilent()) {
-      platform.info("Начато сохранение всех конфигов");
+      platform.info(l10n.get("config.manager.saveAll"));
     }
     
     configs.values().forEach(config -> {

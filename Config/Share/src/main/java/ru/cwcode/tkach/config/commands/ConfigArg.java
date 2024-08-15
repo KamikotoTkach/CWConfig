@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import static ru.cwcode.tkach.config.server.ServerPlatform.l10n;
+
 public class ConfigArg<C extends Config<C>> extends Argument {
   private final Predicate<C> predicate;
   ConfigManager<C> configManager;
@@ -30,7 +32,7 @@ public class ConfigArg<C extends Config<C>> extends Argument {
   
   @Override
   public String argumentName() {
-    return "config";
+    return l10n.get("config.argument.name");
   }
   
   private Set<String> getReloadableConfigNames() {
