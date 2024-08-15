@@ -222,6 +222,12 @@
             <version>2.1.5</version>
         </dependency>
         <dependency>
+            <groupId>ru.cwcode.commands</groupId>
+            <artifactId>Common</artifactId>
+            <version>1.3.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>ru.cwcode.tkach.locale</groupId>
             <artifactId>MiniLocaleShare</artifactId>
             <version>2.1.5</version>
