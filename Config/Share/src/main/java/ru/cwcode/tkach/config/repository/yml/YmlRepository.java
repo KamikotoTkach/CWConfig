@@ -3,6 +3,7 @@ package ru.cwcode.tkach.config.repository.yml;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import org.jetbrains.annotations.Nullable;
+import ru.cwcode.tkach.config.annotation.Reloadable;
 import ru.cwcode.tkach.config.jackson.yaml.YmlConfig;
 import ru.cwcode.tkach.config.repository.Repository;
 import ru.cwcode.tkach.config.repository.RepositoryEntry;
@@ -13,8 +14,10 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class YmlRepository<K, E extends RepositoryEntry<K>> extends YmlConfig implements Repository<K, E> {
+public class YmlRepository<K, E extends RepositoryEntry<K>> extends YmlConfig implements Repository<K, E>, Reloadable {
   Map<K, E> entries = new LinkedHashMap<>();
+  
+  transient YmlRepositoryManager ymlRepositoryManager;
   
   @Override
   public @Nullable E getOrNull(K key) {
@@ -36,6 +39,16 @@ public class YmlRepository<K, E extends RepositoryEntry<K>> extends YmlConfig im
     return entries.values();
   }
   
+  @Override
+  public boolean reload() {
+    return ymlRepositoryManager.reload(this);
+  }
+  
+  @Override
+  public E computeIfAbsent(K key, Function<? super K, ? extends E> mappingFunction) {
+    return entries.computeIfAbsent(key, mappingFunction);
+  }
+  
   @JsonGetter("entries")
   private Collection<E> serialize() {
     return entries.values();
@@ -46,10 +59,5 @@ public class YmlRepository<K, E extends RepositoryEntry<K>> extends YmlConfig im
     this.entries.clear();
     
     this.entries.putAll(entries.stream().collect(Collectors.toMap(RepositoryEntry::getKey, e -> e)));
-  }
-  
-  @Override
-  public E computeIfAbsent(K key, Function<? super K, ? extends E> mappingFunction) {
-    return entries.computeIfAbsent(key, mappingFunction);
   }
 }
