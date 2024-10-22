@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -15,6 +16,18 @@ public interface Repository<K, E extends RepositoryEntry<K>> {
   boolean remove(K key);
   
   Collection<E> list();
+  
+  default List<E> copyOf() {
+    return List.copyOf(list());
+  }
+  
+  default boolean removeEntry(E entry) {
+    return remove(entry.getKey());
+  }
+  
+  default boolean put(E entry) {
+    return put(entry.getKey(), entry);
+  }
   
   default Optional<E> get(K key) {
     return Optional.ofNullable(getOrNull(key));
