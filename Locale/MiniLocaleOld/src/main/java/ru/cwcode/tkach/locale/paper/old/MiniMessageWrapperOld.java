@@ -5,6 +5,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.jetbrains.annotations.NotNull;
 import ru.cwcode.tkach.locale.Placeholders;
+import ru.cwcode.tkach.locale.Utils;
 import ru.cwcode.tkach.locale.wrapper.adventure.MiniMessageWrapper;
 
 import java.util.ArrayList;
@@ -109,9 +110,10 @@ public class MiniMessageWrapperOld implements MiniMessageWrapper {
   @Override
   public List<Component> deserialize(List<String> strings, Placeholders placeholders, boolean disableItalic) {
     if (strings == null) return null;
-
+    strings = Utils.replaceMultilinePlaceholders(strings,placeholders);
+    
     List<Component> components = new ArrayList<>();
-
+    
     TextDecoration italicDecoration = TextDecoration.ITALIC;
 
     for (String s : strings) {

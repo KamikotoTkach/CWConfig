@@ -88,7 +88,7 @@ public class Message implements Serializable {
   public Component get(Placeholders placeholders) {
     MiniLocale ml = MiniLocale.getInstance();
     
-    return MiniLocale.getInstance().miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(message, null), placeholders);
+    return ml.miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(message, null), placeholders);
   }
 
   public Component get(Audience receiver) {

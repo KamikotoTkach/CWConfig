@@ -5,8 +5,7 @@ import net.kyori.adventure.text.Component;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.List;
 
 public class MessageArr implements Serializable {
@@ -24,38 +23,35 @@ public class MessageArr implements Serializable {
   public void send(Audience audience) {
     MiniLocale ml = MiniLocale.getInstance();
     
-    for (String line : message) {
-      audience.sendMessage(MiniLocale.getInstance().miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(line, null)));
+    String[] preprocessed = ml.messagePreprocessor().preprocess(message, audience);
+    
+    for (Component component : ml.miniMessageWrapper().deserialize(preprocessed)) {
+      audience.sendMessage(component);
     }
   }
 
   public void send(Audience audience, Placeholders placeholders) {
     MiniLocale ml = MiniLocale.getInstance();
     
-    for (String line : message) {
-      audience.sendMessage(MiniLocale.getInstance().miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(line, null), placeholders));
+    List<String> preprocessed = Arrays.asList(ml.messagePreprocessor().preprocess(message, audience));
+    
+    for (Component component : ml.miniMessageWrapper().deserialize(preprocessed, placeholders, false)) {
+      audience.sendMessage(component);
     }
   }
 
-  public Collection<Component> get() {
+  public List<Component> get() {
     MiniLocale ml = MiniLocale.getInstance();
     
-    List<Component> list = new ArrayList<>();
-    for (String line : message) {
-      list.add(MiniLocale.getInstance().miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(line, null)));
-    }
-    return list;
+    return ml.miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(message, null));
   }
 
-  public Collection<Component> get(Placeholders placeholders) {
+  public List<Component> get(Placeholders placeholders) {
     MiniLocale ml = MiniLocale.getInstance();
     
-    List<Component> list = new ArrayList<>();
-
-    for (String line : message) {
-      list.add(MiniLocale.getInstance().miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(line, null), placeholders));
-    }
-    return list;
+    List<String> preprocessed = Arrays.asList(ml.messagePreprocessor().preprocess(message, null));
+    
+    return ml.miniMessageWrapper().deserialize(preprocessed, placeholders, false);
   }
 
   public Message toSingleMessage() {
