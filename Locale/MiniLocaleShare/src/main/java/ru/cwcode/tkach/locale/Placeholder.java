@@ -39,4 +39,8 @@ public final class Placeholder {
   public static Placeholders add(String key, Component value) {
     return MiniLocale.getInstance().emptyPlaceholders().add(key, value);
   }
+  
+  public static Placeholders add(String key, Object value) {
+    return MiniLocale.getInstance().emptyPlaceholders().add(key, value);
+  }
 }

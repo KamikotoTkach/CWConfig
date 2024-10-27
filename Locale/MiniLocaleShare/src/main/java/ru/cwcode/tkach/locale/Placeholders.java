@@ -2,6 +2,8 @@ package ru.cwcode.tkach.locale;
 
 import net.kyori.adventure.text.Component;
 
+import java.util.Map;
+
 public interface Placeholders {
   Placeholders add(String key, String value);
 
@@ -14,10 +16,17 @@ public interface Placeholders {
   Placeholders add(String key, long value);
 
   Placeholders add(String key, boolean value);
-
+  
+  @Deprecated
   Placeholders add(Object tag);
 
   Placeholders add(String key, Component value);
+  
+  Placeholders add(String key, Object value);
 
   Object[] getResolvers();
+  
+  Map<String, Object> getRaw();
+  
+  Placeholders merge(Placeholders other);
 }

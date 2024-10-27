@@ -8,9 +8,10 @@ import ru.cwcode.tkach.locale.Placeholders;
 
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class PlaceholdersVelocity implements Placeholders {
-  private final HashMap<String, TagResolver> resolvers = new HashMap<>();
+  private final HashMap<String, Object> resolvers = new HashMap<>();
 
   public PlaceholdersVelocity() {
   }
@@ -25,9 +26,7 @@ public class PlaceholdersVelocity implements Placeholders {
 
   @Override
   public Placeholders add(String key, String value) {
-    String keyLowerCase = key.toLowerCase();
-
-    resolvers.put(keyLowerCase, TagResolver.resolver(keyLowerCase, Tag.preProcessParsed(value)));
+    resolvers.put(key.toLowerCase(), value);
     return this;
   }
 
@@ -58,20 +57,37 @@ public class PlaceholdersVelocity implements Placeholders {
 
   @Override
   public Placeholders add(Object tagResolver) {
-    resolvers.put(NanoID.randomNanoId(), (TagResolver) tagResolver);
+    resolvers.put(NanoID.randomNanoId(), tagResolver);
     return this;
   }
 
   @Override
   public Placeholders add(String key, Component value) {
-    String keyLowerCase = key.toLowerCase(Locale.ROOT);
-
-    resolvers.put(keyLowerCase, TagResolver.resolver(keyLowerCase, Tag.inserting(value)));
+    resolvers.put(key.toLowerCase(), value);
     return this;
   }
-
+  
   @Override
-  public TagResolver[] getResolvers() {
-    return resolvers.values().toArray(new TagResolver[0]);
+  public Placeholders add(String key, Object value) {
+    resolvers.put(key.toLowerCase(), value);
+    return this;
+  }
+  
+  @Override
+  public Object[] getResolvers() {
+    return resolvers.values().toArray();
+  }
+  
+  @Override
+  public Map<String, Object> getRaw() {
+    return resolvers;
+  }
+  
+  @Override
+  public Placeholders merge(Placeholders other) {
+    for (Map.Entry<String, Object> entry : other.getRaw().entrySet()) {
+      resolvers.putIfAbsent(entry.getKey(), entry.getValue());
+    }
+    return this;
   }
 }

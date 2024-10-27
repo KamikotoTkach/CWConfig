@@ -4,11 +4,13 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.Template;
 import ru.cwcode.cwutils.text.nanoid.NanoID;
 import ru.cwcode.tkach.locale.Placeholders;
+import ru.cwcode.tkach.locale.platform.MiniLocale;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class PlaceholdersOld implements Placeholders {
-  private final HashMap<String, Template> resolvers = new HashMap<>();
+  private final HashMap<String, Object> resolvers = new HashMap<>();
 
   public PlaceholdersOld() {
   }
@@ -23,7 +25,7 @@ public class PlaceholdersOld implements Placeholders {
 
   @Override
   public PlaceholdersOld add(String key, String value) {
-    resolvers.put(key, Template.of(key, value));
+    resolvers.put(key, value);
     return this;
   }
 
@@ -40,15 +42,28 @@ public class PlaceholdersOld implements Placeholders {
 
   @Override
   public PlaceholdersOld add(String key, Component value) {
-    resolvers.put(key, Template.of(key, value));
+    resolvers.put(key, value);
     return this;
   }
-
+  
   @Override
   public Object[] getResolvers() {
-    return resolvers.values().toArray();
+    return MiniLocale.getInstance().placeholderTypesRegistry().convert(resolvers);
   }
-
+  
+  @Override
+  public Map<String, Object> getRaw() {
+    return resolvers;
+  }
+  
+  @Override
+  public Placeholders merge(Placeholders other) {
+    for (Map.Entry<String, Object> entry : other.getRaw().entrySet()) {
+      resolvers.putIfAbsent(entry.getKey(), entry.getValue());
+    }
+    return this;
+  }
+  
   @Override
   public PlaceholdersOld add(String key, double value) {
     return add(key, String.valueOf(value));
@@ -72,5 +87,11 @@ public class PlaceholdersOld implements Placeholders {
   @Override
   public PlaceholdersOld add(String key, boolean value) {
     return add(key, String.valueOf(value));
+  }
+  
+  @Override
+  public Placeholders add(String key, Object value) {
+    resolvers.put(key, value);
+    return this;
   }
 }
