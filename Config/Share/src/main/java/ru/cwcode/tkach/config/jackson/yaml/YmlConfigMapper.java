@@ -42,6 +42,7 @@ public class YmlConfigMapper extends JacksonConfigMapper<YmlConfig> {
     
     YAMLFactory yaml = YAMLFactory.builder()
                                   .disable(YAMLGenerator.Feature.SPLIT_LINES)
+                                  .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
                                   .loaderOptions(loaderOptions)
                                   .build();
     
