@@ -11,6 +11,7 @@ import ru.cwcode.tkach.config.repository.RepositoryEntry;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,11 @@ public class YmlRepository<K, E extends RepositoryEntry<K>> extends YmlConfig im
   @Override
   public Collection<E> list() {
     return entries.values();
+  }
+  
+  @Override
+  public Set<K> keys() {
+    return entries.keySet();
   }
   
   @Override

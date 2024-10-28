@@ -2,10 +2,7 @@ package ru.cwcode.tkach.config.repository;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 
 public interface Repository<K, E extends RepositoryEntry<K>> {
@@ -16,6 +13,8 @@ public interface Repository<K, E extends RepositoryEntry<K>> {
   boolean remove(K key);
   
   Collection<E> list();
+  
+  Set<K> keys();
   
   default List<E> copyOf() {
     return List.copyOf(list());
