@@ -21,7 +21,7 @@ public class ConfigCreator<C extends Config<C>> {
       configManager.platform.info(l10n.get("config.creator.creating", name));
     }
     
-    Optional<V> instance = Utils.getNewInstance(configClass);
+    Optional<V> instance = createInstance(configClass);
     
     if (!persistOptions.isSilent()) {
       instance.ifPresentOrElse(__ -> configManager.platform.info(l10n.get("config.creator.created", name)),
@@ -29,5 +29,9 @@ public class ConfigCreator<C extends Config<C>> {
     }
     
     return instance;
+  }
+  
+  protected <V extends Config<C>> Optional<V> createInstance(Class<V> configClass) {
+    return Utils.getNewInstance(configClass);
   }
 }
