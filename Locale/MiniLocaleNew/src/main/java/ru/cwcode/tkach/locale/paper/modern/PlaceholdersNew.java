@@ -6,6 +6,7 @@ import ru.cwcode.cwutils.text.nanoid.NanoID;
 import ru.cwcode.tkach.locale.Placeholders;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,7 +75,8 @@ public class PlaceholdersNew implements Placeholders {
   
   @Override
   public TagResolver[] getResolvers() {
-    return (TagResolver[]) MiniLocale.getInstance().placeholderTypesRegistry().convert(resolvers);
+    Object[] resolvers = MiniLocale.getInstance().placeholderTypesRegistry().convert(this.resolvers);
+    return Arrays.copyOf(resolvers, resolvers.length, TagResolver[].class);
   }
   
   @Override

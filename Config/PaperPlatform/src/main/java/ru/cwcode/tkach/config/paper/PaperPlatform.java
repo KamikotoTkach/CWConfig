@@ -12,7 +12,7 @@ import ru.cwcode.tkach.locale.platform.MiniLocale;
 
 public final class PaperPlatform extends JavaPlugin {
   @Override
-  public void onEnable() {
+  public void onLoad() {
     ServerPlatform.l10n = new L10n(new PaperL10nPlatform(this, this.getFile()));
     
     if (PaperServerUtils.isVersionGreater("1.17.1")) {
