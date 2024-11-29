@@ -22,6 +22,8 @@ public interface Placeholders {
 
   Placeholders add(String key, Component value);
   
+  Placeholders add(String key, Message message);
+  
   Placeholders add(String key, Object value);
 
   Object[] getResolvers();

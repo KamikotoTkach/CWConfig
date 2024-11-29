@@ -3,6 +3,7 @@ package ru.cwcode.tkach.locale.paper.old;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.Template;
 import ru.cwcode.cwutils.text.nanoid.NanoID;
+import ru.cwcode.tkach.locale.Message;
 import ru.cwcode.tkach.locale.Placeholders;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
 
@@ -40,7 +41,13 @@ public class PlaceholdersOld implements Placeholders {
 
     return this;
   }
-
+  
+  @Override
+  public Placeholders add(String key, Message message) {
+    resolvers.put(key, message.serialize());
+    return this;
+  }
+  
   @Override
   public PlaceholdersOld add(String key, Component value) {
     resolvers.put(key, value);

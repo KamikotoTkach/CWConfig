@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import ru.cwcode.cwutils.text.nanoid.NanoID;
+import ru.cwcode.tkach.locale.Message;
 import ru.cwcode.tkach.locale.Placeholders;
 
 import java.util.HashMap;
@@ -64,6 +65,12 @@ public class PlaceholdersVelocity implements Placeholders {
   @Override
   public Placeholders add(String key, Component value) {
     resolvers.put(key.toLowerCase(), value);
+    return this;
+  }
+  
+  @Override
+  public Placeholders add(String key, Message message) {
+    resolvers.put(key, message.serialize());
     return this;
   }
   

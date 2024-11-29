@@ -40,6 +40,10 @@ public final class Placeholder {
     return MiniLocale.getInstance().emptyPlaceholders().add(key, value);
   }
   
+  public static Placeholders add(String key, Message message) {
+    return MiniLocale.getInstance().emptyPlaceholders().add(key, message.serialize());
+  }
+  
   public static Placeholders add(String key, Object value) {
     return MiniLocale.getInstance().emptyPlaceholders().add(key, value);
   }
