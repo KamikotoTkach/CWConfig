@@ -4,7 +4,7 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 public class TimeData {
-  String time;
+  protected String time;
   transient LocalTime cached;
   
   private TimeData() {

@@ -5,12 +5,20 @@ import org.bukkit.inventory.ItemStack;
 import ru.cwcode.cwutils.numbers.Rand;
 
 public class MaterialLootData extends AbstractLootData {
-  Material material;
+  protected Material material;
   
   public MaterialLootData() {
   }
   
   public MaterialLootData(Material material) {
+    this.material = material;
+  }
+  
+  public Material getMaterial() {
+    return material;
+  }
+  
+  public void setMaterial(Material material) {
     this.material = material;
   }
   

@@ -6,7 +6,7 @@ import ru.cwcode.tkach.config.annotation.Fancy;
 
 public class ItemStackLootData extends AbstractLootData {
   @Fancy
-  ItemStack item;
+  protected ItemStack item;
   
   public ItemStackLootData() {
   }
@@ -18,6 +18,10 @@ public class ItemStackLootData extends AbstractLootData {
   public ItemStackLootData(ItemStack item, double chance) {
     this.item = item;
     this.chance = chance;
+  }
+  
+  public void setItem(ItemStack item) {
+    this.item = item;
   }
   
   @Override

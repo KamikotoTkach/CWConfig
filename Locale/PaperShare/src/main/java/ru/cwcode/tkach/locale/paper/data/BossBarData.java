@@ -13,10 +13,10 @@ public class BossBarData implements Serializable {
   @Serial
   private static final long serialVersionUID = 1L;
   
-  Message title = new Message();
-  BossBar.Color color = BossBar.Color.WHITE;
-  BossBar.Overlay overlay = BossBar.Overlay.NOTCHED_12;
-  Set<BossBar.Flag> flags = Set.of();
+  protected Message title = new Message();
+  protected BossBar.Color color = BossBar.Color.WHITE;
+  protected BossBar.Overlay overlay = BossBar.Overlay.NOTCHED_12;
+  protected Set<BossBar.Flag> flags = Set.of();
   
   public void setTitle(Message title) {
     this.title = title;

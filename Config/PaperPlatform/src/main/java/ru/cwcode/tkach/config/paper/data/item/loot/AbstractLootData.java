@@ -16,10 +16,12 @@ import ru.cwcode.tkach.config.repository.RepositoryEntry;
   @JsonSubTypes.Type(value = ItemStackLootData.class, name = "item"),
 })
 public abstract class AbstractLootData implements RepositoryEntry<String> {
-  String id = NanoID.randomNanoId(5);
-  double chance = 0;
-  int min = 1;
-  int max = 2;
+  protected String id = NanoID.randomNanoId(5);
+  protected double chance = 0;
+  protected int min = 1;
+  protected int max = 2;
+  
+  public abstract ItemStack getItem();
   
   @Override
   public String getKey() {
@@ -30,5 +32,31 @@ public abstract class AbstractLootData implements RepositoryEntry<String> {
     return Rand.testChance(chance);
   }
   
-  public abstract ItemStack getItem();
+  public void setKey(String id) {
+    this.id = id;
+  }
+  
+  public double getChance() {
+    return chance;
+  }
+  
+  public void setChance(double chance) {
+    this.chance = chance;
+  }
+  
+  public int getMin() {
+    return min;
+  }
+  
+  public void setMin(int min) {
+    this.min = min;
+  }
+  
+  public int getMax() {
+    return max;
+  }
+  
+  public void setMax(int max) {
+    this.max = max;
+  }
 }

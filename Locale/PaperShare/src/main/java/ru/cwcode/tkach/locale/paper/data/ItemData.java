@@ -12,10 +12,10 @@ import java.io.Serializable;
 public class ItemData implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  Material material;
-  Message name;
-  MessageArr description;
-  int customModelData = 0;
+  protected Material material;
+  protected Message name;
+  protected MessageArr description;
+  protected int customModelData = 0;
 
   public ItemData() {
   }
