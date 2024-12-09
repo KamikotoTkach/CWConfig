@@ -20,6 +20,13 @@ public class ItemStackLootData extends AbstractLootData {
     this.chance = chance;
   }
   
+  public ItemStackLootData(ItemStack item, double chance, int min, int max) {
+    this.item = item;
+    this.chance = chance;
+    this.min = min;
+    this.max = max;
+  }
+  
   public void setItem(ItemStack item) {
     this.item = item;
   }

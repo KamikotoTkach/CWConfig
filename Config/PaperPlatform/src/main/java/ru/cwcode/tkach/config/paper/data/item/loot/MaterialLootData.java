@@ -14,6 +14,18 @@ public class MaterialLootData extends AbstractLootData {
     this.material = material;
   }
   
+  public MaterialLootData(Material material, double chance) {
+    this.material = material;
+    this.chance = chance;
+  }
+  
+  public MaterialLootData(Material material, double chance, int min, int max) {
+    this.material = material;
+    this.chance = chance;
+    this.min = min;
+    this.max = max;
+  }
+  
   public Material getMaterial() {
     return material;
   }
