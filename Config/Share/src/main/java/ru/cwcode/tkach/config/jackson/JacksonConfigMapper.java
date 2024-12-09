@@ -26,14 +26,18 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
   public JacksonConfigMapper() {
   }
   
+  protected abstract ObjectMapper createObjectMapper();
+  
+  public ObjectMapper getMapper() {
+    return mapper;
+  }
+  
   @Override
   public void setConfigManager(ConfigManager<C> configManager) {
     super.setConfigManager(configManager);
     
     configureObjectMapper();
   }
-  
-  protected abstract ObjectMapper createObjectMapper();
   
   @Override
   public <V extends C> Optional<V> map(String string, Class<V> configClass, ConfigPersistOptions persistOptions) {
@@ -43,6 +47,10 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
   @Override
   public Optional<String> map(C config, ConfigPersistOptions persistOptions) {
     return Optional.empty();
+  }
+  
+  public void module(Module module) {
+    mapper.registerModule(module);
   }
   
   protected void configureObjectMapper() {
@@ -74,9 +82,5 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
     for (Module additionalJacksonModule : configManager.platform().additionalJacksonModules()) {
       module(additionalJacksonModule);
     }
-  }
-  
-  public void module(Module module) {
-    mapper.registerModule(module);
   }
 }
