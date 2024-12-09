@@ -56,4 +56,9 @@ public class YmlConfigManager extends JacksonConfigManager<YmlConfig> {
       }
     };
   }
+  
+  @Override
+  public YmlConfigMapper mapper() {
+    return (YmlConfigMapper) super.mapper();
+  }
 }
