@@ -5,6 +5,7 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.BlockVector;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Vector;
@@ -37,11 +38,13 @@ public class PaperPluginConfigPlatform implements ConfigPlatform {
     SimpleModule paperModule = new SimpleModule("cwconfig-paper");
     
     paperModule.addSerializer(ItemStack.class, new ItemStackSerializer());
+    paperModule.addSerializer(PotionEffectType.class, new PotionEffectTypeSerializer());
     paperModule.addSerializer(OfflinePlayer.class, new OfflinePlayerSerializer());
     paperModule.addSerializer(Location.class, new LocationSerializer());
     paperModule.addSerializer(PotionEffect.class, new PotionEffectSerializer());
     
     paperModule.addDeserializer(ItemStack.class, new ItemStackDeserializer());
+    paperModule.addDeserializer(PotionEffectType.class, new PotionEffectTypeDeserializer());
     paperModule.addDeserializer(OfflinePlayer.class, new OfflinePlayerDeserializer());
     paperModule.addDeserializer(Location.class, new LocationDeserializer());
     paperModule.addDeserializer(PotionEffect.class, new PotionEffectDeserializer());
