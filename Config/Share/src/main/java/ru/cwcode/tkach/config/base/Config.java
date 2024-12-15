@@ -24,7 +24,12 @@ public abstract class Config<C extends Config<C>> {
   }
   
   public void save(boolean async) {
-    manager.save((C) this, (o) -> o.async(async));
+    if (!async) {
+      save();
+      return;
+    }
+    
+    manager.platform().runAsync(() -> manager.save((C) this));
   }
   
   public String name() {
