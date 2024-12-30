@@ -6,7 +6,9 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import ru.cwcode.cwutils.text.nanoid.NanoID;
 import ru.cwcode.tkach.locale.Message;
 import ru.cwcode.tkach.locale.Placeholders;
+import ru.cwcode.tkach.locale.platform.MiniLocale;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -81,8 +83,9 @@ public class PlaceholdersVelocity implements Placeholders {
   }
   
   @Override
-  public Object[] getResolvers() {
-    return resolvers.values().toArray();
+  public TagResolver[] getResolvers() {
+    Object[] resolvers = MiniLocale.getInstance().placeholderTypesRegistry().convert(this.resolvers);
+    return Arrays.copyOf(resolvers, resolvers.length, TagResolver[].class);
   }
   
   @Override
