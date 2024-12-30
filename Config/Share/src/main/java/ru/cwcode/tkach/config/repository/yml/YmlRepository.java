@@ -10,13 +10,12 @@ import ru.cwcode.tkach.config.repository.RepositoryEntry;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class YmlRepository<K, E extends RepositoryEntry<K>> extends YmlConfig implements Repository<K, E>, Reloadable {
-  Map<K, E> entries = new LinkedHashMap<>();
+  LinkedHashMap<K, E> entries = new LinkedHashMap<>();
   
   transient YmlRepositoryManager ymlRepositoryManager;
   
@@ -56,14 +55,16 @@ public class YmlRepository<K, E extends RepositoryEntry<K>> extends YmlConfig im
   }
   
   @JsonGetter("entries")
-  private Collection<E> serialize() {
-    return entries.values();
+  private List<E> serialize() {
+    return List.copyOf(entries.values());
   }
   
   @JsonSetter("entries")
-  private void deserialize(Collection<E> entries) {
+  private void deserialize(List<E> entries) {
     this.entries.clear();
     
-    this.entries.putAll(entries.stream().collect(Collectors.toMap(RepositoryEntry::getKey, e -> e)));
+    for (E entry : entries) {
+      this.entries.put(entry.getKey(), entry);
+    }
   }
 }
