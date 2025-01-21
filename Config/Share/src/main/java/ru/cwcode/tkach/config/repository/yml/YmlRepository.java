@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
+import static ru.cwcode.tkach.config.server.ServerPlatform.l10n;
+
 public class YmlRepository<K, E extends RepositoryEntry<K>> extends YmlConfig implements Repository<K, E>, Reloadable {
   LinkedHashMap<K, E> entries = new LinkedHashMap<>();
   
@@ -64,7 +66,9 @@ public class YmlRepository<K, E extends RepositoryEntry<K>> extends YmlConfig im
     this.entries.clear();
     
     for (E entry : entries) {
-      this.entries.put(entry.getKey(), entry);
+      if (this.entries.put(entry.getKey(), entry) != null) {
+        manager.platform().warning(l10n.get("repository.duplicate", name(), entry.getKey()));
+      }
     }
   }
 }
