@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import ru.cwcode.tkach.config.base.Config;
 import ru.cwcode.tkach.config.base.ConfigPersistOptions;
 import ru.cwcode.tkach.config.base.manager.ConfigManager;
@@ -77,7 +76,6 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
     
     module(module);
     module(new JavaTimeModule());
-    module(new ParameterNamesModule());
     
     for (Module additionalJacksonModule : configManager.platform().additionalJacksonModules()) {
       module(additionalJacksonModule);
