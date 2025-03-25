@@ -19,8 +19,6 @@ import static ru.cwcode.tkach.config.server.ServerPlatform.l10n;
 public class YmlRepository<K, E extends RepositoryEntry<K>> extends YmlConfig implements Repository<K, E>, Reloadable {
   LinkedHashMap<K, E> entries = new LinkedHashMap<>();
   
-  transient YmlRepositoryManager ymlRepositoryManager;
-  
   @Override
   public @Nullable E getOrNull(K key) {
     return entries.get(key);
@@ -47,13 +45,13 @@ public class YmlRepository<K, E extends RepositoryEntry<K>> extends YmlConfig im
   }
   
   @Override
-  public boolean reload() {
-    return ymlRepositoryManager.reload(this);
+  public E computeIfAbsent(K key, Function<? super K, ? extends E> mappingFunction) {
+    return entries.computeIfAbsent(key, mappingFunction);
   }
   
   @Override
-  public E computeIfAbsent(K key, Function<? super K, ? extends E> mappingFunction) {
-    return entries.computeIfAbsent(key, mappingFunction);
+  public boolean reload() {
+    return manager.load(name(), getClass()) != null;
   }
   
   @JsonGetter("entries")

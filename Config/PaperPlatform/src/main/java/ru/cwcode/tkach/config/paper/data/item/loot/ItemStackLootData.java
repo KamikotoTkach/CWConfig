@@ -15,6 +15,11 @@ public class ItemStackLootData extends AbstractLootData {
     this.item = item;
   }
   
+  public ItemStackLootData(String id, ItemStack item) {
+    super(id);
+    this.item = item;
+  }
+  
   public ItemStackLootData(ItemStack item, double chance) {
     this.item = item;
     this.chance = chance;
@@ -33,6 +38,6 @@ public class ItemStackLootData extends AbstractLootData {
   
   @Override
   public ItemStack getItem() {
-    return item.clone().asQuantity(Rand.ofInt(min, max));
+    return item.clone().asQuantity(randomize ? Rand.ofInt(min, max) : min);
   }
 }

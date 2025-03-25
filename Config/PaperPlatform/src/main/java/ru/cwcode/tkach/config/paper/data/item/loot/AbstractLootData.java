@@ -20,6 +20,14 @@ public abstract class AbstractLootData implements RepositoryEntry<String> {
   protected double chance = 0;
   protected int min = 1;
   protected int max = 2;
+  protected boolean randomize = true;
+  
+  public AbstractLootData(String id) {
+    this.id = id;
+  }
+  
+  public AbstractLootData() {
+  }
   
   public abstract ItemStack getItem();
   
@@ -58,5 +66,13 @@ public abstract class AbstractLootData implements RepositoryEntry<String> {
   
   public void setMax(int max) {
     this.max = max;
+  }
+  
+  public boolean isRandomize() {
+    return randomize;
+  }
+  
+  public void setRandomize(boolean randomize) {
+    this.randomize = randomize;
   }
 }

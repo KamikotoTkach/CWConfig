@@ -14,6 +14,11 @@ public class MaterialLootData extends AbstractLootData {
     this.material = material;
   }
   
+  public MaterialLootData(String id, Material material) {
+    super(id);
+    this.material = material;
+  }
+  
   public MaterialLootData(Material material, double chance) {
     this.material = material;
     this.chance = chance;
@@ -36,6 +41,6 @@ public class MaterialLootData extends AbstractLootData {
   
   @Override
   public ItemStack getItem() {
-    return new ItemStack(material, Rand.ofInt(min, max));
+    return new ItemStack(material, randomize ? Rand.ofInt(min, max) : min);
   }
 }

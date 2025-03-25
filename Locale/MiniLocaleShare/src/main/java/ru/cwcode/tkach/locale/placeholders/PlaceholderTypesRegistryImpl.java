@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class PlaceholderTypesRegistryImpl implements PlaceholderTypesRegistry {
   List<PlaceholderType<?>> registeredTypes = new ArrayList<>();
@@ -34,6 +35,9 @@ public class PlaceholderTypesRegistryImpl implements PlaceholderTypesRegistry {
       
       if (placeholderType != null) {
         parsed.add(placeholderType.convert(entry.getKey(), entry.getValue()));
+      } else {
+        Logger.getLogger("MiniLocale").warning(String.format("Cannot convert placeholder %s with type %s (%s)",
+                                                             entry.getKey(), entry.getValue().getClass().getSimpleName(), entry.getValue()));
       }
     }
     
