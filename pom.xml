@@ -18,6 +18,7 @@
 
     <modules>
         <module>Config/Share</module>
+        <module>Config/Share/Relocated</module>
         <module>Config/PaperPlatform</module>
         <module>Config/VelocityPlatform</module>
 
@@ -28,5 +29,6 @@
         <module>Locale/MiniLocaleVelocity</module>
 
         <module>Bundle</module>
+        <module>Config/ConfigWebEditor</module>
     </modules>
 </project>

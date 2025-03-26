@@ -1,8 +1,8 @@
 package ru.cwcode.tkach.config.paper.jackson.modules;
 
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.core.JsonParser;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.DeserializationContext;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 

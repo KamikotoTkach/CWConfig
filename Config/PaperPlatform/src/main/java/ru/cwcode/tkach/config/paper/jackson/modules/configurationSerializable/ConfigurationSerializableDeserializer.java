@@ -1,12 +1,12 @@
 package ru.cwcode.tkach.config.paper.jackson.modules.configurationSerializable;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.core.JsonParser;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.DeserializationContext;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.JsonDeserializer;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.JsonNode;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.HashMap;

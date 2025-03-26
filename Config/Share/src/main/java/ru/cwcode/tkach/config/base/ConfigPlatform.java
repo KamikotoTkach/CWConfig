@@ -20,4 +20,6 @@ public interface ConfigPlatform {
   Path dataFolder();
   
   void disable();
+  
+  String name();
 }

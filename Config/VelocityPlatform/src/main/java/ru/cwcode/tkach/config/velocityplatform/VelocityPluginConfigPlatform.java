@@ -1,9 +1,9 @@
 package ru.cwcode.tkach.config.velocityplatform;
 
+import com.velocitypowered.api.plugin.PluginContainer;
 import com.velocitypowered.api.proxy.ProxyServer;
 import org.slf4j.Logger;
 import ru.cwcode.tkach.config.base.ConfigPlatform;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.Module;
 
 import java.nio.file.Path;
 import java.time.Duration;
@@ -16,7 +16,7 @@ public class VelocityPluginConfigPlatform implements ConfigPlatform {
   private final ProxyServer server;
   private final Logger logger;
   private final Path dataDirectory;
-  private final List<Module> modules = new ArrayList<>();
+  private final List<com.fasterxml.jackson.databind.Module> modules = new ArrayList<>();
   
   public VelocityPluginConfigPlatform(Object plugin, ProxyServer server, Logger logger, Path dataDirectory) {
     this.plugin = plugin;
@@ -26,7 +26,7 @@ public class VelocityPluginConfigPlatform implements ConfigPlatform {
   }
   
   @Override
-  public List<Module> additionalJacksonModules() {
+  public List<com.fasterxml.jackson.databind.Module> additionalJacksonModules() {
     return modules;
   }
   
@@ -65,5 +65,11 @@ public class VelocityPluginConfigPlatform implements ConfigPlatform {
   public void disable() {
     //у велосити нет возможности отгрузить плагин
     logger.error("A critical error has occurred, the plugin cannot continue its correct operation.");
+  }
+  
+  @Override
+  public String name() {
+    PluginContainer pluginContainer = server.getPluginManager().ensurePluginContainer(plugin);
+    return pluginContainer.getDescription().getName().orElse(pluginContainer.getDescription().getId());
   }
 }

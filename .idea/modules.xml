@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Bundle/CWConfig.iml" filepath="$PROJECT_DIR$/Bundle/CWConfig.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ConfigWebEditor.iml" filepath="$PROJECT_DIR$/ConfigWebEditor.iml" />
       <module fileurl="file://$PROJECT_DIR$/Locale/MiniLocaleNew/MiniLocaleNew.iml" filepath="$PROJECT_DIR$/Locale/MiniLocaleNew/MiniLocaleNew.iml" />
       <module fileurl="file://$PROJECT_DIR$/Locale/MiniLocaleOld/MiniLocaleOld.iml" filepath="$PROJECT_DIR$/Locale/MiniLocaleOld/MiniLocaleOld.iml" />
       <module fileurl="file://$PROJECT_DIR$/Locale/PaperShare/MiniLocalePaperShare.iml" filepath="$PROJECT_DIR$/Locale/PaperShare/MiniLocalePaperShare.iml" />

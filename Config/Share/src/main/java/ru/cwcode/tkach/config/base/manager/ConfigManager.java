@@ -20,6 +20,8 @@ import java.util.stream.Collectors;
 import static ru.cwcode.tkach.config.server.ServerPlatform.l10n;
 
 public abstract class ConfigManager<C extends Config<C>> {
+  public final static Map<String, ConfigManager<? extends Config<?>>> managers = new HashMap<>();
+  
   protected final ConfigPlatform platform;
   
   protected final ConfigLoader<C> loader; //file->str
@@ -45,6 +47,8 @@ public abstract class ConfigManager<C extends Config<C>> {
     persister.setConfigManager(this);
     mapper.setConfigManager(this);
     creator.setConfigManager(this);
+    
+    managers.put(configPlatform.name(), this);
   }
   
   @NotNull
@@ -93,9 +97,7 @@ public abstract class ConfigManager<C extends Config<C>> {
     }
     
     config.ifPresentOrElse(c -> {
-      configs.put(name, c);
-      c.setName(name);
-      c.setManager(this);
+      updateConfig(name, c);
       
       if (!options.isSilent()) {
         platform.info(l10n.get("config.manager.loaded", name));
@@ -112,6 +114,12 @@ public abstract class ConfigManager<C extends Config<C>> {
     });
     
     return config.orElse(null);
+  }
+  
+  public <V extends C> void updateConfig(String name, V instance) {
+    configs.put(name, instance);
+    instance.setName(name);
+    instance.setManager(this);
   }
   
   public void backupConfigFile(String name, Consumer<ConfigPersistOptions> options) {

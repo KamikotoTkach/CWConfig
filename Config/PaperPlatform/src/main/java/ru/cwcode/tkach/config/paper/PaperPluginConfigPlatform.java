@@ -1,5 +1,6 @@
 package ru.cwcode.tkach.config.paper;
 
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.attribute.AttributeModifier;
@@ -13,8 +14,6 @@ import ru.cwcode.tkach.config.paper.jackson.modules.configurationSerializable.Co
 import ru.cwcode.tkach.config.paper.jackson.modules.configurationSerializable.ConfigurationSerializableSerializer;
 import ru.cwcode.tkach.config.paper.jackson.modules.configurationSerializable.PotionEffectDeserializer;
 import ru.cwcode.tkach.config.paper.jackson.modules.configurationSerializable.PotionEffectSerializer;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.Module;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.module.SimpleModule;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
@@ -30,7 +29,7 @@ import java.util.List;
 
 public class PaperPluginConfigPlatform implements ConfigPlatform {
   JavaPlugin plugin;
-  List<Module> additionalJacksonModules = new ArrayList<>();
+  List<com.fasterxml.jackson.databind.Module> additionalJacksonModules = new ArrayList<>();
   
   public PaperPluginConfigPlatform(JavaPlugin plugin) {
     this.plugin = plugin;
@@ -65,7 +64,7 @@ public class PaperPluginConfigPlatform implements ConfigPlatform {
   }
   
   @Override
-  public List<Module> additionalJacksonModules() {
+  public List<com.fasterxml.jackson.databind.Module> additionalJacksonModules() {
     return additionalJacksonModules;
   }
   
@@ -101,5 +100,10 @@ public class PaperPluginConfigPlatform implements ConfigPlatform {
   @Override
   public void disable() {
     plugin.getServer().getPluginManager().disablePlugin(plugin);
+  }
+  
+  @Override
+  public String name() {
+    return plugin.getName();
   }
 }

@@ -1,10 +1,9 @@
 package ru.cwcode.tkach.config.paper.jackson.modules;
 
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.core.JsonGenerator;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.BeanProperty;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.JsonSerializer;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.SerializerProvider;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.ser.ContextualSerializer;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatVisitorWrapper;
+import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 import org.bukkit.inventory.ItemStack;
 import ru.cwcode.cwutils.items.ItemStackUtils;
 import ru.cwcode.tkach.config.annotation.Fancy;
@@ -25,7 +24,16 @@ public class ItemStackSerializer extends JsonSerializer<ItemStack> implements Co
   
   @Override
   public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property) {
-    fancy = property.getAnnotation(Fancy.class) != null;
+    fancy = property != null && property.getAnnotation(Fancy.class) != null;
     return this;
+  }
+  
+  @Override
+  public void acceptJsonFormatVisitor(JsonFormatVisitorWrapper visitor, JavaType typeHint) throws JsonMappingException {
+    if (fancy) {
+      visitor.expectStringFormat(typeHint);
+    } else {
+      visitor.expectAnyFormat(typeHint);
+    }
   }
 }

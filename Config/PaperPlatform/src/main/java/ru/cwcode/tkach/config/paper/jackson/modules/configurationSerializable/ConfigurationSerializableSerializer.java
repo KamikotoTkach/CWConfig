@@ -1,9 +1,12 @@
 package ru.cwcode.tkach.config.paper.jackson.modules.configurationSerializable;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatVisitorWrapper;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.core.JsonGenerator;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.JsonSerializer;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
 import java.util.Map;
@@ -17,5 +20,14 @@ public class ConfigurationSerializableSerializer<T extends ConfigurationSerializ
   
   protected Map<String, Object> preprocessMap(Map<String, Object> immutableMap) {
     return immutableMap;
+  }
+  
+  @Override
+  public void acceptJsonFormatVisitor(JsonFormatVisitorWrapper visitor, JavaType typeHint) throws JsonMappingException {
+    JavaType mapType = visitor.getProvider()
+                              .getTypeFactory()
+                              .constructMapType(Map.class, String.class, Object.class);
+    
+    visitor.expectMapFormat(mapType);
   }
 }

@@ -17,10 +17,13 @@ import ru.cwcode.tkach.locale.Message;
 import ru.cwcode.tkach.locale.MessageArr;
 import ru.cwcode.tkach.locale.translatable.TranslatableMessage;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMapper<C> {
   protected ObjectMapper mapper;
+  Map<Object, Module> registeredModules = new HashMap<>();
   
   public JacksonConfigMapper() {
   }
@@ -35,7 +38,7 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
   public void setConfigManager(ConfigManager<C> configManager) {
     super.setConfigManager(configManager);
     
-    configureObjectMapper();
+    configureObjectMapper(mapper = createObjectMapper());
   }
   
   @Override
@@ -49,12 +52,11 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
   }
   
   public void module(Module module) {
+    registeredModules.put(module.getModuleName(),module);
     mapper.registerModule(module);
   }
   
-  protected void configureObjectMapper() {
-    mapper = createObjectMapper();
-    
+  public void configureObjectMapper(ObjectMapper mapper) {
     mapper.findAndRegisterModules();
     mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
     mapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
@@ -74,11 +76,11 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
     module.addDeserializer(MessageArr.class, new MessageArrDeserializer());
     module.addSerializer(MessageArr.class, new MessageArrSerializer());
     
-    module(module);
-    module(new JavaTimeModule());
+    mapper.registerModule(module);
+    mapper.registerModule(new JavaTimeModule());
     
     for (Module additionalJacksonModule : configManager.platform().additionalJacksonModules()) {
-      module(additionalJacksonModule);
+      mapper.registerModule(additionalJacksonModule);
     }
   }
 }

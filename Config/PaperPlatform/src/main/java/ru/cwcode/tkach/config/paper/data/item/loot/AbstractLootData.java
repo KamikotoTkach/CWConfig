@@ -1,10 +1,10 @@
 package ru.cwcode.tkach.config.paper.data.item.loot;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.bukkit.inventory.ItemStack;
 import ru.cwcode.cwutils.numbers.Rand;
 import ru.cwcode.cwutils.text.nanoid.NanoID;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.annotation.JsonSubTypes;
-import ru.cwcode.tkach.config.relocate.com.fasterxml.jackson.annotation.JsonTypeInfo;
 import ru.cwcode.tkach.config.repository.RepositoryEntry;
 
 @JsonTypeInfo(

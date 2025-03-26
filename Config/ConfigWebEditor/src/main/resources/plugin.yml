@@ -1,0 +1,7 @@
+name: CWConfigWebEditor
+version: '${project.version}'
+main: ru.cwcode.tkach.config.webeditor.PaperStarter
+api-version: '1.16'
+depend: [ "CWConfig" ]
+authors: [ "TkachGeek" ]
+website: "https://t.me/tkachx"
