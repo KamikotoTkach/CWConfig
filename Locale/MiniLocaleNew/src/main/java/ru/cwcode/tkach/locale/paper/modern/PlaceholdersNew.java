@@ -77,7 +77,7 @@ public class PlaceholdersNew implements Placeholders {
   @Override
   public Placeholders add(String key, Object value) {
     resolvers.put(key, value);
-    return null;
+    return this;
   }
   
   @Override
