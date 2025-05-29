@@ -11,8 +11,7 @@ import org.bukkit.entity.Player;
 import ru.cwcode.tkach.locale.Message;
 import ru.cwcode.tkach.locale.Placeholders;
 import ru.cwcode.tkach.locale.messageDirection.MessageDirection;
-import ru.cwcode.tkach.locale.paper.old.placeholders.ComponentPlaceholderType;
-import ru.cwcode.tkach.locale.paper.old.placeholders.StringPlaceholderType;
+import ru.cwcode.tkach.locale.paper.old.placeholders.*;
 import ru.cwcode.tkach.locale.placeholders.PlaceholderTypesRegistry;
 import ru.cwcode.tkach.locale.placeholders.PlaceholderTypesRegistryImpl;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
@@ -29,6 +28,12 @@ public class MiniLocaleOld extends MiniLocale {
   {
     placeholderTypesRegistry.registerType(new StringPlaceholderType());
     placeholderTypesRegistry.registerType(new ComponentPlaceholderType());
+    placeholderTypesRegistry.registerType(new BooleanPlaceholderType());
+    placeholderTypesRegistry.registerType(new DatePlaceholderType());
+    placeholderTypesRegistry.registerType(new NumberPlaceholderType());
+    placeholderTypesRegistry.registerType(new UnparsedStringPlaceholderType());
+    placeholderTypesRegistry.registerType(new PlayerPlaceholderType());
+    placeholderTypesRegistry.registerType(new ItemStackPlaceholderType());
   }
   
   @Override

@@ -11,6 +11,10 @@ public final class Placeholder {
   public static Placeholders add(String key, String value) {
     return MiniLocale.getInstance().emptyPlaceholders().add(key, value);
   }
+  
+  public static Placeholders unparsed(String key, String value) {
+    return MiniLocale.getInstance().emptyPlaceholders().unparsed(key, value);
+  }
 
   public static Placeholders add(String key, double value) {
     return MiniLocale.getInstance().emptyPlaceholders().add(key, value);

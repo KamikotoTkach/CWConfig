@@ -12,6 +12,6 @@ public class StringPlaceholderType implements PlaceholderType<TagResolver> {
   
   @Override
   public TagResolver convert(String key, Object value) {
-    return TagResolver.resolver(key.toLowerCase(), Tag.preProcessParsed((String) value));
+    return TagResolver.resolver(key, Tag.preProcessParsed((String) value));
   }
 }

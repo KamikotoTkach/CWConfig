@@ -6,6 +6,7 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import ru.cwcode.cwutils.text.nanoid.NanoID;
 import ru.cwcode.tkach.locale.Message;
 import ru.cwcode.tkach.locale.Placeholders;
+import ru.cwcode.tkach.locale.placeholders.UnparsedString;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
 
 import java.util.Arrays;
@@ -32,7 +33,13 @@ public class PlaceholdersVelocity implements Placeholders {
     resolvers.put(key.toLowerCase(), value);
     return this;
   }
-
+  
+  @Override
+  public Placeholders unparsed(String key, String value) {
+    resolvers.put(key.toLowerCase(), new UnparsedString(value));
+    return this;
+  }
+  
   @Override
   public Placeholders add(String key, double value) {
     return add(key, String.valueOf(value));

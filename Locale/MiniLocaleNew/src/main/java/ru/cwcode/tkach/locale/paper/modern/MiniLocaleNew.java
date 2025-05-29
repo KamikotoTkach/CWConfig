@@ -10,8 +10,7 @@ import org.bukkit.entity.Player;
 import ru.cwcode.tkach.locale.Message;
 import ru.cwcode.tkach.locale.Placeholders;
 import ru.cwcode.tkach.locale.messageDirection.MessageDirection;
-import ru.cwcode.tkach.locale.paper.modern.placeholders.ComponentLikePlaceholderType;
-import ru.cwcode.tkach.locale.paper.modern.placeholders.StringPlaceholderType;
+import ru.cwcode.tkach.locale.paper.modern.placeholders.*;
 import ru.cwcode.tkach.locale.placeholders.PlaceholderTypesRegistry;
 import ru.cwcode.tkach.locale.placeholders.PlaceholderTypesRegistryImpl;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
@@ -23,11 +22,17 @@ import java.util.UUID;
 public class MiniLocaleNew extends MiniLocale {
   MiniMessageWrapperNew miniMessageWrapper = new MiniMessageWrapperNew();
   MessagePreprocessor messagePreprocessor = new MessagePreprocessor();
-  PlaceholderTypesRegistryImpl placeholderTypesRegistry = new PlaceholderTypesRegistryImpl();
+  PlaceholderTypesRegistry placeholderTypesRegistry = new PlaceholderTypesRegistryImpl();
   
   {
     placeholderTypesRegistry.registerType(new StringPlaceholderType());
     placeholderTypesRegistry.registerType(new ComponentLikePlaceholderType());
+    placeholderTypesRegistry.registerType(new BooleanPlaceholderType());
+    placeholderTypesRegistry.registerType(new DatePlaceholderType());
+    placeholderTypesRegistry.registerType(new NumberPlaceholderType());
+    placeholderTypesRegistry.registerType(new UnparsedStringPlaceholderType());
+    placeholderTypesRegistry.registerType(new PlayerPlaceholderType());
+    placeholderTypesRegistry.registerType(new ItemStackPlaceholderType());
   }
   
   @Override

@@ -13,8 +13,7 @@ import ru.cwcode.tkach.locale.messageDirection.MessageDirection;
 import ru.cwcode.tkach.locale.placeholders.PlaceholderTypesRegistry;
 import ru.cwcode.tkach.locale.placeholders.PlaceholderTypesRegistryImpl;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
-import ru.cwcode.tkach.locale.velocity.placeholders.ComponentLikePlaceholderType;
-import ru.cwcode.tkach.locale.velocity.placeholders.StringPlaceholderType;
+import ru.cwcode.tkach.locale.velocity.placeholders.*;
 import ru.cwcode.tkach.locale.wrapper.adventure.MiniMessageWrapper;
 
 import java.time.Duration;
@@ -29,6 +28,10 @@ public class MiniLocaleVelocity extends MiniLocale {
   {
     placeholderTypesRegistry.registerType(new StringPlaceholderType());
     placeholderTypesRegistry.registerType(new ComponentLikePlaceholderType());
+    placeholderTypesRegistry.registerType(new BooleanPlaceholderType());
+    placeholderTypesRegistry.registerType(new DatePlaceholderType());
+    placeholderTypesRegistry.registerType(new NumberPlaceholderType());
+    placeholderTypesRegistry.registerType(new UnparsedStringPlaceholderType());
   }
   
   public MiniLocaleVelocity(ProxyServer proxyServer) {

@@ -6,6 +6,8 @@ import java.util.Map;
 
 public interface Placeholders {
   Placeholders add(String key, String value);
+  
+  Placeholders unparsed(String key, String value);
 
   Placeholders add(String key, double value);
 

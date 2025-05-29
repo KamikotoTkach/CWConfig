@@ -1,18 +1,17 @@
 package ru.cwcode.tkach.locale.velocity.placeholders;
 
-import net.kyori.adventure.text.ComponentLike;
-import net.kyori.adventure.text.minimessage.tag.Tag;
+import net.kyori.adventure.text.minimessage.tag.resolver.Formatter;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import ru.cwcode.tkach.locale.placeholders.PlaceholderType;
 
-public class ComponentLikePlaceholderType implements PlaceholderType<TagResolver> {
+public class NumberPlaceholderType implements PlaceholderType<TagResolver> {
   @Override
   public boolean isSupports(Object value) {
-    return value instanceof ComponentLike;
+    return value instanceof Number;
   }
   
   @Override
   public TagResolver convert(String key, Object value) {
-    return TagResolver.resolver(key, Tag.inserting((ComponentLike) value));
+    return Formatter.number(key, (Number) value);
   }
 }
