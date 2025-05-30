@@ -2,11 +2,13 @@ package ru.cwcode.tkach.locale;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MessageArr implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -56,6 +58,10 @@ public class MessageArr implements Serializable {
 
   public Message toSingleMessage() {
     return new Message(message);
+  }
+  
+  public List<Message> toMessages() {
+    return Arrays.stream(message).map(Message::new).collect(Collectors.toList());
   }
 
   public List<String> toList() {
