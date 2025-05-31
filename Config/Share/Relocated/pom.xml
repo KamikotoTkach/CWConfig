@@ -7,7 +7,10 @@
     <groupId>ru.cwcode.tkach.config</groupId>
     <artifactId>ShareRelocated</artifactId>
     <version>2.4.1</version>
-    <description>CWConfig library share</description>
+    <packaging>jar</packaging>
+
+    <name>ShareRelocated</name>
+    <description>CWConfig library share (relocated)</description>
     <url>https://github.com/KamikotoTkach/TkachConfig/</url>
 
     <licenses>
