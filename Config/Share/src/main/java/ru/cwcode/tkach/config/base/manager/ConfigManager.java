@@ -117,9 +117,13 @@ public abstract class ConfigManager<C extends Config<C>> {
   }
   
   public <V extends C> void updateConfig(String name, V instance) {
-    configs.put(name, instance);
+    C previous = configs.put(name, instance);
+    if (previous != null) previous.onUnload();
+    
     instance.setName(name);
     instance.setManager(this);
+    
+    instance.onLoad();
   }
   
   public void backupConfigFile(String name, Consumer<ConfigPersistOptions> options) {

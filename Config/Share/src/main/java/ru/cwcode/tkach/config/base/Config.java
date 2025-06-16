@@ -19,6 +19,9 @@ public abstract class Config<C extends Config<C>> {
     saveAllEnabled = isEnabled;
   }
   
+  public void onLoad() {}
+  public void onUnload() {}
+  
   public void save() {
     manager.save((C) this);
   }
