@@ -24,7 +24,12 @@ public class ItemStackSerializer extends JsonSerializer<ItemStack> implements Co
   
   @Override
   public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property) {
-    fancy = property != null && property.getAnnotation(Fancy.class) != null;
+    Fancy annotation;
+    
+    fancy = property == null
+            || (annotation = property.getAnnotation(Fancy.class)) == null
+            || annotation.value();
+    
     return this;
   }
   
