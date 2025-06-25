@@ -47,5 +47,5 @@ public class PotionEffectSerializer extends ConfigurationSerializableSerializer<
     objectVisitor.property("has-icon",
                            visitor.getProvider().findValueSerializer(Boolean.class),
                            typeHint);
-}
+  }
 }
