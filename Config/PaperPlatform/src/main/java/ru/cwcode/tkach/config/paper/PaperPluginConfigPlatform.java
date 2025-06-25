@@ -40,17 +40,19 @@ public class PaperPluginConfigPlatform implements ConfigPlatform {
     paperModule.addSerializer(PotionEffectType.class, new PotionEffectTypeSerializer());
     paperModule.addSerializer(OfflinePlayer.class, new OfflinePlayerSerializer());
     paperModule.addSerializer(Location.class, new LocationSerializer());
+    paperModule.addSerializer(Vector.class, new VectorSerializer());
+    paperModule.addSerializer(BlockVector.class, new BlockVectorSerializer());
     paperModule.addSerializer(PotionEffect.class, new PotionEffectSerializer());
     
     paperModule.addDeserializer(ItemStack.class, new ItemStackDeserializer());
     paperModule.addDeserializer(PotionEffectType.class, new PotionEffectTypeDeserializer());
     paperModule.addDeserializer(OfflinePlayer.class, new OfflinePlayerDeserializer());
     paperModule.addDeserializer(Location.class, new LocationDeserializer());
+    paperModule.addDeserializer(Vector.class, new VectorDeserializer());
+    paperModule.addDeserializer(BlockVector.class, new BlockVectorDeserializer());
     paperModule.addDeserializer(PotionEffect.class, new PotionEffectDeserializer());
     
-    List.of(Vector.class,
-            BlockVector.class,
-            Color.class,
+    List.of(Color.class,
             FireworkEffect.class,
             Pattern.class,
             AttributeModifier.class,
