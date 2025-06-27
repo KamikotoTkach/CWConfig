@@ -44,6 +44,12 @@ public class PaperPluginConfigPlatform implements ConfigPlatform {
     paperModule.addSerializer(BlockVector.class, new BlockVectorSerializer());
     paperModule.addSerializer(PotionEffect.class, new PotionEffectSerializer());
     
+    paperModule.addKeySerializer(PotionEffectType.class, new PotionEffectTypeSerializer());
+    paperModule.addKeySerializer(OfflinePlayer.class, new OfflinePlayerSerializer());
+    paperModule.addKeySerializer(Location.class, new LocationSerializer());
+    paperModule.addKeySerializer(Vector.class, new VectorSerializer());
+    paperModule.addKeySerializer(BlockVector.class, new BlockVectorSerializer());
+    
     paperModule.addDeserializer(ItemStack.class, new ItemStackDeserializer());
     paperModule.addDeserializer(PotionEffectType.class, new PotionEffectTypeDeserializer());
     paperModule.addDeserializer(OfflinePlayer.class, new OfflinePlayerDeserializer());
@@ -51,6 +57,12 @@ public class PaperPluginConfigPlatform implements ConfigPlatform {
     paperModule.addDeserializer(Vector.class, new VectorDeserializer());
     paperModule.addDeserializer(BlockVector.class, new BlockVectorDeserializer());
     paperModule.addDeserializer(PotionEffect.class, new PotionEffectDeserializer());
+    
+    paperModule.addKeyDeserializer(PotionEffectType.class, new PotionEffectTypeKeyDeserializer());
+    paperModule.addKeyDeserializer(OfflinePlayer.class, new OfflinePlayerKeyDeserializer());
+    paperModule.addKeyDeserializer(Location.class, new LocationKeyDeserializer());
+    paperModule.addKeyDeserializer(Vector.class, new VectorKeyDeserializer());
+    paperModule.addKeyDeserializer(BlockVector.class, new BlockVectorKeyDeserializer());
     
     List.of(Color.class,
             FireworkEffect.class,

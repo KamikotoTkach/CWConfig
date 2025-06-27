@@ -16,7 +16,7 @@ public class BlockVectorSerializer extends JsonSerializer<BlockVector> {
     String builder =
       value.getX() + " " +
       value.getY() + " " +
-      value.getZ() + " ";
+      value.getZ();
     
     gen.writeString(builder);
   }
