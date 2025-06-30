@@ -11,6 +11,12 @@ import org.bukkit.util.Vector;
 import java.io.IOException;
 
 public class VectorSerializer extends JsonSerializer<Vector> {
+  public final boolean asField;
+  
+  public VectorSerializer(boolean asField) {
+    this.asField = asField;
+  }
+  
   @Override
   public void serialize(Vector value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
     String builder =
@@ -18,7 +24,11 @@ public class VectorSerializer extends JsonSerializer<Vector> {
       value.getY() + " " +
       value.getZ() + " ";
     
-    gen.writeString(builder);
+    if (asField) {
+      gen.writeFieldName(builder);
+    } else {
+      gen.writeString(builder);
+    }
   }
   
   @Override

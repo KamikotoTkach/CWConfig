@@ -6,23 +6,32 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatVisitorWrapper;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonValueFormat;
 import org.bukkit.Location;
 
 import java.io.IOException;
 
 public class LocationSerializer extends JsonSerializer<Location> {
+  public final boolean asField;
+  
+  public LocationSerializer(boolean asField) {
+    this.asField = asField;
+  }
+  
   @Override
   public void serialize(Location value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
     String builder =
-       value.getWorld().getName() + ", " +
-          value.getX() + " " +
-          value.getY() + " " +
-          value.getZ() + " " +
-          value.getPitch() + " " +
-          value.getYaw();
+      value.getWorld().getName() + ", " +
+      value.getX() + " " +
+      value.getY() + " " +
+      value.getZ() + " " +
+      value.getPitch() + " " +
+      value.getYaw();
     
-    gen.writeString(builder);
+    if (asField) {
+      gen.writeFieldName(builder);
+    } else {
+      gen.writeString(builder);
+    }
   }
   
   @Override

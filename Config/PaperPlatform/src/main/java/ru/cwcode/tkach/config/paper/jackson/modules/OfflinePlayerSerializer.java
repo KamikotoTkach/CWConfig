@@ -12,9 +12,21 @@ import org.bukkit.OfflinePlayer;
 import java.io.IOException;
 
 public class OfflinePlayerSerializer extends JsonSerializer<OfflinePlayer> {
+  public final boolean asField;
+  
+  public OfflinePlayerSerializer(boolean asField) {
+    this.asField = asField;
+  }
+  
   @Override
   public void serialize(OfflinePlayer value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-    gen.writeString(value.getUniqueId().toString());
+    String string = value.getUniqueId().toString();
+    
+    if (asField) {
+      gen.writeFieldName(string);
+    } else {
+      gen.writeString(string);
+    }
   }
   
   @Override

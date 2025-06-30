@@ -11,10 +11,21 @@ import org.bukkit.potion.PotionEffectType;
 import java.io.IOException;
 
 public class PotionEffectTypeSerializer extends JsonSerializer<PotionEffectType> {
+  public final boolean asField;
+  
+  public PotionEffectTypeSerializer(boolean asField) {
+    this.asField = asField;
+  }
   
   @Override
   public void serialize(PotionEffectType value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-    gen.writeString(value.getName());
+    String name = value.getName();
+    
+    if (asField) {
+      gen.writeFieldName(name);
+    } else {
+      gen.writeString(name);
+    }
   }
   
   @Override

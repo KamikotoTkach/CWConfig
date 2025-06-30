@@ -37,18 +37,18 @@ public class PaperPluginConfigPlatform implements ConfigPlatform {
     SimpleModule paperModule = new SimpleModule("cwconfig-paper");
     
     paperModule.addSerializer(ItemStack.class, new ItemStackSerializer());
-    paperModule.addSerializer(PotionEffectType.class, new PotionEffectTypeSerializer());
-    paperModule.addSerializer(OfflinePlayer.class, new OfflinePlayerSerializer());
-    paperModule.addSerializer(Location.class, new LocationSerializer());
-    paperModule.addSerializer(Vector.class, new VectorSerializer());
-    paperModule.addSerializer(BlockVector.class, new BlockVectorSerializer());
+    paperModule.addSerializer(PotionEffectType.class, new PotionEffectTypeSerializer(false));
+    paperModule.addSerializer(OfflinePlayer.class, new OfflinePlayerSerializer(false));
+    paperModule.addSerializer(Location.class, new LocationSerializer(false));
+    paperModule.addSerializer(Vector.class, new VectorSerializer(false));
+    paperModule.addSerializer(BlockVector.class, new BlockVectorSerializer(false));
     paperModule.addSerializer(PotionEffect.class, new PotionEffectSerializer());
     
-    paperModule.addKeySerializer(PotionEffectType.class, new PotionEffectTypeSerializer());
-    paperModule.addKeySerializer(OfflinePlayer.class, new OfflinePlayerSerializer());
-    paperModule.addKeySerializer(Location.class, new LocationSerializer());
-    paperModule.addKeySerializer(Vector.class, new VectorSerializer());
-    paperModule.addKeySerializer(BlockVector.class, new BlockVectorSerializer());
+    paperModule.addKeySerializer(PotionEffectType.class, new PotionEffectTypeSerializer(true));
+    paperModule.addKeySerializer(OfflinePlayer.class, new OfflinePlayerSerializer(true));
+    paperModule.addKeySerializer(Location.class, new LocationSerializer(true));
+    paperModule.addKeySerializer(Vector.class, new VectorSerializer(true));
+    paperModule.addKeySerializer(BlockVector.class, new BlockVectorSerializer(true));
     
     paperModule.addDeserializer(ItemStack.class, new ItemStackDeserializer());
     paperModule.addDeserializer(PotionEffectType.class, new PotionEffectTypeDeserializer());
