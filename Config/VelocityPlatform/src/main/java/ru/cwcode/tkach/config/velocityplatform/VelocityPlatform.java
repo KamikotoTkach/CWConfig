@@ -19,7 +19,7 @@ import java.nio.file.Path;
 @Plugin(
   id = "cwconfig",
   name = "CWConfig",
-  version = "2.4.1",
+  version = "2.4.2",
   dependencies = {@Dependency(id = "cwcommands")}
 )
 public class VelocityPlatform {
