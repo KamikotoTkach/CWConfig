@@ -1,6 +1,8 @@
 package ru.cwcode.tkach.locale;
 
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
+import ru.cwcode.tkach.locale.platform.MiniLocale;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,6 +15,11 @@ public class Utils {
     List<String> list = new ArrayList<>();
     
     for (Object o : collection) {
+      if (o instanceof Component) {
+        list.add(MiniLocale.getInstance().miniMessageWrapper().serialize(((Component) o)));
+        continue;
+      }
+      
       list.add(o.toString());
     }
     
