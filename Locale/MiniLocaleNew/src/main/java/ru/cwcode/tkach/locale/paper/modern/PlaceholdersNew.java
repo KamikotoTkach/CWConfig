@@ -110,4 +110,10 @@ public class PlaceholdersNew implements Placeholders {
     }
     return this;
   }
+  
+  @Override
+  public Placeholders remove(String key) {
+    resolvers.remove(key.toLowerCase());
+    return this;
+  }
 }
