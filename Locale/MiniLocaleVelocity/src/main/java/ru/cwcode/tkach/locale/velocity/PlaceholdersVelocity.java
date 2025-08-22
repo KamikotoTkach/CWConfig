@@ -113,4 +113,11 @@ public class PlaceholdersVelocity implements Placeholders {
     resolvers.remove(key.toLowerCase());
     return this;
   }
+  
+  @Override
+  public Placeholders copy() {
+    PlaceholdersVelocity copy = new PlaceholdersVelocity();
+    copy.resolvers.putAll(this.resolvers);
+    return copy;
+  }
 }

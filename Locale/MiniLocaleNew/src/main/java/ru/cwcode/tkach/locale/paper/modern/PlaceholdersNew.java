@@ -116,4 +116,11 @@ public class PlaceholdersNew implements Placeholders {
     resolvers.remove(key.toLowerCase());
     return this;
   }
+  
+  @Override
+  public Placeholders copy() {
+    PlaceholdersNew copy = new PlaceholdersNew();
+    copy.resolvers.putAll(this.resolvers);
+    return copy;
+  }
 }

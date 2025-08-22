@@ -35,4 +35,6 @@ public interface Placeholders {
   Placeholders merge(Placeholders other);
   
   Placeholders remove(String key);
+  
+  Placeholders copy();
 }
