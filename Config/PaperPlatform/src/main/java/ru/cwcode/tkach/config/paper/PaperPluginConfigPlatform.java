@@ -1,8 +1,7 @@
 package ru.cwcode.tkach.config.paper;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
+import org.bukkit.*;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.potion.PotionEffect;
@@ -14,8 +13,6 @@ import ru.cwcode.tkach.config.paper.jackson.modules.configurationSerializable.Co
 import ru.cwcode.tkach.config.paper.jackson.modules.configurationSerializable.ConfigurationSerializableSerializer;
 import ru.cwcode.tkach.config.paper.jackson.modules.configurationSerializable.PotionEffectDeserializer;
 import ru.cwcode.tkach.config.paper.jackson.modules.configurationSerializable.PotionEffectSerializer;
-import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.cwcode.cwutils.scheduler.Scheduler;
@@ -42,6 +39,7 @@ public class PaperPluginConfigPlatform implements ConfigPlatform {
     paperModule.addSerializer(Location.class, new LocationSerializer(false));
     paperModule.addSerializer(Vector.class, new VectorSerializer(false));
     paperModule.addSerializer(BlockVector.class, new BlockVectorSerializer(false));
+    paperModule.addSerializer(NamespacedKey.class, new NamespacedKeySerializer(false));
     paperModule.addSerializer(PotionEffect.class, new PotionEffectSerializer());
     
     paperModule.addKeySerializer(PotionEffectType.class, new PotionEffectTypeSerializer(true));
@@ -49,6 +47,7 @@ public class PaperPluginConfigPlatform implements ConfigPlatform {
     paperModule.addKeySerializer(Location.class, new LocationSerializer(true));
     paperModule.addKeySerializer(Vector.class, new VectorSerializer(true));
     paperModule.addKeySerializer(BlockVector.class, new BlockVectorSerializer(true));
+    paperModule.addKeySerializer(NamespacedKey.class, new NamespacedKeySerializer(true));
     
     paperModule.addDeserializer(ItemStack.class, new ItemStackDeserializer());
     paperModule.addDeserializer(PotionEffectType.class, new PotionEffectTypeDeserializer());
@@ -57,12 +56,14 @@ public class PaperPluginConfigPlatform implements ConfigPlatform {
     paperModule.addDeserializer(Vector.class, new VectorDeserializer());
     paperModule.addDeserializer(BlockVector.class, new BlockVectorDeserializer());
     paperModule.addDeserializer(PotionEffect.class, new PotionEffectDeserializer());
+    paperModule.addDeserializer(NamespacedKey.class, new NamespacedKeyDeserializer());
     
     paperModule.addKeyDeserializer(PotionEffectType.class, new PotionEffectTypeKeyDeserializer());
     paperModule.addKeyDeserializer(OfflinePlayer.class, new OfflinePlayerKeyDeserializer());
     paperModule.addKeyDeserializer(Location.class, new LocationKeyDeserializer());
     paperModule.addKeyDeserializer(Vector.class, new VectorKeyDeserializer());
     paperModule.addKeyDeserializer(BlockVector.class, new BlockVectorKeyDeserializer());
+    paperModule.addKeyDeserializer(NamespacedKey.class, new NamespacedKeyKeyDeserializer());
     
     List.of(Color.class,
             FireworkEffect.class,
