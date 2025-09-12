@@ -1,6 +1,5 @@
 package ru.cwcode.tkach.config;
 
-import ru.cwcode.tkach.config.base.Config;
 import ru.cwcode.tkach.config.base.manager.ConfigLoader;
 
 import java.io.File;
@@ -74,8 +73,8 @@ public class Utils {
     }
   }
   
-  public static <C extends Config<C>> ConfigLoader.Preprocessor<C> getEnvironmentReplacerPreprocessor() {
-    return (config, input) -> {
+  public static ConfigLoader.Preprocessor getEnvironmentReplacerPreprocessor() {
+    return (input) -> {
       if (input == null || input.isEmpty()) {
         return input;
       }
