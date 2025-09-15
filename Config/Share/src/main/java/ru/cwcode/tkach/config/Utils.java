@@ -1,5 +1,7 @@
 package ru.cwcode.tkach.config;
 
+import ru.cwcode.tkach.config.base.manager.ConfigLoader;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -10,8 +12,12 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utils {
+  private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("\\$\\{([\\w.]+)}");
+  
   public static String readString(Path path) {
     try {
       return Files.readString(path, StandardCharsets.UTF_8);
@@ -65,5 +71,27 @@ public class Utils {
       Files.copy(original, backup, StandardCopyOption.REPLACE_EXISTING);
     } catch (IOException e) {
     }
+  }
+  
+  public static ConfigLoader.Preprocessor getEnvironmentReplacerPreprocessor() {
+    return (input) -> {
+      if (input == null || input.isEmpty()) {
+        return input;
+      }
+      
+      Matcher matcher = PLACEHOLDER_PATTERN.matcher(input);
+      StringBuilder result = new StringBuilder();
+      
+      while (matcher.find()) {
+        String envKey = matcher.group(1);
+        String envValue = System.getenv(envKey);
+        
+        matcher.appendReplacement(result, envValue != null ? Matcher.quoteReplacement(envValue) : matcher.group(0));
+      }
+      
+      matcher.appendTail(result);
+      
+      return result.toString();
+    };
   }
 }

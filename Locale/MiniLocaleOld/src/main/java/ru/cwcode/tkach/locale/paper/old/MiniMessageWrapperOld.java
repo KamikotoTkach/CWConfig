@@ -9,6 +9,7 @@ import ru.cwcode.tkach.locale.Utils;
 import ru.cwcode.tkach.locale.wrapper.adventure.MiniMessageWrapper;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class MiniMessageWrapperOld implements MiniMessageWrapper {
@@ -90,6 +91,9 @@ public class MiniMessageWrapperOld implements MiniMessageWrapper {
   @Override
   public Component deserialize(String string, Placeholders placeholders) {
     if (string == null) return null;
+    
+    placeholders = placeholders.copy();
+    placeholders.getRaw().entrySet().removeIf(x -> x.getValue() instanceof Collection<?>);
 
     return mm.parse(replaceSection(string), placeholders.getResolvers());
   }
@@ -97,6 +101,9 @@ public class MiniMessageWrapperOld implements MiniMessageWrapper {
   @Override
   public Component deserialize(String string, Placeholders placeholders, boolean disableItalic) {
     if (string == null) return null;
+    
+    placeholders = placeholders.copy();
+    placeholders.getRaw().entrySet().removeIf(x -> x.getValue() instanceof Collection<?>);
 
     Component deserialized = mm.parse(replaceSection(string), placeholders.getResolvers());
 
@@ -110,6 +117,8 @@ public class MiniMessageWrapperOld implements MiniMessageWrapper {
   @Override
   public List<Component> deserialize(List<String> strings, Placeholders placeholders, boolean disableItalic) {
     if (strings == null) return null;
+    
+    placeholders = placeholders.copy();
     strings = Utils.replaceMultilinePlaceholders(strings,placeholders);
     
     List<Component> components = new ArrayList<>();

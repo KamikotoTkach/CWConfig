@@ -1,11 +1,13 @@
 package ru.cwcode.tkach.locale;
 
+import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
+import ru.cwcode.tkach.locale.platform.MiniLocale;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Utils {
   
@@ -13,6 +15,11 @@ public class Utils {
     List<String> list = new ArrayList<>();
     
     for (Object o : collection) {
+      if (o instanceof Component) {
+        list.add(MiniLocale.getInstance().miniMessageWrapper().serialize(((Component) o)));
+        continue;
+      }
+      
       list.add(o.toString());
     }
     
@@ -20,20 +27,21 @@ public class Utils {
   }
   
   public static List<String> replaceMultilinePlaceholders(List<String> original, Placeholders placeholders) {
-    List<String> copyIfNecessary = null;
+    AtomicReference<List<String>> copyIfNecessary = new AtomicReference<>();
     
-    for (Map.Entry<String, Object> entry : placeholders.getRaw().entrySet()) {
-      if (!(entry.getValue() instanceof Collection<?>)) continue;
+    placeholders.getRaw().entrySet().removeIf(entry -> {
+      if (!(entry.getValue() instanceof Collection<?>)) return false;
       
       int index = original.indexOf("<" + entry.getKey() + ">");
-      if (index == -1) continue;
+      if (index == -1) return false;
       
-      if (copyIfNecessary == null) copyIfNecessary = new ArrayList<>(original);
+      if (copyIfNecessary.get() == null) copyIfNecessary.set(new ArrayList<>(original));
       
-      copyIfNecessary.remove(index);
-      copyIfNecessary.addAll(index, collectionToStringCollection((Collection<?>) entry.getValue()));
-    }
+      copyIfNecessary.get().remove(index);
+      copyIfNecessary.get().addAll(index, collectionToStringCollection((Collection<?>) entry.getValue()));
+      return true;
+    });
     
-    return copyIfNecessary == null ? original : copyIfNecessary;
+    return copyIfNecessary.get() == null ? original : copyIfNecessary.get();
   }
 }

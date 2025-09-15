@@ -33,4 +33,8 @@ public interface Placeholders {
   Map<String, Object> getRaw();
   
   Placeholders merge(Placeholders other);
+  
+  Placeholders remove(String key);
+  
+  Placeholders copy();
 }

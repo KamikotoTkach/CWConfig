@@ -10,7 +10,7 @@ import static ru.cwcode.tkach.config.server.ServerPlatform.l10n;
 
 public class ConfigPersister<C extends Config<C>> {
   ConfigManager<C> configManager;
-  Preprocessor<C> preprocessor = new Preprocessor<>();
+  Preprocessor<C> preprocessor = (config, data) -> data;
   
   public void setConfigManager(ConfigManager<C> configManager) {
     this.configManager = configManager;
@@ -34,13 +34,13 @@ public class ConfigPersister<C extends Config<C>> {
     }
   }
   
-  public void setPreprocessor(Preprocessor<C> preprocessor) {
-    this.preprocessor = preprocessor;
+  public void addPreprocessor(Preprocessor<C> preprocessor) {
+    Preprocessor<C> previous = this.preprocessor;
+    
+    this.preprocessor = (config, data) -> preprocessor.preprocess(config, previous.preprocess(config, data));
   }
   
-  public static class Preprocessor<C extends Config<C>> {
-    public String preprocess(C config, String data) {
-      return data;
-    }
+  public interface Preprocessor<C extends Config<C>> {
+     String preprocess(C config, String data);
   }
 }

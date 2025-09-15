@@ -81,6 +81,19 @@ public class PlaceholdersOld implements Placeholders {
   }
   
   @Override
+  public Placeholders remove(String key) {
+    resolvers.remove(key.toLowerCase());
+    return this;
+  }
+  
+  @Override
+  public Placeholders copy() {
+    PlaceholdersOld copy = new PlaceholdersOld();
+    copy.resolvers.putAll(this.resolvers);
+    return copy;
+  }
+  
+  @Override
   public PlaceholdersOld add(String key, double value) {
     resolvers.put(key.toLowerCase(), value);
     return this;

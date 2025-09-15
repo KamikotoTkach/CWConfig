@@ -107,4 +107,17 @@ public class PlaceholdersVelocity implements Placeholders {
     }
     return this;
   }
+  
+  @Override
+  public Placeholders remove(String key) {
+    resolvers.remove(key.toLowerCase());
+    return this;
+  }
+  
+  @Override
+  public Placeholders copy() {
+    PlaceholdersVelocity copy = new PlaceholdersVelocity();
+    copy.resolvers.putAll(this.resolvers);
+    return copy;
+  }
 }

@@ -11,6 +11,7 @@ import static ru.cwcode.tkach.config.server.ServerPlatform.l10n;
 
 public class ConfigLoader<C extends Config<C>> {
   ConfigManager<? extends C> configManager;
+  Preprocessor preprocessor = Utils.getEnvironmentReplacerPreprocessor();
   
   public void setConfigManager(ConfigManager<? extends C> configManager) {
     this.configManager = configManager;
@@ -37,6 +38,16 @@ public class ConfigLoader<C extends Config<C>> {
       configManager.platform.info(l10n.get("config.loader.loaded", name));
     }
     
-    return Optional.of(str);
+    return Optional.of(preprocessor.preprocess(str));
+  }
+  
+  public void addPreprocessor(ConfigLoader.Preprocessor preprocessor) {
+    Preprocessor previous = this.preprocessor;
+    
+    this.preprocessor = (data) -> preprocessor.preprocess(previous.preprocess(data));
+  }
+  
+  public interface Preprocessor {
+    String preprocess(String data);
   }
 }

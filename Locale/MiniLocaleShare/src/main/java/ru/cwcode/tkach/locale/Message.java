@@ -329,4 +329,9 @@ public class Message implements Serializable {
     return LEGACY_SECTION.matcher(message).find();
   }
   //endregion
+  
+  @Override
+  public String toString() {
+    return message;
+  }
 }
