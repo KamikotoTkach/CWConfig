@@ -12,7 +12,27 @@ public abstract class ConfigMapper<C extends Config<C>> {
     this.configManager = configManager;
   }
   
-  public abstract <V extends C> Optional<V> map(String string, Class<V> configClass, ConfigPersistOptions persistOptions);
+  public abstract <V extends C> MappingResult<V> map(String string, Class<V> configClass, ConfigPersistOptions persistOptions);
   
   public abstract Optional<String> map(C config, ConfigPersistOptions persistOptions);
+  
+  public record MappingException(int line, int column, String message) {}
+  
+  public class MappingResult<V extends C> {
+    final V config;
+    final MappingException exception;
+    
+    public MappingResult(V config, MappingException exception) {
+      this.config = config;
+      this.exception = exception;
+    }
+    
+    public Optional<V> getConfig() {
+      return Optional.ofNullable(config);
+    }
+    
+    public Optional<MappingException> getException() {
+      return Optional.ofNullable(exception);
+    }
+  }
 }

@@ -85,15 +85,24 @@ public abstract class ConfigManager<C extends Config<C>> {
   public <V extends C> V load(String name, Class<V> configClass, ConfigPersistOptions options) {
     AtomicBoolean shouldSave = new AtomicBoolean(false);
     
+    Optional<V> config;
     Optional<String> data = loader.load(name, options);
-    Optional<V> config = data.flatMap(x -> mapper.map(x, configClass, options));
     
-    if (config.isEmpty()) {
-      shouldSave.set(true);
-      
-      if (data.isPresent()) backupConfigFile(name, options);
-      
+    if (data.isEmpty()) {
       config = creator.create(name, configClass, options);
+    } else {
+      ConfigMapper<C>.MappingResult<V> res = data.map(x -> mapper.map(x, configClass, options))
+                                                 .orElseThrow();
+      
+      if (res.getConfig().isEmpty()) {
+        shouldSave.set(true);
+        
+        backupConfigFile(name, options, res.getException().orElse(null));
+        
+        config = creator.create(name, configClass, options);
+      } else {
+        config = res.getConfig();
+      }
     }
     
     config.ifPresentOrElse(c -> {
@@ -127,10 +136,10 @@ public abstract class ConfigManager<C extends Config<C>> {
   }
   
   public void backupConfigFile(String name, Consumer<ConfigPersistOptions> options) {
-    backupConfigFile(name, loadOptions(options));
+    backupConfigFile(name, loadOptions(options), null);
   }
   
-  public void backupConfigFile(String name, ConfigPersistOptions options) {
+  public void backupConfigFile(String name, ConfigPersistOptions options, ConfigMapper.MappingException mappingException) {
     Path original = getPath(name);
     Path backup = getPath(name + " " + new Timestamp(System.currentTimeMillis()).toString().replace(":", "-"));
     
@@ -139,6 +148,10 @@ public abstract class ConfigManager<C extends Config<C>> {
     }
     
     Utils.copy(original, backup);
+    
+    if (mappingException != null) {
+      Utils.appendTextToLine(backup, mappingException.line(), " # !!!WRONG!!! Column %s: %s".formatted(mappingException.column(), mappingException.message()).replace('\n',' '));
+    }
   }
   
   public <V extends C> void save(V config) {

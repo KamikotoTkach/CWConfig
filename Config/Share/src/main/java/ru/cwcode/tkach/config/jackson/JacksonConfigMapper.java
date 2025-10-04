@@ -42,8 +42,8 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
   }
   
   @Override
-  public <V extends C> Optional<V> map(String string, Class<V> configClass, ConfigPersistOptions persistOptions) {
-    return Optional.empty();
+  public <V extends C> MappingResult<V> map(String string, Class<V> configClass, ConfigPersistOptions persistOptions) {
+    return new MappingResult<V>(null, null);
   }
   
   @Override

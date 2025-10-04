@@ -16,12 +16,12 @@ public class YmlConfigMapper extends JacksonConfigMapper<YmlConfig> {
   }
   
   @Override
-  public <V extends YmlConfig> Optional<V> map(String string, Class<V> configClass, ConfigPersistOptions persistOptions) {
+  public <V extends YmlConfig> MappingResult<V> map(String string, Class<V> configClass, ConfigPersistOptions persistOptions) {
     try {
-      return Optional.ofNullable(mapper.readValue(string, configClass));
+      return new MappingResult<V>(mapper.readValue(string, configClass),null);
     } catch (JsonProcessingException e) {
       e.printStackTrace();
-      return Optional.empty();
+      return new MappingResult<V>(null, new MappingException(e.getLocation().getLineNr(), e.getLocation().getColumnNr(), e.getMessage()));
     }
   }
   

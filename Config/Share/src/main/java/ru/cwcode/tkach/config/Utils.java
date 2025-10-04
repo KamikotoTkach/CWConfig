@@ -11,12 +11,44 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
+import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Utils {
   private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("\\$\\{([\\w.]+)}");
+  
+  public static void appendTextToLine(Path filePath, int lineNumber, String textToAppend) {
+    try {
+    
+    if (lineNumber < 1) {
+      throw new IllegalArgumentException("Line number should be > 0");
+    }
+    
+    List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
+    
+    if (lineNumber > lines.size()) {
+      throw new IllegalArgumentException(
+        "Line " + lineNumber + " does greater than file size (" + lines.size() + ")"
+      );
+    }
+    
+    int lineIndex = lineNumber - 1;
+    
+    String currentLine = lines.get(lineIndex);
+    String updatedLine = currentLine + textToAppend;
+    lines.set(lineIndex, updatedLine);
+    
+    Files.write(filePath, lines, StandardCharsets.UTF_8,
+                StandardOpenOption.WRITE,
+                StandardOpenOption.TRUNCATE_EXISTING);
+    } catch (Exception e) {
+      Logger.getAnonymousLogger().warning("Cannot append to line %s in file %s: %s".formatted(lineNumber, filePath.toString(), e.getMessage()));
+      e.printStackTrace();
+    }
+  }
   
   public static String readString(Path path) {
     try {
