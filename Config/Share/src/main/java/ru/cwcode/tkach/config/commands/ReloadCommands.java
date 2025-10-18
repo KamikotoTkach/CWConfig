@@ -27,6 +27,10 @@ public class ReloadCommands {
                 new ArgumentSet(new SaveCommand<>(configManager), new ConfigArg<>(x -> true, configManager)),
                 new ArgumentSet(new SaveAllCommand<>(configManager), new ExactStringArg("all").optional())
              ),
+          new Command("share")
+             .arguments(
+                new ArgumentSet(new ShareCommand<>(configManager), new ConfigArg<>(x -> true, configManager))
+             ),
           new Command("backup")
              .arguments(
                 new ArgumentSet(new BackupCommand<>(configManager), new ConfigArg<>(x -> true, configManager)),
