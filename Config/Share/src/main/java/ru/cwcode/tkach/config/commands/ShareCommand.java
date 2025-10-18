@@ -1,5 +1,8 @@
 package ru.cwcode.tkach.config.commands;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import ru.cwcode.commands.executor.CommonExecutor;
 import ru.cwcode.cwutils.files.PastesDevClient;
 import ru.cwcode.tkach.config.base.Config;
@@ -33,7 +36,8 @@ public class ShareCommand<C extends Config<C>> extends CommonExecutor {
         if (url == null) {
           sender.sendMessage(l10n.get("config.command.share.failed", config.name()));
         } else {
-          sender.sendMessage(l10n.get("config.command.share.success", config.name(), url));
+          sender.sendMessage(Component.text(l10n.get("config.command.share.success", config.name(), url), this.command.getColorScheme().main())
+                                      .clickEvent(ClickEvent.openUrl(url)));
         }
       }).exceptionally(throwable -> {
         sender.sendMessage(l10n.get("config.command.share.failed", config.name()));
