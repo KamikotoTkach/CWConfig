@@ -16,7 +16,7 @@ import java.nio.file.Path;
 @Plugin(
   id = "cwconfig_webeditor",
   name = "CWConfig web editor",
-  version = "2.5.0",
+  version = "2.6.0",
   dependencies = {@Dependency(id = "cwconfig")}
 )
 public class VelocityStarter {
