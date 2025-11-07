@@ -15,6 +15,7 @@ public class ItemData implements Serializable {
   protected Material material;
   protected Message name;
   protected MessageArr description;
+  protected int amount = 1;
   protected int customModelData = 0;
 
   public ItemData() {
@@ -33,6 +34,11 @@ public class ItemData implements Serializable {
   public ItemData(Material material, Message name) {
     this.material = material;
     this.name = name;
+  }
+
+  public ItemData(Material material, int amount, String name, String description, int customModelData) {
+    this(material, name, description, customModelData);
+    this.amount = amount;
   }
 
   public ItemData(Material material, String name, String description, int customModelData) {
@@ -93,6 +99,8 @@ public class ItemData implements Serializable {
   public ItemBuilder getItemBuilder() {
     ItemBuilder builder = ItemBuilder.of(material);
 
+    if (amount > 0) builder.amount(amount);
+
     if (name != null) builder.name(name.get());
 
     if (customModelData != 0) builder.customModelData(customModelData);
@@ -104,6 +112,8 @@ public class ItemData implements Serializable {
 
   public ItemBuilder getItemBuilder(Placeholders placeholders) {
     ItemBuilder builder = ItemBuilder.of(material);
+
+    if (amount > 0) builder.amount(amount);
 
     if (name != null) builder.name(name.get(placeholders));
 
