@@ -4,6 +4,11 @@ import net.kyori.adventure.text.Component;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
 
 public final class Placeholder {
+  
+  public static Placeholders builder() {
+    return MiniLocale.getInstance().emptyPlaceholders();
+  }
+  
   private Placeholder() {
     throw new RuntimeException();
   }

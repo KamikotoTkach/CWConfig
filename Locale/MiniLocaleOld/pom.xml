@@ -6,7 +6,7 @@
 
     <groupId>ru.cwcode.tkach.locale</groupId>
     <artifactId>MiniLocaleOld</artifactId>
-    <version>2.5.0</version>
+    <version>2.6.0</version>
     <packaging>jar</packaging>
 
     <name>MiniLocaleOld</name>
@@ -216,7 +216,7 @@
         <dependency>
             <groupId>ru.cwcode.tkach.locale</groupId>
             <artifactId>MiniLocalePaperShare</artifactId>
-            <version>2.5.0</version>
+            <version>2.6.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

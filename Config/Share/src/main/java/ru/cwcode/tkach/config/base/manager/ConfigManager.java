@@ -236,7 +236,8 @@ public abstract class ConfigManager<C extends Config<C>> {
   }
   
   public <V extends C> String toString(V config) {
-    return mapper.map(config, ConfigPersistOptions.DEFAULT).orElse(null);
+    String data = mapper.map(config, ConfigPersistOptions.DEFAULT).orElse(null);
+    return persister.preprocessor.preprocess(config, data);
   }
   
   public Set<String> getConfigNames(Predicate<C> predicate) {
