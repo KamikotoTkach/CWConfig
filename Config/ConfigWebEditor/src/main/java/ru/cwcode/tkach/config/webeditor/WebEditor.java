@@ -8,6 +8,7 @@ import ru.cwcode.tkach.config.base.Config;
 import ru.cwcode.tkach.config.base.manager.ConfigManager;
 import ru.cwcode.tkach.config.jackson.yaml.YmlConfig;
 import ru.cwcode.tkach.config.jackson.yaml.YmlConfigManager;
+import spark.Request;
 import spark.Spark;
 
 import java.util.ArrayList;
@@ -29,9 +30,9 @@ public class WebEditor {
   public void start() {
     Spark.port(port);
     
-    Spark.put("/update/:namespace/:name", (request, response) -> {
+    Spark.put("/update/:namespace/*", (request, response) -> {
       String namespace = request.params("namespace");
-      String name = request.params("name");
+      String name = request.splat()[0];
       
       ConfigManager<? extends Config<?>> manager = ConfigManager.managers.get(namespace);
       if (manager instanceof YmlConfigManager jcm) {
@@ -45,7 +46,7 @@ public class WebEditor {
         jcm.updateConfig(name, newConfig);
         
         for (BiConsumer<YmlConfig, YmlConfig> listener : onReload) {
-          listener.accept(ymlConfig,newConfig);
+          listener.accept(ymlConfig, newConfig);
         }
         
         newConfig.save();
@@ -58,18 +59,20 @@ public class WebEditor {
     });
     
     Spark.get("/", (request, response) -> {
+      String basePath = getBasePath(request);
+      
       String html = """
         <!DOCTYPE html>
           <html data-lt-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
           <link rel="stylesheet" id="theme-link" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
           <link rel="stylesheet" id="iconlib-link" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
+        
           <body>
             <a href="#" class="btn btn-sm btn-light m-3" onclick="history.back()">
                <i class="bi bi-chevron-left"></i>
                <span class="ms-1">Назад</span>
             </a>
-
+        
             <div class="container mt-4">
                 <div class="list-group">
                 %s
@@ -80,15 +83,19 @@ public class WebEditor {
       
       StringBuilder elements = new StringBuilder();
       for (String name : ConfigManager.managers.keySet()) {
+        String href = basePath + "/index/" + name;
         elements.append("""
                           <a href="%s" class="list-group-item list-group-item-action d-flex align-items-center">
-                                    <i class="bi bi-file-earmark me-2"></i>%s</a>""".formatted("/index/" + name, name));
+                            <i class="bi bi-file-earmark me-2"></i>%s</a>
+                          """.formatted(href, name));
       }
       
       return html.formatted(elements.toString());
     });
     
     Spark.get("/index/:namespace", (request, response) -> {
+      String basePath = getBasePath(request);
+      
       String namespace = request.params("namespace");
       ConfigManager<? extends Config<?>> manager = ConfigManager.managers.get(namespace);
       String html = """
@@ -112,20 +119,23 @@ public class WebEditor {
         """;
       
       StringBuilder elements = new StringBuilder();
-      for (String config : manager.getConfigNames(config -> true)) {
+      for (String config : manager.getConfigNames(c -> true)) {
         manager.findConfig(config).ifPresent(configInstance -> {
+          String href = basePath + "/edit/" + namespace + "/" + config;
           elements.append("""
                             <a href="%s" class="list-group-item list-group-item-action d-flex align-items-center">
-                                      <i class="bi bi-file-earmark me-2"></i>%s</a>""".formatted("/edit/" + namespace + "/" + config, config));
+                              <i class="bi bi-file-earmark me-2"></i>%s</a>
+                            """.formatted(href, config));
         });
       }
       
       return html.formatted(elements.toString());
     });
     
-    Spark.get("/edit/:namespace/:name", (request, response) -> {
+    Spark.get("/edit/:namespace/*", (request, response) -> {
       String namespace = request.params("namespace");
-      String name = request.params("name");
+      String name = request.splat()[0];
+      String basePath = getBasePath(request);
       
       ConfigManager<? extends Config<?>> manager = ConfigManager.managers.get(namespace);
       if (!(manager instanceof YmlConfigManager jcm)) throw new IllegalArgumentException("This config manager not supported");
@@ -181,6 +191,7 @@ public class WebEditor {
             </button>
         
             <script>
+            var BASE_PATH = "%s";
             var starting = %s;
             var schema = %s;
             var editor = new JSONEditor(document.getElementById('editor_holder'), {
@@ -201,8 +212,8 @@ public class WebEditor {
         
             document.getElementById('submit').addEventListener('click', function() {
                const data = editor.getValue();
-
-               fetch('/update/%s/%s', {
+        
+               fetch(BASE_PATH + '/update/%s/%s', {
                  method: 'PUT',
                  headers: {
                    'Content-Type': 'application/json'
@@ -237,10 +248,24 @@ public class WebEditor {
            </script>
           </body>
         </html>
-        """.formatted(objectMapper.writeValueAsString(ymlConfig),
-                      schema.toPrettyString(),
-                      namespace,
-                      name);
+        """.formatted(
+        basePath,
+        objectMapper.writeValueAsString(ymlConfig),
+        schema.toPrettyString(),
+        namespace,
+        name
+      );
     });
+  }
+  
+  private static String getBasePath(Request request) {
+    String prefix = request.headers("X-Forwarded-Prefix");
+    if (prefix != null && !prefix.isBlank()) {
+      if (prefix.endsWith("/")) {
+        prefix = prefix.substring(0, prefix.length() - 1);
+      }
+      return prefix;
+    }
+    return "";
   }
 }
