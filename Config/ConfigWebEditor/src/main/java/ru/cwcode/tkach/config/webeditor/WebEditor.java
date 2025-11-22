@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import com.kjetland.jackson.jsonSchema.JsonSchemaConfig;
+import com.kjetland.jackson.jsonSchema.JsonSchemaDraft;
 import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
 import org.jetbrains.annotations.NotNull;
 import org.yaml.snakeyaml.LoaderOptions;
@@ -18,13 +20,27 @@ import spark.Request;
 import spark.Spark;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.BiConsumer;
 
 public class WebEditor {
-  public static final ConfigPersistOptions SILENT = new ConfigPersistOptions() {{
-    silent(true);
-  }};
+  public static final JsonSchemaConfig JSON_SCHEMA_CONFIG = JsonSchemaConfig.builder()
+                                                                            .jsonSchemaDraft(JsonSchemaDraft.DRAFT_07)
+                                                                            .autoGenerateTitleForProperties(true)
+                                                                            .defaultArrayFormat("table")
+                                                                            .useOneOfForOption(true)
+                                                                            .usePropertyOrdering(true)
+                                                                            .hidePolymorphismTypeProperty(true)
+                                                                            .useMinLengthForNotNull(true)
+                                                                            .customType2FormatMapping(JsonSchemaConfig.DEFAULT_DATE_FORMAT_MAPPING)
+                                                                            .useMultipleEditorSelectViaProperty(true)
+                                                                            .uniqueItemClasses(new HashSet<>() {
+                                                                              {
+                                                                                this.add(Set.class);
+                                                                              }
+                                                                            }).build();
   
   List<BiConsumer<YmlConfig, YmlConfig>> onReload = new ArrayList<>();
   int port;
@@ -203,7 +219,7 @@ public class WebEditor {
       
       YmlConfig ymlConfig = jcm.findConfig(name).orElseThrow();
       
-      JsonSchemaGenerator jsonSchemaGenerator = new JsonSchemaGenerator(objectMapper);
+      JsonSchemaGenerator jsonSchemaGenerator = new JsonSchemaGenerator(objectMapper, JSON_SCHEMA_CONFIG);
       JsonNode schema = jsonSchemaGenerator.generateJsonSchema(ymlConfig.getClass());
       
       String currentYaml = objectMapper.writeValueAsString(ymlConfig);
