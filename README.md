@@ -112,3 +112,8 @@ new Command("someCommand")
 
 Полезно знать: [Аннотации Jackson](https://www.baeldung.com/jackson-annotations) (В
 особенности [@JsonSetter](https://www.baeldung.com/jackson-annotations#4-jsonsetter), [@JsonGetter](https://www.baeldung.com/jackson-annotations#2-jsongetter), [аннотации для работы с полиморфизмом](https://www.baeldung.com/jackson-annotations#jackson-polymorphic-type-handling-annotations), [@JsonCreator](https://www.baeldung.com/jackson-annotations#1-jsoncreator), [отношения](https://www.baeldung.com/jackson-annotations#5-jsonmanagedreference-jsonbackreference))
+
+# CwConfigEditor:
+* Текстовый редактор на базе npm install monaco-yaml-prebuilt@1.0.2 с валидации схемы \
+* Визуальный редактор на базе json-editor \
+По дефолту порт 2025
