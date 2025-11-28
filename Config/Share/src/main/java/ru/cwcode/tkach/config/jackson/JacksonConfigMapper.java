@@ -52,7 +52,7 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
   }
   
   public void module(Module module) {
-    registeredModules.put(module.getModuleName(),module);
+    registeredModules.put(module.getModuleName(), module);
     mapper.registerModule(module);
   }
   
@@ -62,6 +62,7 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
     mapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
     mapper.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NONE);
     mapper.setVisibility(PropertyAccessor.IS_GETTER, JsonAutoDetect.Visibility.NONE);
+    mapper.configure(MapperFeature.IGNORE_DUPLICATE_MODULE_REGISTRATIONS,true);
     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true);
     
@@ -81,6 +82,10 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
     
     for (Module additionalJacksonModule : configManager.platform().additionalJacksonModules()) {
       mapper.registerModule(additionalJacksonModule);
+    }
+    
+    for (Module additionalModule : registeredModules.values()) {
+      mapper.registerModule(additionalModule);
     }
   }
 }
