@@ -702,9 +702,10 @@ public class WebEditor {
     
     YAMLFactory yaml = YAMLFactory.builder()
                                   .disable(YAMLGenerator.Feature.SPLIT_LINES)
+                                  .disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID)
+                                  .disable(YAMLGenerator.Feature.USE_NATIVE_OBJECT_ID)
                                   .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
-                                  .configure(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID, false)
-                                  .configure(YAMLGenerator.Feature.USE_NATIVE_OBJECT_ID, false)
+                                  .enable(YAMLGenerator.Feature.INDENT_ARRAYS_WITH_INDICATOR)
                                   .loaderOptions(loaderOptions)
                                   .build();
     
