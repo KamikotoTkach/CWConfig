@@ -20,7 +20,7 @@ public class Utils {
         continue;
       }
       
-      list.add(o.toString());
+      list.add(LegacyToMiniMessageReplacer.replace(o.toString()));
     }
     
     return list;
