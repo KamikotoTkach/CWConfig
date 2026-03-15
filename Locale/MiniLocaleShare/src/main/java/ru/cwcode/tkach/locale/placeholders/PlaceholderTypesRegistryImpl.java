@@ -3,6 +3,7 @@ package ru.cwcode.tkach.locale.placeholders;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -37,6 +38,8 @@ public class PlaceholderTypesRegistryImpl implements PlaceholderTypesRegistry {
     List<Object> parsed = new ArrayList<>(rawPlaceholders.size());
     
     for (Map.Entry<String, Object> entry : rawPlaceholders.entrySet()) {
+      if (entry.getValue() instanceof Collection<?>) continue; //multiline placeholders are handled by Utils::replaceMultilinePlaceholders
+      
       PlaceholderType<?> placeholderType = findMatchingType(entry.getValue());
       
       if (placeholderType != null) {

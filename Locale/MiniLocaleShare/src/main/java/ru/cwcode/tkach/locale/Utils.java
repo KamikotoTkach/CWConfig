@@ -29,17 +29,16 @@ public class Utils {
   public static List<String> replaceMultilinePlaceholders(List<String> original, Placeholders placeholders) {
     AtomicReference<List<String>> copyIfNecessary = new AtomicReference<>();
     
-    placeholders.getRaw().entrySet().removeIf(entry -> {
-      if (!(entry.getValue() instanceof Collection<?>)) return false;
+    placeholders.getRaw().forEach((placeholder, value) -> {
+      if (!(value instanceof Collection<?>)) return;
       
-      int index = original.indexOf("<" + entry.getKey() + ">");
-      if (index == -1) return false;
+      int index = original.indexOf("<" + placeholder + ">");
+      if (index == -1) return;
       
       if (copyIfNecessary.get() == null) copyIfNecessary.set(new ArrayList<>(original));
       
       copyIfNecessary.get().remove(index);
-      copyIfNecessary.get().addAll(index, collectionToStringCollection((Collection<?>) entry.getValue()));
-      return true;
+      copyIfNecessary.get().addAll(index, collectionToStringCollection((Collection<?>) value));
     });
     
     return copyIfNecessary.get() == null ? original : copyIfNecessary.get();
