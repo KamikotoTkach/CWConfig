@@ -3,6 +3,7 @@ package ru.cwcode.tkach.config.commands;
 import ru.cwcode.commands.ArgumentSet;
 import ru.cwcode.commands.Command;
 import ru.cwcode.commands.arguments.ExactStringArg;
+import ru.cwcode.commands.arguments.basic.StringArg;
 import ru.cwcode.tkach.config.annotation.Reloadable;
 import ru.cwcode.tkach.config.base.Config;
 import ru.cwcode.tkach.config.base.manager.ConfigManager;
@@ -30,6 +31,10 @@ public class ReloadCommands {
           new Command("share")
              .arguments(
                 new ArgumentSet(new ShareCommand<>(configManager), new ConfigArg<>(x -> true, configManager))
+             ),
+          new Command("fetch")
+             .arguments(
+                new ArgumentSet(new FetchCommand<>(configManager), new ConfigArg<>(x -> true, configManager), new StringArg("url"))
              ),
           new Command("backup")
              .arguments(

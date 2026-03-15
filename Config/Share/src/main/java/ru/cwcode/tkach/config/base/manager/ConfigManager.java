@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 import static ru.cwcode.tkach.config.server.ServerPlatform.l10n;
 
 public abstract class ConfigManager<C extends Config<C>> {
-  public final static Map<String, ConfigManager<? extends Config<?>>> managers = new HashMap<>();
+  public final static Map<String, ConfigManager<? extends Config<?>>> managers = new ConcurrentHashMap<>();
   
   protected final ConfigPlatform platform;
   

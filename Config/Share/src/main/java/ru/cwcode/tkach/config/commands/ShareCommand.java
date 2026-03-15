@@ -27,7 +27,7 @@ public class ShareCommand<C extends Config<C>> extends CommonExecutor {
       
       CompletableFuture.supplyAsync(() -> {
         try {
-          return PastesDevClient.createPaste(config.toString(), PastesDevClient.PasteLanguage.yaml);
+          return PastesDevClient.createPaste(config.toString(), PastesDevClient.PasteLanguage.YAML);
         } catch (IOException | InterruptedException e) {
           e.printStackTrace();
           return null;
