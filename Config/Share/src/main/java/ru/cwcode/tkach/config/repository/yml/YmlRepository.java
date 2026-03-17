@@ -8,16 +8,17 @@ import ru.cwcode.tkach.config.jackson.yaml.YmlConfig;
 import ru.cwcode.tkach.config.repository.Repository;
 import ru.cwcode.tkach.config.repository.RepositoryEntry;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 
 import static ru.cwcode.tkach.config.server.ServerPlatform.l10n;
 
 public class YmlRepository<K, E extends RepositoryEntry<K>> extends YmlConfig implements Repository<K, E>, Reloadable {
   LinkedHashMap<K, E> entries = new LinkedHashMap<>();
+  
+  public Map<K, E> map() {
+    return Map.copyOf(entries);
+  }
   
   @Override
   public @Nullable E getOrNull(K key) {

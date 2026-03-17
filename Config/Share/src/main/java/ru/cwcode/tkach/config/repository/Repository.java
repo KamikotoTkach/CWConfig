@@ -1,11 +1,13 @@
 package ru.cwcode.tkach.config.repository;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
-public interface Repository<K, E extends RepositoryEntry<K>> {
+public interface Repository<K, E extends RepositoryEntry<K>> extends Iterable<E> {
   @Nullable E getOrNull(K key);
   
   boolean put(K key, E entry);
@@ -15,6 +17,19 @@ public interface Repository<K, E extends RepositoryEntry<K>> {
   Collection<E> list();
   
   Set<K> keys();
+  
+  @Override
+  default @NotNull Iterator<E> iterator() {
+    return list().iterator();
+  }
+  
+  default Stream<E> stream() {
+    return list().stream();
+  }
+  
+  default Stream<E> parallelStream() {
+    return list().parallelStream();
+  }
   
   default List<E> copyOf() {
     return List.copyOf(list());
