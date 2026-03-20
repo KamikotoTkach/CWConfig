@@ -7,7 +7,7 @@ import ru.cwcode.tkach.locale.platform.MiniLocale;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.Map;
 
 public class Utils {
   
@@ -16,7 +16,7 @@ public class Utils {
     
     for (Object o : collection) {
       if (o instanceof Component) {
-        list.add(MiniLocale.getInstance().miniMessageWrapper().serialize(((Component) o)));
+        list.add(MiniLocale.getInstance().miniMessageWrapper().serialize((Component) o));
         continue;
       }
       
@@ -26,21 +26,49 @@ public class Utils {
     return list;
   }
   
+  private static List<String> expandLine(String line, String token, List<String> replacements) {
+    int index = line.indexOf(token);
+    if (index == -1) return List.of(line);
+    
+    String prefix = line.substring(0, index);
+    String suffix = line.substring(index + token.length());
+    
+    List<String> result = new ArrayList<>(replacements.size());
+    
+    for (String replacement : replacements) {
+      result.add(prefix + replacement + suffix);
+    }
+    
+    return result;
+  }
+  
   public static List<String> replaceMultilinePlaceholders(List<String> original, Placeholders placeholders) {
-    AtomicReference<List<String>> copyIfNecessary = new AtomicReference<>();
+    List<String> result = original;
     
-    placeholders.getRaw().forEach((placeholder, value) -> {
-      if (!(value instanceof Collection<?>)) return;
+    for (Map.Entry<String, Object> entry : placeholders.getRaw().entrySet()) {
+      Object value = entry.getValue();
+      if (!(value instanceof Collection<?>)) continue;
       
-      int index = original.indexOf("<" + placeholder + ">");
-      if (index == -1) return;
+      String token = "<" + entry.getKey() + ">";
+      List<String> replacements = collectionToStringCollection((Collection<?>) value);
+      List<String> next = new ArrayList<>();
+      boolean changed = false;
       
-      if (copyIfNecessary.get() == null) copyIfNecessary.set(new ArrayList<>(original));
+      for (String line : result) {
+        if (!line.contains(token)) {
+          next.add(line);
+          continue;
+        }
+        
+        changed = true;
+        next.addAll(expandLine(line, token, replacements));
+      }
       
-      copyIfNecessary.get().remove(index);
-      copyIfNecessary.get().addAll(index, collectionToStringCollection((Collection<?>) value));
-    });
+      if (changed) {
+        result = next;
+      }
+    }
     
-    return copyIfNecessary.get() == null ? original : copyIfNecessary.get();
+    return result;
   }
 }
