@@ -7,6 +7,7 @@ import ru.cwcode.tkach.locale.Placeholders;
 import ru.cwcode.tkach.locale.messageDirection.MessageDirection;
 import ru.cwcode.tkach.locale.placeholders.PlaceholderTypesRegistry;
 import ru.cwcode.tkach.locale.preprocessor.MessagePreprocessor;
+import ru.cwcode.tkach.locale.preprocessor.MessagePreprocessors;
 import ru.cwcode.tkach.locale.wrapper.adventure.MiniMessageWrapper;
 
 import java.util.UUID;
@@ -42,7 +43,10 @@ public abstract class MiniLocale {
 
   public abstract MiniMessageWrapper miniMessageWrapper();
 
+  @Deprecated(forRemoval = true)
   public abstract MessagePreprocessor messagePreprocessor();
+  
+  public abstract MessagePreprocessors messagePreprocessors();
 
   public abstract Audience console();
 

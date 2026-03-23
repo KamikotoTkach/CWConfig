@@ -105,7 +105,12 @@ public class MiniLocaleNew extends MiniLocale {
   public MessagePreprocessor messagePreprocessor() {
     return messagePreprocessor;
   }
-
+  
+  @Override
+  public MessagePreprocessors messagePreprocessors() {
+    return messagePreprocessor;
+  }
+  
   @Override
   public Audience console() {
     return Bukkit.getConsoleSender();

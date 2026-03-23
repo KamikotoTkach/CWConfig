@@ -14,6 +14,7 @@ import ru.cwcode.tkach.locale.placeholders.PlaceholderTypesRegistry;
 import ru.cwcode.tkach.locale.placeholders.PlaceholderTypesRegistryImpl;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
 import ru.cwcode.tkach.locale.preprocessor.LegacyPreprocessor;
+import ru.cwcode.tkach.locale.preprocessor.MessagePreprocessor;
 import ru.cwcode.tkach.locale.preprocessor.MessagePreprocessors;
 import ru.cwcode.tkach.locale.velocity.placeholders.*;
 import ru.cwcode.tkach.locale.wrapper.adventure.MiniMessageWrapper;
@@ -103,10 +104,15 @@ public class MiniLocaleVelocity extends MiniLocale {
   }
 
   @Override
-  public ru.cwcode.tkach.locale.preprocessor.MessagePreprocessor messagePreprocessor() {
+  public MessagePreprocessor messagePreprocessor() {
     return messagePreprocessor;
   }
-
+  
+  @Override
+  public MessagePreprocessors messagePreprocessors() {
+    return messagePreprocessor;
+  }
+  
   @Override
   public Audience console() {
     return proxyServer.getConsoleCommandSource();
