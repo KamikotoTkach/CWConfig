@@ -12,9 +12,13 @@ import ru.cwcode.tkach.locale.Message;
 import ru.cwcode.tkach.locale.Placeholders;
 import ru.cwcode.tkach.locale.messageDirection.MessageDirection;
 import ru.cwcode.tkach.locale.paper.old.placeholders.*;
+import ru.cwcode.tkach.locale.paper.preprocessor.PapiPreprocessor;
 import ru.cwcode.tkach.locale.placeholders.PlaceholderTypesRegistry;
 import ru.cwcode.tkach.locale.placeholders.PlaceholderTypesRegistryImpl;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
+import ru.cwcode.tkach.locale.preprocessor.LegacyPreprocessor;
+import ru.cwcode.tkach.locale.preprocessor.MessagePreprocessor;
+import ru.cwcode.tkach.locale.preprocessor.MessagePreprocessors;
 import ru.cwcode.tkach.locale.wrapper.adventure.MiniMessageWrapper;
 
 import java.time.Duration;
@@ -22,7 +26,7 @@ import java.util.UUID;
 
 public class MiniLocaleOld extends MiniLocale {
   MiniMessageWrapperOld miniMessageWrapper = new MiniMessageWrapperOld();
-  MessagePreprocessor messagePreprocessor = new MessagePreprocessor();
+  MessagePreprocessors messagePreprocessor = new MessagePreprocessors();
   PlaceholderTypesRegistry placeholderTypesRegistry = new PlaceholderTypesRegistryImpl();
   
   {
@@ -34,6 +38,9 @@ public class MiniLocaleOld extends MiniLocale {
     placeholderTypesRegistry.registerType(new UnparsedStringPlaceholderType());
     placeholderTypesRegistry.registerType(new PlayerPlaceholderType());
     placeholderTypesRegistry.registerType(new ItemStackPlaceholderType());
+    
+    messagePreprocessor.addLast("papi", new PapiPreprocessor());
+    messagePreprocessor.addLast("legacy", new LegacyPreprocessor());
   }
   
   @Override

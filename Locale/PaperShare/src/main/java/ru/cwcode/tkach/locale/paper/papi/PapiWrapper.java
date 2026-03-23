@@ -4,7 +4,7 @@ import net.kyori.adventure.audience.Audience;
 import org.bukkit.Bukkit;
 
 public class PapiWrapper {
-  public static boolean isPapiLoaded() {
+  public static boolean isPapiLoaded() { //todo: maybe cache
     return Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null;
   }
 

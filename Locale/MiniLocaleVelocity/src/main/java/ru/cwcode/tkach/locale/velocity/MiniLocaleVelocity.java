@@ -13,6 +13,8 @@ import ru.cwcode.tkach.locale.messageDirection.MessageDirection;
 import ru.cwcode.tkach.locale.placeholders.PlaceholderTypesRegistry;
 import ru.cwcode.tkach.locale.placeholders.PlaceholderTypesRegistryImpl;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
+import ru.cwcode.tkach.locale.preprocessor.LegacyPreprocessor;
+import ru.cwcode.tkach.locale.preprocessor.MessagePreprocessors;
 import ru.cwcode.tkach.locale.velocity.placeholders.*;
 import ru.cwcode.tkach.locale.wrapper.adventure.MiniMessageWrapper;
 
@@ -21,7 +23,7 @@ import java.util.UUID;
 
 public class MiniLocaleVelocity extends MiniLocale {
   MiniMessageWrapperVelocity miniMessageWrapper = new MiniMessageWrapperVelocity();
-  MessagePreprocessor messagePreprocessor = new MessagePreprocessor();
+  MessagePreprocessors messagePreprocessor = new MessagePreprocessors();
   ProxyServer proxyServer;
   PlaceholderTypesRegistry placeholderTypesRegistry = new PlaceholderTypesRegistryImpl();
   
@@ -32,6 +34,8 @@ public class MiniLocaleVelocity extends MiniLocale {
     placeholderTypesRegistry.registerType(new DatePlaceholderType());
     placeholderTypesRegistry.registerType(new NumberPlaceholderType());
     placeholderTypesRegistry.registerType(new UnparsedStringPlaceholderType());
+    
+    messagePreprocessor.addLast("legacy", new LegacyPreprocessor());
   }
   
   public MiniLocaleVelocity(ProxyServer proxyServer) {
@@ -99,7 +103,7 @@ public class MiniLocaleVelocity extends MiniLocale {
   }
 
   @Override
-  public ru.cwcode.tkach.locale.platform.MessagePreprocessor messagePreprocessor() {
+  public ru.cwcode.tkach.locale.preprocessor.MessagePreprocessor messagePreprocessor() {
     return messagePreprocessor;
   }
 

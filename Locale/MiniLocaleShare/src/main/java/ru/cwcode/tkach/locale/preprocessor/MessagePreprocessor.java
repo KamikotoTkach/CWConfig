@@ -1,4 +1,4 @@
-package ru.cwcode.tkach.locale.platform;
+package ru.cwcode.tkach.locale.preprocessor;
 
 import net.kyori.adventure.audience.Audience;
 

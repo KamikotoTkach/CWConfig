@@ -6,6 +6,7 @@ import ru.cwcode.tkach.locale.Message;
 import ru.cwcode.tkach.locale.Placeholders;
 import ru.cwcode.tkach.locale.messageDirection.MessageDirection;
 import ru.cwcode.tkach.locale.placeholders.PlaceholderTypesRegistry;
+import ru.cwcode.tkach.locale.preprocessor.MessagePreprocessor;
 import ru.cwcode.tkach.locale.wrapper.adventure.MiniMessageWrapper;
 
 import java.util.UUID;
