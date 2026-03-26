@@ -7,11 +7,19 @@ import org.bukkit.entity.Player;
 public class PapiProcessor {
   public static String process(String st, Audience receiver) {
     if (st == null) return null;
-
-    if (receiver instanceof Player) {
-      return PlaceholderAPI.setPlaceholders((Player) receiver, st);
-    } else {
-      return PlaceholderAPI.setPlaceholders(null, st);
+    
+    Player player = receiver instanceof Player ? (Player) receiver : null;
+    
+    for (int pass = 0; pass < 2; pass++) {
+      String processed = PlaceholderAPI.setPlaceholders(player, st);
+      
+      if (processed.equals(st)) {
+        break;
+      }
+      
+      st = processed;
     }
+    
+    return st;
   }
 }
