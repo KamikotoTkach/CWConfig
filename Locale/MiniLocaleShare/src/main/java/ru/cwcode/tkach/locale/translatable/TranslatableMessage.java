@@ -44,14 +44,14 @@ public class TranslatableMessage extends Message {
   public Component get(Placeholders placeholders, Audience receiver) {
     MiniLocale ml = MiniLocale.getInstance();
 
-    return ml.miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(getMessage(receiver), receiver), placeholders);
+    return ml.miniMessageWrapper().deserialize(ml.messagePreprocessors().preprocess(getMessage(receiver), receiver), placeholders);
   }
 
   @Override
   public Component get(Audience receiver) {
     MiniLocale ml = MiniLocale.getInstance();
 
-    return ml.miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(getMessage(receiver), receiver));
+    return ml.miniMessageWrapper().deserialize(ml.messagePreprocessors().preprocess(getMessage(receiver), receiver));
   }
 
   private String getMessage(Audience receiver) {

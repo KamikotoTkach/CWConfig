@@ -25,7 +25,7 @@ public class MessageArr implements Serializable {
   public void send(Audience audience) {
     MiniLocale ml = MiniLocale.getInstance();
     
-    String[] preprocessed = ml.messagePreprocessor().preprocess(message, audience);
+    String[] preprocessed = ml.messagePreprocessors().preprocess(message, audience);
     
     for (Component component : ml.miniMessageWrapper().deserialize(preprocessed)) {
       audience.sendMessage(component);
@@ -35,7 +35,7 @@ public class MessageArr implements Serializable {
   public void send(Audience audience, Placeholders placeholders) {
     MiniLocale ml = MiniLocale.getInstance();
     
-    List<String> preprocessed = Arrays.asList(ml.messagePreprocessor().preprocess(message, audience));
+    List<String> preprocessed = Arrays.asList(ml.messagePreprocessors().preprocess(message, audience));
     
     for (Component component : ml.miniMessageWrapper().deserialize(preprocessed, placeholders, false)) {
       audience.sendMessage(component);
@@ -45,13 +45,13 @@ public class MessageArr implements Serializable {
   public List<Component> get() {
     MiniLocale ml = MiniLocale.getInstance();
     
-    return ml.miniMessageWrapper().deserialize(ml.messagePreprocessor().preprocess(message, null));
+    return ml.miniMessageWrapper().deserialize(ml.messagePreprocessors().preprocess(message, null));
   }
 
   public List<Component> get(Placeholders placeholders) {
     MiniLocale ml = MiniLocale.getInstance();
     
-    List<String> preprocessed = Arrays.asList(ml.messagePreprocessor().preprocess(message, null));
+    List<String> preprocessed = Arrays.asList(ml.messagePreprocessors().preprocess(message, null));
     
     return ml.miniMessageWrapper().deserialize(preprocessed, placeholders, false);
   }
