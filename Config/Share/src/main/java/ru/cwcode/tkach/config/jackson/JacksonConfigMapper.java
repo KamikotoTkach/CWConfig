@@ -12,6 +12,8 @@ import ru.cwcode.tkach.config.base.Config;
 import ru.cwcode.tkach.config.base.ConfigPersistOptions;
 import ru.cwcode.tkach.config.base.manager.ConfigManager;
 import ru.cwcode.tkach.config.base.manager.ConfigMapper;
+import ru.cwcode.tkach.config.data.range.DoubleRange;
+import ru.cwcode.tkach.config.data.range.IntRange;
 import ru.cwcode.tkach.config.jackson.module.*;
 import ru.cwcode.tkach.locale.Message;
 import ru.cwcode.tkach.locale.MessageArr;
@@ -76,6 +78,12 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
     
     module.addDeserializer(MessageArr.class, new MessageArrDeserializer());
     module.addSerializer(MessageArr.class, new MessageArrSerializer());
+    
+    module.addKeySerializer(IntRange.class, new IntRangeKeySerializer());
+    module.addKeyDeserializer(IntRange.class, new IntRangeKeyDeserializer());
+    
+    module.addKeySerializer(DoubleRange.class, new DoubleRangeKeySerializer());
+    module.addKeyDeserializer(DoubleRange.class, new DoubleRangeKeyDeserializer());
     
     mapper.registerModule(module);
     mapper.registerModule(new JavaTimeModule());
