@@ -64,7 +64,7 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
     mapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
     mapper.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NONE);
     mapper.setVisibility(PropertyAccessor.IS_GETTER, JsonAutoDetect.Visibility.NONE);
-    mapper.configure(MapperFeature.IGNORE_DUPLICATE_MODULE_REGISTRATIONS,true);
+    mapper.configure(MapperFeature.IGNORE_DUPLICATE_MODULE_REGISTRATIONS, true);
     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS, true);
     mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
@@ -79,6 +79,9 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
     
     module.addDeserializer(MessageArr.class, new MessageArrDeserializer());
     module.addSerializer(MessageArr.class, new MessageArrSerializer());
+    
+    module.addDeserializer(Character.class, DigitCharacterDeserializer.WRAPPER);
+    module.addDeserializer(Character.TYPE, DigitCharacterDeserializer.PRIMITIVE);
     
     module.addKeySerializer(IntRange.class, new IntRangeKeySerializer());
     module.addKeyDeserializer(IntRange.class, new IntRangeKeyDeserializer());

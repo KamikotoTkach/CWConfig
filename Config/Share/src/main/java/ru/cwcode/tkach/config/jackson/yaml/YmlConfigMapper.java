@@ -18,7 +18,7 @@ public class YmlConfigMapper extends JacksonConfigMapper<YmlConfig> {
   @Override
   public <V extends YmlConfig> MappingResult<V> map(String string, Class<V> configClass, ConfigPersistOptions persistOptions) {
     try {
-      return new MappingResult<V>(mapper.readValue(string, configClass),null);
+      return new MappingResult<V>(mapper.readValue(string, configClass), null);
     } catch (JsonProcessingException e) {
       e.printStackTrace();
       return new MappingResult<V>(null, new MappingException(e.getLocation().getLineNr(), e.getLocation().getColumnNr(), e.getMessage()));
@@ -43,6 +43,7 @@ public class YmlConfigMapper extends JacksonConfigMapper<YmlConfig> {
     YAMLFactory yaml = YAMLFactory.builder()
                                   .disable(YAMLGenerator.Feature.SPLIT_LINES)
                                   .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
+                                  .enable(YAMLGenerator.Feature.ALWAYS_QUOTE_NUMBERS_AS_STRINGS)
                                   .loaderOptions(loaderOptions)
                                   .build();
     

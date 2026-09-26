@@ -28,6 +28,7 @@ public class MapperFactory {
                       .disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID)
                       .disable(YAMLGenerator.Feature.USE_NATIVE_OBJECT_ID)
                       .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
+                      .enable(YAMLGenerator.Feature.ALWAYS_QUOTE_NUMBERS_AS_STRINGS)
                       .enable(YAMLGenerator.Feature.INDENT_ARRAYS_WITH_INDICATOR)
                       .loaderOptions(loaderOptions)
                       .build();
