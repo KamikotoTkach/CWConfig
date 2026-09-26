@@ -111,3 +111,18 @@ buildNumber.properties
 
 # Common working directory
 run/
+
+### Extra ###
+.idea/
+.gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+replay_pid*
+**/.flattened-pom.xml
+**/dependency-reduced-pom.xml
+.vscode/
+.settings/
+.classpath
+.project
+logs/
