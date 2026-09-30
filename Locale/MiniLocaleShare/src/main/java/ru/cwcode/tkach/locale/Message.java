@@ -299,11 +299,11 @@ public class Message implements Serializable {
 
   //region checks
   public boolean isNotEmpty() {
-    return !message.isEmpty();
+    return !isEmpty();
   }
 
   public boolean isEmpty() {
-    return message.isEmpty();
+    return message == null || message.isEmpty();
   }
   //endregion
 

@@ -17,14 +17,14 @@ public class ConfigPersister<C extends Config<C>> {
   }
   
   public void persist(C config, String data, Path path, ConfigPersistOptions options) {
-    if (!options.isSilent()) {
+    if (!options.isSilent() && options.isLogProgress()) {
       configManager.platform.info(l10n.get("config.persister.persisting", config.name()));
     }
     
     data = preprocessor.preprocess(config, data);
     
     if (Utils.writeString(path, data)) {
-      if (!options.isSilent()) {
+      if (!options.isSilent() && options.isLogProgress()) {
         configManager.platform.info(l10n.get("config.persister.persisted", config.name()));
       }
     } else {

@@ -30,11 +30,16 @@ public class TitleMessage implements Serializable {
   }
 
   public void show(Audience audience) {
-    showTitle(audience, title.get(audience), subtitle.get(audience));
+    show(audience, Message.EMPTY_PLACEHOLDERS);
   }
 
   public void show(Audience audience, Placeholders placeholders) {
-    showTitle(audience, title.get(audience, placeholders), subtitle.get(audience, placeholders));
+    showTitle(audience, render(title, audience, placeholders), render(subtitle, audience, placeholders));
+  }
+
+  // a title may omit either line in config; MiniLocale.showTitle turns null into an empty line
+  private static Component render(Message line, Audience audience, Placeholders placeholders) {
+    return line == null || line.isEmpty() ? null : line.get(audience, placeholders);
   }
 
   public void broadcast(Placeholders placeholders) {

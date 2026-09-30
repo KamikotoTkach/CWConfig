@@ -8,6 +8,7 @@ import ru.cwcode.tkach.locale.messageDirection.MessageDirections;
 import ru.cwcode.tkach.locale.platform.MiniLocale;
 
 import java.io.Serializable;
+import java.util.Locale;
 import java.util.Map;
 
 public class ExtraMessage extends Message implements Serializable {
@@ -24,7 +25,7 @@ public class ExtraMessage extends Message implements Serializable {
     if (title != null) audiences.forEach(x -> title.show(x, placeholders));
     
     if (extraDirections != null) extraDirections.forEach((directionCandidate, msg) -> {
-      MessageDirection messageDirection = MessageDirections.values().get(directionCandidate);
+      MessageDirection messageDirection = MessageDirections.values().get(directionCandidate.toUpperCase(Locale.ROOT));
       if (messageDirection != null) {
         msg.send(messageDirection, audiences, placeholders);
       }
@@ -35,6 +36,10 @@ public class ExtraMessage extends Message implements Serializable {
     }
   }
   
+  public boolean hasExtras() {
+    return sound != null || title != null || extraDirections != null && !extraDirections.isEmpty();
+  }
+
   //<editor-fold desc="Getters">
   public Map<String, Message> getExtraDirections() {
     return extraDirections;

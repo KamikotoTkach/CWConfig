@@ -15,8 +15,10 @@ import ru.cwcode.tkach.config.base.manager.ConfigMapper;
 import ru.cwcode.tkach.config.data.range.DoubleRange;
 import ru.cwcode.tkach.config.data.range.IntRange;
 import ru.cwcode.tkach.config.jackson.module.*;
+import ru.cwcode.tkach.locale.ExtraMessage;
 import ru.cwcode.tkach.locale.Message;
 import ru.cwcode.tkach.locale.MessageArr;
+import ru.cwcode.tkach.locale.data.SoundData;
 import ru.cwcode.tkach.locale.translatable.TranslatableMessage;
 
 import java.util.HashMap;
@@ -75,7 +77,11 @@ public abstract class JacksonConfigMapper<C extends Config<C>> extends ConfigMap
     module.addSerializer(TranslatableMessage.class, new TranslatableMessageSerializer());
     
     module.addDeserializer(Message.class, new MessageDeserializer());
+    module.addDeserializer(ExtraMessage.class, new ExtraMessageDeserializer());
     module.addSerializer(Message.class, new MessageSerializer());
+
+    module.addDeserializer(SoundData.class, new SoundDataDeserializer());
+    module.addSerializer(SoundData.class, new SoundDataSerializer());
     
     module.addDeserializer(MessageArr.class, new MessageArrDeserializer());
     module.addSerializer(MessageArr.class, new MessageArrSerializer());

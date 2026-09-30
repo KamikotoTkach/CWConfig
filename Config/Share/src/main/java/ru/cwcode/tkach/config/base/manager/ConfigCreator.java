@@ -17,15 +17,18 @@ public class ConfigCreator<C extends Config<C>> {
   
   public <V extends C> Optional<V> create(String name, Class<V> configClass, ConfigPersistOptions persistOptions) {
     
-    if (!persistOptions.isSilent()) {
+    if (!persistOptions.isSilent() && persistOptions.isLogProgress()) {
       configManager.platform.info(l10n.get("config.creator.creating", name));
     }
     
     Optional<V> instance = createInstance(configClass);
     
-    if (!persistOptions.isSilent()) {
-      instance.ifPresentOrElse(__ -> configManager.platform.info(l10n.get("config.creator.created", name)),
-                               () -> configManager.platform.info(l10n.get("config.creator.cantCreate", name)));
+    if (instance.isPresent()) {
+      if (!persistOptions.isSilent() && persistOptions.isLogProgress()) {
+        configManager.platform.info(l10n.get("config.creator.created", name));
+      }
+    } else if (!persistOptions.isSilent()) {
+      configManager.platform.info(l10n.get("config.creator.cantCreate", name));
     }
     
     return instance;

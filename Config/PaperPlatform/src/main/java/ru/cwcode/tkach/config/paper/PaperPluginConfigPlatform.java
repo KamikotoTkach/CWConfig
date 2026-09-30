@@ -36,6 +36,7 @@ public class PaperPluginConfigPlatform implements ConfigPlatform {
     
     paperModule.addSerializer(ItemStack.class, new ItemStackSerializer());
     paperModule.addSerializer(PotionEffectType.class, new PotionEffectTypeSerializer(false));
+    paperModule.addSerializer(Enchantment.class, new EnchantmentSerializer(false));
     paperModule.addSerializer(OfflinePlayer.class, new OfflinePlayerSerializer(false));
     paperModule.addSerializer(Location.class, new LocationSerializer(false));
     paperModule.addSerializer(Vector.class, new VectorSerializer(false));

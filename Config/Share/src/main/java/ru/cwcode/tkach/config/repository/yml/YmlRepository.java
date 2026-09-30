@@ -15,6 +15,7 @@ import static ru.cwcode.tkach.config.server.ServerPlatform.l10n;
 
 public class YmlRepository<K, E extends RepositoryEntry<K>> extends YmlConfig implements Repository<K, E>, Reloadable {
   LinkedHashMap<K, E> entries = new LinkedHashMap<>();
+  private transient List<K> duplicateKeys = new ArrayList<>(1);
   
   public Map<K, E> map() {
     return Map.copyOf(entries);
@@ -55,6 +56,14 @@ public class YmlRepository<K, E extends RepositoryEntry<K>> extends YmlConfig im
     return manager.load(name(), getClass()) != null;
   }
   
+  @Override
+  public void onLoad() {
+    for (K key : duplicateKeys) {
+      manager.platform().warning(l10n.get("repository.duplicate", name(), key));
+    }
+    duplicateKeys = null;
+  }
+  
   @JsonGetter("entries")
   private List<E> serialize() {
     return List.copyOf(entries.values());
@@ -66,7 +75,7 @@ public class YmlRepository<K, E extends RepositoryEntry<K>> extends YmlConfig im
     
     for (E entry : entries) {
       if (this.entries.put(entry.getKey(), entry) != null) {
-        manager.platform().warning(l10n.get("repository.duplicate", name(), entry.getKey()));
+        duplicateKeys.add(entry.getKey());
       }
     }
   }

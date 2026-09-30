@@ -15,21 +15,18 @@ public class SoundData implements Serializable {
   float volume = 1;
   Sound.Source source = Sound.Source.MASTER;
   
+  // Sound.Emitter and Sound.Builder appeared in Adventure 4.8, while Paper 1.16.5 ships 4.7:
+  // only the factory and playSound(Sound) exist on every supported platform.
   public void play(Audience audience) {
-    audience.playSound(getSound(), Sound.Emitter.self());
+    audience.playSound(getSound());
   }
-  
+
   public void play(Audience audience, double x, double y, double z) {
     audience.playSound(getSound(), x, y, z);
   }
-  
+
   public @NotNull Sound getSound() {
-    return Sound.sound()
-                .type(Key.key(key))
-                .pitch(pitch)
-                .volume(volume)
-                .source(source)
-                .build();
+    return Sound.sound(Key.key(key), source, volume, pitch);
   }
   
   //<editor-fold desc="Getters">

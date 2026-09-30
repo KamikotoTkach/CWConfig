@@ -109,7 +109,7 @@ public abstract class ConfigManager<C extends Config<C>> {
     config.ifPresentOrElse(c -> {
       updateConfig(name, c);
       
-      if (!options.isSilent()) {
+      if (!options.isSilent() && options.isLogProgress()) {
         platform.info(l10n.get("config.manager.loaded", name));
       }
       
@@ -150,7 +150,7 @@ public abstract class ConfigManager<C extends Config<C>> {
     
     Utils.copy(original, backup);
     
-    if (mappingException != null) {
+    if (mappingException != null && mappingException.line() > 0) {
       Utils.appendTextToLine(backup, mappingException.line(), " # !!!WRONG!!! Column %s: %s".formatted(mappingException.column(), mappingException.message()).replace('\n',' '));
     }
   }

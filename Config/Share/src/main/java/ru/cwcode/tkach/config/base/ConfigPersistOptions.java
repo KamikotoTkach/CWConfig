@@ -4,6 +4,7 @@ public class ConfigPersistOptions {
   public static final ConfigPersistOptions DEFAULT = new ConfigPersistOptions();
   boolean async = false;
   boolean silent = false;
+  boolean logProgress = true;
   
   public ConfigPersistOptions setAsync() {
     this.async = true;
@@ -24,6 +25,11 @@ public class ConfigPersistOptions {
     this.silent = isSilent;
     return this;
   }
+
+  public ConfigPersistOptions logProgress(boolean logProgress) {
+    this.logProgress = logProgress;
+    return this;
+  }
   
   public boolean isAsync() {
     return async;
@@ -31,5 +37,9 @@ public class ConfigPersistOptions {
   
   public boolean isSilent() {
     return silent;
+  }
+
+  public boolean isLogProgress() {
+    return logProgress;
   }
 }

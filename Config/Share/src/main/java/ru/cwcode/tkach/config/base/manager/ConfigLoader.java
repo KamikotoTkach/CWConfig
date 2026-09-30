@@ -18,7 +18,7 @@ public class ConfigLoader<C extends Config<C>> {
   }
   
   public Optional<String> load(String name, ConfigPersistOptions options) {
-    if (!options.isSilent()) {
+    if (!options.isSilent() && options.isLogProgress()) {
       configManager.platform.info(l10n.get("config.loader.loading", name));
     }
     
@@ -34,7 +34,7 @@ public class ConfigLoader<C extends Config<C>> {
       return Optional.empty();
     }
     
-    if (!options.isSilent()) {
+    if (!options.isSilent() && options.isLogProgress()) {
       configManager.platform.info(l10n.get("config.loader.loaded", name));
     }
     

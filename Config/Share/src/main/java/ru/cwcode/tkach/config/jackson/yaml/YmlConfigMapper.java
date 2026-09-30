@@ -1,6 +1,7 @@
 package ru.cwcode.tkach.config.jackson.yaml;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonLocation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
@@ -21,7 +22,10 @@ public class YmlConfigMapper extends JacksonConfigMapper<YmlConfig> {
       return new MappingResult<V>(mapper.readValue(string, configClass),null);
     } catch (JsonProcessingException e) {
       e.printStackTrace();
-      return new MappingResult<V>(null, new MappingException(e.getLocation().getLineNr(), e.getLocation().getColumnNr(), e.getMessage()));
+      JsonLocation location = e.getLocation();
+      int line = location == null ? 0 : location.getLineNr();
+      int column = location == null ? 0 : location.getColumnNr();
+      return new MappingResult<V>(null, new MappingException(line, column, e.getMessage()));
     }
   }
   
